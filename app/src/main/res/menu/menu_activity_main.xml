@@ -6,7 +6,7 @@
         app:showAsAction="ifRoom"
         android:title="Search"></item>
     <item
-        android:id="@+id/menu_activity_main_search"
+        android:id="@+id/menu_activity_main_params"
         android:icon="@drawable/ic_more_vert_white_24dp"
         app:showAsAction="ifRoom"
         android:title="Parameter"></item>
