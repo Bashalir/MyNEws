@@ -14,14 +14,19 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 
-
-
+/**
+ * Configure Toolbar & RecyclerView, Manage News
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final String mTag = getClass().getSimpleName();
 
-    @BindView(R.id.activity_main_toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
+    /**
+     * Add Startup Create ToolBar
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Manage the Toolbar
+    /**
+     * Manage Toolbar
+     * @param item : Toolbar Icon (Search and Params)
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -51,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Load the Menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
