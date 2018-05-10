@@ -7,6 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.oc.bashalir.mynews.Controllers.Fragments.PageFragment;
 
+import java.util.Observable;
+
+import io.reactivex.observers.DisposableObserver;
+
 /**
  * Show News on Tab
  */
@@ -59,4 +63,13 @@ public class PageAdapter extends FragmentPagerAdapter {
         return mTabs[position];
 
     }
+
+    /**
+     * Observable
+     * @return
+     */
+
+
+
+
 }
