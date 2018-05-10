@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.oc.bashalir.mynews.Controllers.Models.TopStories.TopStories;
+import com.oc.bashalir.mynews.Controllers.Models.TopStories;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.R;
 
@@ -18,8 +18,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
-import icepick.State;
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -81,16 +79,16 @@ public class PageFragment extends Fragment {
 
 private void RequestTopStories(){
         this.updateUIWhenStartingRequest();
-        mDisp= NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<List<TopStories>>() {
+        mDisp= NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<TopStories>() {
             @Override
-            public void onNext(List<TopStories> topStories) {
+            public void onNext(TopStories topStories) {
                 Log.d(mTag, "NEXT");
-                updateUIWithList(topStories);
+                updateUIWithList((TopStories) topStories);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e(mTag,"On Error"+Log.getStackTraceString(e));
+                Log.e(mTag,"On Error "+Log.getStackTraceString(e));
             }
 
             @Override
@@ -118,11 +116,8 @@ private void RequestTopStories(){
         this.textView.setText(response);
     }
 
-    private void updateUIWithList(List<TopStories> topStories){
-        StringBuilder stringBuilder=new StringBuilder();
-        for (TopStories stories : topStories){
-            stringBuilder.append("-"+stories.getResults()+"\n");
-        }
-        updateUIStop(stringBuilder.toString());
+    private void updateUIWithList(TopStories topStories){
+
+        updateUIStop(topStories.getResults().toString());
     }
 }
