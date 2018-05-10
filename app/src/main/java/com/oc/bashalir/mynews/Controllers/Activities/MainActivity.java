@@ -24,11 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final String mTag = getClass().getSimpleName();
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.activity_main_viewpager) ViewPager mPager;
-    @BindView(R.id.activity_main_tabs) TabLayout mTabLayout;
-
-
+    @BindView(R.id.toolbar)    Toolbar mToolbar;
+    @BindView(R.id.activity_main_viewpager)    ViewPager mPager;
+    @BindView(R.id.activity_main_tabs)    TabLayout mTabLayout;
 
     /**
      * Add Startup Create ToolBar
@@ -37,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        String[] tabs = getResources().getStringArray(R.array.tabs_array);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -50,10 +46,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         //configure TabLayout
+        String[] tabs = getResources().getStringArray(R.array.tabs_array);
+
         mTabLayout.setupWithViewPager(mPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        mPager.setAdapter(new PageAdapter(getSupportFragmentManager(),tabs));
+        mPager.setAdapter(new PageAdapter(getSupportFragmentManager(), tabs));
     }
 
 

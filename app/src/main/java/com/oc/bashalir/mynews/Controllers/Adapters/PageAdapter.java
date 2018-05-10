@@ -1,30 +1,33 @@
 package com.oc.bashalir.mynews.Controllers.Adapters;
 
-import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.oc.bashalir.mynews.Controllers.Fragments.PageFragment;
-import com.oc.bashalir.mynews.R;
 
 /**
- *
+ * Show News on Tab
  */
 public class PageAdapter extends FragmentPagerAdapter {
 
     String[] mTabs = null;
 
     /**
-     * @param fm
+     * Constructor
+     *
+     * @param fm   :  FragmentManager
+     * @param tabs : ArrayString name of tabs
      */
-    public PageAdapter(FragmentManager fm,String[] tabs) {
+    public PageAdapter(FragmentManager fm, String[] tabs) {
         super(fm);
-        mTabs=tabs;
+        mTabs = tabs;
     }
 
     /**
+     * Get the size of tabs
+     *
      * @param position
      * @return
      */
@@ -34,7 +37,9 @@ public class PageAdapter extends FragmentPagerAdapter {
     }
 
     /**
-     * @return
+     * Get the size of array tabs
+     *
+     * @return size
      */
     @Override
     public int getCount() {
@@ -42,8 +47,10 @@ public class PageAdapter extends FragmentPagerAdapter {
     }
 
     /**
+     * Get the title of Tabs
+     *
      * @param position
-     * @return
+     * @return : Title name
      */
     @Nullable
     @Override

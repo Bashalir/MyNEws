@@ -21,11 +21,12 @@ import icepick.State;
  */
 public class PageFragment extends Fragment {
 
-    private static final String KEY_POSITION="position";
+    private static final String KEY_POSITION = "position";
     private final String mTag = getClass().getSimpleName();
 
-    @BindView(R.id.fragment_page_tv) TextView textView;
-  //  @State int mPosition;
+    @BindView(R.id.fragment_page_tv)
+    TextView textView;
+    //  @State int mPosition;
 
     public PageFragment() {
         // Required empty public constructor
@@ -35,10 +36,10 @@ public class PageFragment extends Fragment {
 
         PageFragment frag = new PageFragment();
 
-        Bundle args=new Bundle();
-        args.putInt(KEY_POSITION,position);
+        Bundle args = new Bundle();
+        args.putInt(KEY_POSITION, position);
         frag.setArguments(args);
-      //  mPosition=position;
+        //  mPosition=position;
         return (frag);
     }
 
@@ -49,12 +50,12 @@ public class PageFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_page, container, false);
         ButterKnife.bind(this, result);
         Icepick.restoreInstanceState(this, savedInstanceState);
-        
-        int position=getArguments().getInt(KEY_POSITION,-1);
 
-        textView.setText("Page n° "+position);
+        int position = getArguments().getInt(KEY_POSITION, -1);
 
-        Log.d(mTag, "Page n° "+position);
+        textView.setText("Page n° " + position);
+
+        Log.d(mTag, "Page n° " + position);
 
         return result;
     }
