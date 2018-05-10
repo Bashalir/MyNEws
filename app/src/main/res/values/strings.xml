@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">MyNews</string>
+    <string name="stories">Top Stories</string>
+    <string name="popular">Most Popular</string>
+    <string name="technology">Technology</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="tabs_array">
+        <item>@string/stories</item>
+        <item>@string/popular</item>
+        <item>@string/technology</item>
+    </string-array>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
+import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.oc.bashalir.mynews.Controllers.Adapters.PageAdapter;
 import com.oc.bashalir.mynews.R;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 
@@ -29,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.activity_main_viewpager) ViewPager mPager;
     @BindView(R.id.activity_main_tabs) TabLayout mTabLayout;
 
+
+
     /**
      * Add Startup Create ToolBar
      *
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String[] tabs = getResources().getStringArray(R.array.tabs_array);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        mPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+        mPager.setAdapter(new PageAdapter(getSupportFragmentManager(),tabs));
     }
 
 
