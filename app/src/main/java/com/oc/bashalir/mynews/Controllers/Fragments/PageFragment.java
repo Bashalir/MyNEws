@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import com.oc.bashalir.mynews.Views.Adapters.ListNewsAdapter;
 import com.oc.bashalir.mynews.Models.TopStories;
+=======
+import com.oc.bashalir.mynews.Controllers.Models.TopStories.TopStories;
+>>>>>>> parent of 61f2c37... Fix Connexion API NYT
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
@@ -23,6 +27,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import icepick.Icepick;
+import icepick.State;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -100,18 +106,21 @@ public class PageFragment extends Fragment {
 
 private void RequestTopStories(){
         this.updateUIWhenStartingRequest();
-        mDisp= NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<TopStories>() {
+        mDisp= NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<List<TopStories>>() {
             @Override
-            public void onNext(TopStories topStories) {
+            public void onNext(List<TopStories> topStories) {
                 Log.d(mTag, "NEXT");
                 updateUIWithList(topStories);
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 61f2c37... Fix Connexion API NYT
             }
 
 
             @Override
             public void onError(Throwable e) {
-                Log.e(mTag,"On Error "+Log.getStackTraceString(e));
+                Log.e(mTag,"On Error"+Log.getStackTraceString(e));
             }
 
             @Override
@@ -139,10 +148,19 @@ private void RequestTopStories(){
         this.textView.setText(response);
     }
 
+<<<<<<< HEAD
     private void updateUIWithList(TopStories topStories){
 
         mTopstories.addAll(topStories.getResults());
         updateUIStop(topStories.getResults().toString());
         this.adapter.notifyDataSetChanged();
+=======
+    private void updateUIWithList(List<TopStories> topStories){
+        StringBuilder stringBuilder=new StringBuilder();
+        for (TopStories stories : topStories){
+            stringBuilder.append("-"+stories.getResults()+"\n");
+        }
+        updateUIStop(stringBuilder.toString());
+>>>>>>> parent of 61f2c37... Fix Connexion API NYT
     }
 }
