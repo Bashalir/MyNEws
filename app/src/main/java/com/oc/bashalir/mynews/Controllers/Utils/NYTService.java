@@ -1,8 +1,6 @@
 package com.oc.bashalir.mynews.Controllers.Utils;
 
-import com.oc.bashalir.mynews.Controllers.Models.TopStories;
-
-import java.util.List;
+import com.oc.bashalir.mynews.Models.TopStories;
 
 import io.reactivex.Observable;
 import retrofit2.Retrofit;

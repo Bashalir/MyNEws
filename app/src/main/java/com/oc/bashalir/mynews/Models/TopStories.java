@@ -1,4 +1,4 @@
-package com.oc.bashalir.mynews.Controllers.Models;
+package com.oc.bashalir.mynews.Models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

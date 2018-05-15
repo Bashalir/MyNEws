@@ -3,17 +3,18 @@ package com.oc.bashalir.mynews.Controllers.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.oc.bashalir.mynews.Controllers.Models.TopStories;
+import com.oc.bashalir.mynews.Views.Adapters.ListNewsAdapter;
+import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.R;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,8 +31,8 @@ public class PageFragment extends Fragment {
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
 
-    @BindView(R.id.fragment_page_tv)
-    TextView textView;
+    @BindView(R.id.fragment_page_tv) TextView textView;
+    @BindView(R.id.fragment_page_listnews_rv)  RecyclerView recyclerView;
     //  @State int mPosition;
 
 
@@ -53,6 +54,13 @@ public class PageFragment extends Fragment {
         args.putInt(KEY_POSITION, position);
         frag.setArguments(args);
         //  mPosition=position;
+
+
+
+
+
+
+
         return (frag);
     }
 
@@ -72,9 +80,14 @@ public class PageFragment extends Fragment {
 
         Log.d(mTag, "Page n° " + position);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new ListNewsAdapter());
+
 
         return result;
     }
+
+
 
 
 private void RequestTopStories(){

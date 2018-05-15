@@ -1,6 +1,5 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
-import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.oc.bashalir.mynews.Controllers.Adapters.PageAdapter;
+import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 import com.oc.bashalir.mynews.R;
 
 import butterknife.BindView;

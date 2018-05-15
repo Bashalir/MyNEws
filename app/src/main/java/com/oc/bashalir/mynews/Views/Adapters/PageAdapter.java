@@ -1,4 +1,4 @@
-package com.oc.bashalir.mynews.Controllers.Adapters;
+package com.oc.bashalir.mynews.Views.Adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

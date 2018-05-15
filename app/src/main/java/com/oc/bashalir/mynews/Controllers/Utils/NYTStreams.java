@@ -1,8 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Utils;
 
-import com.oc.bashalir.mynews.Controllers.Models.TopStories;
+import com.oc.bashalir.mynews.Models.TopStories;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
