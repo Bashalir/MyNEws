@@ -15,10 +15,10 @@ import java.util.List;
 
 public class ListNewsAdapter extends RecyclerView.Adapter<NewsViewHolder>{
 
-    private List<TopStories> topStories;
+    private List<TopStories.Result> mTopStories;
 
-    public ListNewsAdapter(List<TopStories> topStories) {
-        this.topStories=topStories;
+    public ListNewsAdapter(List<TopStories.Result> topStories) {
+        mTopStories=topStories;
     }
 
     @NonNull
@@ -32,11 +32,11 @@ public class ListNewsAdapter extends RecyclerView.Adapter<NewsViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        holder.updateWithNews(this.topStories.get(position));
+        holder.updateWithNews(mTopStories.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return this.topStories.size();
+        return mTopStories.size();
     }
 }

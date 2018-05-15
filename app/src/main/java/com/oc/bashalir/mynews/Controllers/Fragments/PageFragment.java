@@ -15,6 +15,10 @@ import com.oc.bashalir.mynews.Views.Adapters.ListNewsAdapter;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.R;
+import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +34,12 @@ public class PageFragment extends Fragment {
     private static final String KEY_POSITION = "position";
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
+    private List<TopStories.Result> mTopstories;
+    private PageAdapter pageAdapter;
 
     @BindView(R.id.fragment_page_tv) TextView textView;
     @BindView(R.id.fragment_page_listnews_rv)  RecyclerView recyclerView;
+    private ListNewsAdapter adapter;
     //  @State int mPosition;
 
 
@@ -56,11 +63,6 @@ public class PageFragment extends Fragment {
         //  mPosition=position;
 
 
-
-
-
-
-
         return (frag);
     }
 
@@ -75,16 +77,22 @@ public class PageFragment extends Fragment {
         int position = getArguments().getInt(KEY_POSITION, -1);
 
         textView.setText("Page n° " + position);
-
+        this.configureRecyckerView();
        this.RequestTopStories();
 
         Log.d(mTag, "Page n° " + position);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ListNewsAdapter());
 
 
         return result;
+    }
+
+
+    private void configureRecyckerView(){
+
+        this.adapter=new ListNewsAdapter(mTopstories);
+        this.recyclerView.setAdapter(this.adapter);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
 
@@ -96,8 +104,10 @@ private void RequestTopStories(){
             @Override
             public void onNext(TopStories topStories) {
                 Log.d(mTag, "NEXT");
-                updateUIWithList((TopStories) topStories);
+                updateUIWithList(topStories);
+
             }
+
 
             @Override
             public void onError(Throwable e) {
@@ -131,6 +141,8 @@ private void RequestTopStories(){
 
     private void updateUIWithList(TopStories topStories){
 
+        mTopstories.addAll(topStories.getResults());
         updateUIStop(topStories.getResults().toString());
+        this.adapter.notifyDataSetChanged();
     }
 }

@@ -20,7 +20,7 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void updateWithNews(TopStories topStories){
+    public void updateWithNews(TopStories.Result topStories){
         this.title.setText(topStories.toString());
     }
 
