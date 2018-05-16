@@ -10,18 +10,18 @@ import com.oc.bashalir.mynews.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsViewHolder extends RecyclerView.ViewHolder {
-   @BindView(R.id.fragment_page_new_title)    TextView title;
+public class NewsHolder extends RecyclerView.ViewHolder {
+   @BindView(R.id.fragment_page_new_title)    TextView mTitle;
 
 
 
-    public NewsViewHolder(View itemView) {
+    public NewsHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
     public void updateWithNews(TopStories.Result topStories){
-        this.title.setText(topStories.toString());
+        mTitle.setText(topStories.getTitle());
     }
 
 }

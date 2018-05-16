@@ -3,16 +3,20 @@ package com.oc.bashalir.mynews.Controllers.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.oc.bashalir.mynews.Controllers.Models.TopStories;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
+import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
+import com.oc.bashalir.mynews.Views.Adapters.NewsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,9 +33,13 @@ public class PageFragment extends Fragment {
     private static final String KEY_POSITION = "position";
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
+    private List<TopStories.Result> mTopStories;
+    private NewsAdapter mAdapter;
 
     @BindView(R.id.fragment_page_tv)
     TextView textView;
+    @BindView(R.id.fragment_page_listnews_rv)
+    RecyclerView recyclerView;
     //  @State int mPosition;
 
 
@@ -68,7 +76,10 @@ public class PageFragment extends Fragment {
 
         textView.setText("Page n° " + position);
 
+        this.configureRecylclerView();
         this.RequestTopStories();
+
+
 
         Log.d(mTag, "Page n° " + position);
 
@@ -77,13 +88,24 @@ public class PageFragment extends Fragment {
     }
 
 
-    private void RequestTopStories(){
+    private void configureRecylclerView() {
+        mTopStories = new ArrayList<>();
+        mAdapter = new NewsAdapter(mTopStories);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+    }
+
+
+    private void RequestTopStories() {
         this.updateUIWhenStartingRequest();
-        mDisp= NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<TopStories>() {
+        mDisp = NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<TopStories>() {
+
+
             @Override
             public void onNext(TopStories topStories) {
                 Log.d(mTag, "NEXT");
-                updateUIWithList((TopStories) topStories);
+                updateUIWithList(topStories);
             }
 
             @Override
@@ -103,12 +125,12 @@ public class PageFragment extends Fragment {
     /**
      * Dispose subscription
      */
-    private void destroyDispose(){
-        if(mDisp !=null && !mDisp.isDisposed()) mDisp.dispose();
+    private void destroyDispose() {
+        if (mDisp != null && !mDisp.isDisposed()) mDisp.dispose();
     }
 
 
-    private void updateUIWhenStartingRequest(){
+    private void updateUIWhenStartingRequest() {
         this.textView.setText("Downloading...");
     }
 
@@ -116,8 +138,10 @@ public class PageFragment extends Fragment {
         this.textView.setText(response);
     }
 
-    private void updateUIWithList(TopStories topStories){
+    private void updateUIWithList(TopStories topStories) {
 
         updateUIStop(topStories.getResults().toString());
+     /*   mTopStories.addAll(topStories.getResults());
+        mAdapter.notifyDataSetChanged();*/
     }
 }
