@@ -79,8 +79,6 @@ public class PageFragment extends Fragment {
         this.configureRecylclerView();
         this.RequestTopStories();
 
-
-
         Log.d(mTag, "Page n° " + position);
 
 
@@ -116,7 +114,7 @@ public class PageFragment extends Fragment {
             @Override
             public void onComplete() {
                 Log.e(mTag,"On Complete !!");
-
+               textView.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -136,12 +134,13 @@ public class PageFragment extends Fragment {
 
     private void updateUIStop(String response){
         this.textView.setText(response);
+
     }
 
     private void updateUIWithList(TopStories topStories) {
 
-        updateUIStop(topStories.getResults().toString());
-     /*   mTopStories.addAll(topStories.getResults());
-        mAdapter.notifyDataSetChanged();*/
+      /*  updateUIStop(topStories.getResults().toString());*/
+       mTopStories.addAll(topStories.getResults());
+        mAdapter.notifyDataSetChanged();
     }
 }
