@@ -6,12 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.NewsHolder;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
 

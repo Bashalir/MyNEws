@@ -40,6 +40,7 @@ public class PageFragment extends Fragment {
     TextView textView;
     @BindView(R.id.fragment_page_listnews_rv)
     RecyclerView recyclerView;
+
     //  @State int mPosition;
 
 
@@ -108,13 +109,13 @@ public class PageFragment extends Fragment {
 
             @Override
             public void onError(Throwable e) {
-                Log.e(mTag,"On Error "+Log.getStackTraceString(e));
+                Log.e(mTag, "On Error " + Log.getStackTraceString(e));
             }
 
             @Override
             public void onComplete() {
-                Log.e(mTag,"On Complete !!");
-               textView.setVisibility(View.INVISIBLE);
+                Log.e(mTag, "On Complete !!");
+                textView.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -132,15 +133,10 @@ public class PageFragment extends Fragment {
         this.textView.setText("Downloading...");
     }
 
-    private void updateUIStop(String response){
-        this.textView.setText(response);
-
-    }
 
     private void updateUIWithList(TopStories topStories) {
 
-      /*  updateUIStop(topStories.getResults().toString());*/
-       mTopStories.addAll(topStories.getResults());
+        mTopStories.addAll(topStories.getResults());
         mAdapter.notifyDataSetChanged();
     }
 }
