@@ -14,18 +14,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NewsHolder extends RecyclerView.ViewHolder {
-   @BindView(R.id.fragment_page_news_title)    TextView mTitle;
-    @BindView(R.id.fragment_page_news_img)    ImageView mImg;
+    @BindView(R.id.fragment_page_news_title)
+    TextView mTitle;
+    @BindView(R.id.fragment_page_news_ariane)
+    TextView mAriane;
+    @BindView(R.id.fragment_page_news_date)
+    TextView mDate;
+    @BindView(R.id.fragment_page_news_img)
+    ImageView mImg;
 
 
     public NewsHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithNews(TopStories.Result topStories){
+    public void updateWithNews(TopStories.Result topStories) {
+
+        String ariane;
+
+        if (topStories.getSubsection().isEmpty()) {
+            ariane = topStories.getSection();
+        } else {
+            ariane = topStories.getSection() + " > " + topStories.getSubsection();
+        }
+
         mTitle.setText(topStories.getTitle());
-       if (!topStories.getMultimedia().isEmpty()){  Picasso.get().load(topStories.getMultimedia().get(0).getUrl()).into(mImg);}
+        mAriane.setText(ariane);
+        mDate.setText(topStories.getUpdatedDate());
+
+
+        if (!topStories.getMultimedia().isEmpty()) {
+            Picasso.get().load(topStories.getMultimedia().get(1).getUrl()).into(mImg);
+        }
+
     }
 
 }

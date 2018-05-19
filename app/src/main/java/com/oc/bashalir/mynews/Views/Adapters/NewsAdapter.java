@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
-
+    
     private List<TopStories.Result> mTopStories;
 
     public NewsAdapter(List<TopStories.Result> topStories) {
