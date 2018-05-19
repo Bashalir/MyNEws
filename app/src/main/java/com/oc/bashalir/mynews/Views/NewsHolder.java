@@ -10,6 +10,13 @@ import com.oc.bashalir.mynews.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -39,9 +46,19 @@ public class NewsHolder extends RecyclerView.ViewHolder {
             ariane = topStories.getSection() + " > " + topStories.getSubsection();
         }
 
+        String dateUpDate = topStories.getUpdatedDate();
+        String[] dateTab = dateUpDate.split("T");
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        ParsePosition pos=new ParsePosition(0);
+        Date dateNews = formatter.parse(dateTab[0],pos);
+
+        String newsDate = DateFormat.getDateInstance(DateFormat.SHORT,Locale.FRANCE).format(dateNews);
+
         mTitle.setText(topStories.getTitle());
         mAriane.setText(ariane);
-        mDate.setText(topStories.getUpdatedDate());
+        mDate.setText(newsDate);
 
 
         if (!topStories.getMultimedia().isEmpty()) {
