@@ -57,11 +57,14 @@ public class NewsHolder extends RecyclerView.ViewHolder {
         mAriane.setText(ariane);
         mDate.setText(newsDate);
 
+        String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
 
         if (!topStories.getMultimedia().isEmpty()) {
-            Picasso.get().load(topStories.getMultimedia().get(1).getUrl()).into(mImg);
+
+             imgURL =topStories.getMultimedia().get(1).getUrl();
         }
 
+        Picasso.get().load(imgURL).into(mImg);
     }
 
 }
