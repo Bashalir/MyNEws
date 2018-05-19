@@ -16,20 +16,29 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="103dp"
         android:layout_marginRight="80dp"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:textStyle="bold"
         android:layout_height="30dp" />
     >
     <TextView
         android:id="@+id/fragment_page_news_date"
         android:layout_width="match_parent"
+        android:textAlignment="textEnd"
+        android:layout_marginRight="3dp"
         android:layout_marginLeft="300dp"
         android:layout_height="30dp" />
     >
     <TextView
         android:id="@+id/fragment_page_news_title"
+        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_marginLeft="103dp"
         android:layout_marginTop="30dp"
-        android:layout_height="70dp" />
+        android:layout_height="70dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+       />
     >
 
     <ImageView
