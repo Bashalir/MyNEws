@@ -46,13 +46,10 @@ public class NewsHolder extends RecyclerView.ViewHolder {
             ariane = topStories.getSection() + " > " + topStories.getSubsection();
         }
 
-        String dateUpDate = topStories.getUpdatedDate();
-        String[] dateTab = dateUpDate.split("T");
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
 
         ParsePosition pos=new ParsePosition(0);
-        Date dateNews = formatter.parse(dateTab[0],pos);
+        Date dateNews = formatter.parse(topStories.getUpdatedDate(),pos);
 
         String newsDate = DateFormat.getDateInstance(DateFormat.SHORT,Locale.FRANCE).format(dateNews);
 
