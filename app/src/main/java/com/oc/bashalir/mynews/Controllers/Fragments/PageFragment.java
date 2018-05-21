@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
@@ -77,8 +78,17 @@ public class PageFragment extends Fragment {
 
         textView.setText("Page n° " + position);
 
-        this.configureRecylclerView();
-        this.RequestTopStories();
+        switch (position){
+            case 0:
+                this.configureRecylclerView();
+                this.RequestTopStories();
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+
 
         Log.d(mTag, "Page n° " + position);
 

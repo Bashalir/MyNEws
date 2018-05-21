@@ -61,7 +61,7 @@ public class NewsHolder extends RecyclerView.ViewHolder {
 
         if (!topStories.getMultimedia().isEmpty()) {
 
-             imgURL =topStories.getMultimedia().get(1).getUrl();
+            imgURL =topStories.getMultimedia().get(1).getUrl();
         }
 
         Picasso.get().load(imgURL).into(mImg);
