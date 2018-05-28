@@ -13,12 +13,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
+import com.oc.bashalir.mynews.Models.News;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.NewsAdapter;
 
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +42,7 @@ public class PageFragment extends Fragment {
     private Disposable mDisp;
     private List<TopStories.Result> mTopStories;
     private NewsAdapter mAdapter;
+    private List<News> mListNews;
 
     @BindView(R.id.fragment_page_tv)
     TextView textView;
@@ -80,8 +87,8 @@ public class PageFragment extends Fragment {
 
         switch (position){
             case 0:
-                this.configureRecylclerView();
                 this.RequestTopStories();
+
                 break;
             case 1:
                 break;
@@ -97,9 +104,9 @@ public class PageFragment extends Fragment {
     }
 
 
-    private void configureRecylclerView() {
-        mTopStories = new ArrayList<>();
-        mAdapter = new NewsAdapter(mTopStories);
+    private void configureRecylerView(List<News> listNews) {
+
+        mAdapter = new NewsAdapter(mListNews);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -145,8 +152,49 @@ public class PageFragment extends Fragment {
 
 
     private void updateUIWithList(TopStories topStories) {
-
         mTopStories.addAll(topStories.getResults());
+        mListNews=new ArrayList<News>();
+
+
+        for(int i = 0; i <topStories.getResults().size(); i++){
+
+            String newsTitle=topStories.getResults().get(i).getTitle();
+            String newsURL=topStories.getResults().get(i).getUrl();
+            String newsSection=null;
+
+            Log.e("TAG",newsTitle);
+
+            //Photo
+
+            String newsPhoto="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
+
+            if (!topStories.getResults().get(i).getMultimedia().isEmpty()) {
+
+                newsPhoto =topStories.getResults().get(i).getMultimedia().get(1).getUrl();
+            }
+
+            // Section
+
+            if (topStories.getResults().get(i).getSubsection().isEmpty()) {
+                newsSection = topStories.getResults().get(i).getSection();
+            } else {
+                newsSection = topStories.getResults().get(i).getSection() + " > " + topStories.getResults().get(i).getSubsection();
+            }
+
+            // Date
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+
+            ParsePosition pos=new ParsePosition(0);
+            Date dateNews = formatter.parse(topStories.getResults().get(i).getUpdatedDate(),pos);
+
+            String newsDate = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE).format(dateNews);
+
+            mListNews.add(new News(newsTitle, newsURL, newsPhoto, newsSection, newsDate));
+
+        }
         mAdapter.notifyDataSetChanged();
+        this.configureRecylerView(mListNews);
+
     }
 }

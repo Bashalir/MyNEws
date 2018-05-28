@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.oc.bashalir.mynews.Models.News;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.NewsHolder;
@@ -18,10 +19,10 @@ import butterknife.BindView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
 
-    private List<TopStories.Result> mTopStories;
+    private List<News> mListNews;
 
-    public NewsAdapter(List<TopStories.Result> topStories) {
-        mTopStories=topStories;
+    public NewsAdapter(List<News> listNews) {
+        mListNews=listNews;
     }
 
     @NonNull
@@ -35,11 +36,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
-        holder.updateWithNews(mTopStories.get(position));
+        holder.updateWithNews(mListNews.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mTopStories.size();
+        return mListNews.size();
     }
 }
