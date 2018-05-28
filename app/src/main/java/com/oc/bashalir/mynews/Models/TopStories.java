@@ -1,16 +1,10 @@
 package com.oc.bashalir.mynews.Models;
 
-import java.text.DateFormat;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TopStories extends News{
+public class TopStories {
 
     @SerializedName("results")
     @Expose
@@ -19,7 +13,6 @@ public class TopStories extends News{
     public List<Result> getResults() {
         return results;
     }
-
 
     @Override
     public String toString() {
@@ -30,7 +23,6 @@ public class TopStories extends News{
     public void setResults(List<Result> results) {
         this.results = results;
     }
-
 
     public class Result {
 
@@ -94,51 +86,6 @@ public class TopStories extends News{
         @SerializedName("related_urls")
         @Expose
         private List<RelatedUrl> relatedUrls = null;
-
-
-
-        public  String getNewsTitle() {
-         return this.title;
-        }
-
-        public  String getNewsURL() {
-            return this.url;
-        }
-
-        public String getNewsDate() {
-
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
-
-            ParsePosition pos=new ParsePosition(0);
-            Date dateNews = formatter.parse(this.getUpdatedDate(),pos);
-
-            String newsDate=DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE).format(dateNews);
-
-            return newsDate;
-        }
-
-        public String getNewsImage() {
-            String newsImage="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
-            if (!this.getMultimedia().isEmpty()) {
-
-                newsImage =this.getMultimedia().get(1).getUrl();
-            }
-            return newsImage;
-        }
-
-        public String getNewsSection() {
-
-            String newsSection;
-            if (this.getSubsection().isEmpty()) {
-                newsSection = this.getSection();
-            } else {
-                newsSection = this.getSection() + " > " + this.getSubsection();
-            }
-
-            return newsSection;
-        }
-
-
 
 
         @Override

@@ -80,7 +80,7 @@ public class PageFragment extends Fragment {
 
         switch (position){
             case 0:
-                this.configureRecyclerView();
+                this.configureRecylclerView();
                 this.RequestTopStories();
                 break;
             case 1:
@@ -97,7 +97,7 @@ public class PageFragment extends Fragment {
     }
 
 
-    private void configureRecyclerView() {
+    private void configureRecylclerView() {
         mTopStories = new ArrayList<>();
         mAdapter = new NewsAdapter(mTopStories);
         recyclerView.setAdapter(mAdapter);

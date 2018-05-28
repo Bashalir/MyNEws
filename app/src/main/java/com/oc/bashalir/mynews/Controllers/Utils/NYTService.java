@@ -19,7 +19,7 @@ public interface NYTService {
     @GET("home.json?api-key=68156e4ed78640bba3232b2be62044fc")
     Observable<TopStories> getTopStories();
 
-    Retrofit retrofit=new Retrofit.Builder()
+    public static final Retrofit retrofit=new Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/topstories/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
