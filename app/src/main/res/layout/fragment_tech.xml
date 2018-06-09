@@ -7,8 +7,15 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/fragment_tech_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Hello" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_tech_listnews_rv"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
 </FrameLayout>

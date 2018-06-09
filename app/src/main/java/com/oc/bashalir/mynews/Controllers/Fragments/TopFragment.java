@@ -15,7 +15,6 @@ import com.oc.bashalir.mynews.R;
 public class TopFragment extends Fragment {
 
 
-    
     public TopFragment() {
   }
 
