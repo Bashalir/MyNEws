@@ -19,10 +19,10 @@ import butterknife.BindView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
 
-    private List<News> mListNews;
+    private List<TopStories.Result> mTopStories;
 
-    public NewsAdapter(List<News> listNews) {
-        mListNews=listNews;
+    public NewsAdapter(List<TopStories.Result> topStories) {
+        mTopStories=topStories;
     }
 
     @NonNull
@@ -36,11 +36,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
-        holder.updateWithNews(mListNews.get(position));
+        holder.updateWithNews(mTopStories.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mListNews.size();
+        return mTopStories.size();
     }
 }

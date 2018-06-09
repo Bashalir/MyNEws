@@ -183,7 +183,7 @@ public class PageFragment extends Fragment {
         }
         mAdapter.notifyDataSetChanged();
 
-        mAdapter = new NewsAdapter(mListNews);
+      //  mAdapter = new NewsAdapter(mListNews);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

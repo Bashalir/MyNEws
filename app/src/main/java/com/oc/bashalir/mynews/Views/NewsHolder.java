@@ -37,14 +37,36 @@ public class NewsHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithNews(News news) {
+    public void updateWithNews(TopStories.Result topStories) {
 
 
-        mTitle.setText(news.getNewsTitle());
-        mAriane.setText(news.getNewsSection());
-        mDate.setText(news.getNewsDate());
+        String ariane;
 
-        Picasso.get().load(news.getNewsPhoto()).into(mImg);
+        if (topStories.getSubsection().isEmpty()) {
+            ariane = topStories.getSection();
+        } else {
+            ariane = topStories.getSection() + " > " + topStories.getSubsection();
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+
+        ParsePosition pos=new ParsePosition(0);
+        Date dateNews = formatter.parse(topStories.getUpdatedDate(),pos);
+
+        String newsDate = DateFormat.getDateInstance(DateFormat.SHORT,Locale.FRANCE).format(dateNews);
+
+        mTitle.setText(topStories.getTitle());
+        mAriane.setText(ariane);
+        mDate.setText(newsDate);
+
+        String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
+
+        if (!topStories.getMultimedia().isEmpty()) {
+
+            imgURL =topStories.getMultimedia().get(1).getUrl();
+        }
+
+        Picasso.get().load(imgURL).into(mImg);
     }
 
 }
