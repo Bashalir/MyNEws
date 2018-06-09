@@ -52,11 +52,7 @@ public class PageFragment extends Fragment {
     //  @State int mPosition;
 
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.destroyDispose();
-    }
+
 
     public PageFragment() {
         // Required empty public constructor
@@ -87,7 +83,7 @@ public class PageFragment extends Fragment {
 
         switch (position){
             case 0:
-                this.RequestTopStories();
+                  this.RequestTopStories();
 
                 break;
             case 1:
@@ -103,14 +99,6 @@ public class PageFragment extends Fragment {
         return result;
     }
 
-
-    private void configureRecylerView(List<News> listNews) {
-
-        mAdapter = new NewsAdapter(mListNews);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-    }
 
 
     private void RequestTopStories() {
@@ -194,7 +182,10 @@ public class PageFragment extends Fragment {
 
         }
         mAdapter.notifyDataSetChanged();
-        this.configureRecylerView(mListNews);
+
+        mAdapter = new NewsAdapter(mListNews);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 }

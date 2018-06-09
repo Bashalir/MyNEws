@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.oc.bashalir.mynews.Controllers.Fragments.PageFragment;
+import com.oc.bashalir.mynews.Controllers.Fragments.PopularFragment;
+import com.oc.bashalir.mynews.Controllers.Fragments.TechFragment;
+import com.oc.bashalir.mynews.Controllers.Fragments.TopFragment;
 
 import java.util.Observable;
 
@@ -36,8 +39,20 @@ public class PageAdapter extends FragmentPagerAdapter {
      * @return
      */
     @Override
-    public Fragment getItem(int position) {
-        return (PageFragment.newInstance(position));
+    public Fragment getItem(int position)
+    {
+        switch (position){
+            case 0:
+                return TopFragment.newInstance(position);
+            case 1:
+                return PopularFragment.newInstance(position);
+            case 2:
+                return TechFragment.newInstance(position);
+                default:
+                    return null;
+
+        }
+
     }
 
     /**
@@ -63,11 +78,6 @@ public class PageAdapter extends FragmentPagerAdapter {
         return mTabs[position];
 
     }
-
-    /**
-     * Observable
-     * @return
-     */
 
 
 
