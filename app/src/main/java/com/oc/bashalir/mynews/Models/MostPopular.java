@@ -85,28 +85,28 @@ public class MostPopular{
         @SerializedName("source")
         @Expose
         private String source;
-        @SerializedName("id")
+       /* @SerializedName("id")
         @Expose
         private Integer id;
         @SerializedName("asset_id")
         @Expose
-        private Integer assetId;
+        private Integer assetId;*/
         @SerializedName("views")
         @Expose
         private Integer views;
-        @SerializedName("des_facet")
+      /*  @SerializedName("des_facet")
         @Expose
-        private List<String> desFacet = null;
-        @SerializedName("org_facet")
+        private List<String> desFacet = null;*/
+      /*  @SerializedName("org_facet")
         @Expose
-        private List<String> orgFacet = null;
-        @SerializedName("per_facet")
+        private List<String> orgFacet = null;*/
+     /*   @SerializedName("per_facet")
         @Expose
         private String perFacet;
         @SerializedName("geo_facet")
         @Expose
         private String geoFacet;
-        @SerializedName("media")
+        @SerializedName("media")*/
         @Expose
         private List<Medium> media = null;
 
@@ -190,22 +190,22 @@ public class MostPopular{
             this.source = source;
         }
 
-        public Integer getId() {
+      /*  public Integer getId() {
             return id;
         }
 
         public void setId(Integer id) {
             this.id = id;
         }
-
-        public Integer getAssetId() {
+*/
+       /* public Integer getAssetId() {
             return assetId;
         }
 
         public void setAssetId(Integer assetId) {
             this.assetId = assetId;
         }
-
+*/
         public Integer getViews() {
             return views;
         }
@@ -214,22 +214,22 @@ public class MostPopular{
             this.views = views;
         }
 
-        public List<String> getDesFacet() {
+     /*   public List<String> getDesFacet() {
             return desFacet;
         }
 
         public void setDesFacet(List<String> desFacet) {
             this.desFacet = desFacet;
-        }
+        }*/
 
-        public List<String> getOrgFacet() {
+     /*   public List<String> getOrgFacet() {
             return orgFacet;
         }
 
         public void setOrgFacet(List<String> orgFacet) {
             this.orgFacet = orgFacet;
-        }
-
+        }*/
+/*
         public String getPerFacet() {
             return perFacet;
         }
@@ -245,7 +245,7 @@ public class MostPopular{
         public void setGeoFacet(String geoFacet) {
             this.geoFacet = geoFacet;
         }
-
+*/
         public List<Medium> getMedia() {
             return media;
         }

@@ -2,6 +2,7 @@ package com.oc.bashalir.mynews.Controllers.Utils;
 
 
 
+import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
 
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,14 @@ public class NYTStreams {
     public static Observable<TopStories> streamFetchTopStories(){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getTopStories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
+
+    public static Observable<MostPopular> streamFetchMostPopular(){
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.getMostPopular()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

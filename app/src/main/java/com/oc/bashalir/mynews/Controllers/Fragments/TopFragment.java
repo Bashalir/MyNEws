@@ -37,10 +37,16 @@ public class TopFragment extends Fragment {
     private NewsAdapter mAdapter;
     private List<News> mListNews;
 
-    @BindView(R.id.fragment_page_tv)
+    @BindView(R.id.fragment_top_tv)
     TextView textView;
-    @BindView(R.id.fragment_page_listnews_rv)
+    @BindView(R.id.fragment_top_listnews_rv)
     RecyclerView recyclerView;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.destroyDispose();
+    }
 
     public TopFragment() {
   }
@@ -53,14 +59,14 @@ public class TopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View result = inflater.inflate(R.layout.fragment_page, container, false);
+        View result = inflater.inflate(R.layout.fragment_top, container, false);
         ButterKnife.bind(this, result);
        // Icepick.restoreInstanceState(this, savedInstanceState);
 
        // int position = getArguments().getInt(KEY_POSITION, -1);
 
         this.configureRecylclerView();
-        this.RequestTopStories();
+        this.requestTopStories();
 
          return result;
     }
@@ -75,7 +81,7 @@ public class TopFragment extends Fragment {
     }
 
 
-    private void RequestTopStories() {
+    private void requestTopStories() {
         this.updateUIWhenStartingRequest();
         mDisp = NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<TopStories>() {
 

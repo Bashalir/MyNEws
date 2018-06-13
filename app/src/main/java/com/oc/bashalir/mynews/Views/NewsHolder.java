@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.News;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
@@ -68,5 +69,7 @@ public class NewsHolder extends RecyclerView.ViewHolder {
 
         Picasso.get().load(imgURL).into(mImg);
     }
+
+
 
 }

@@ -2,6 +2,7 @@ package com.oc.bashalir.mynews.Controllers.Utils;
 
 
 
+import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
 
 import java.util.List;
@@ -16,14 +17,19 @@ public interface NYTService {
 
     String API_KEY="68156e4ed78640bba3232b2be62044fc";
 
-    @GET("home.json?api-key=68156e4ed78640bba3232b2be62044fc")
+    @GET("topstories/v2/home.json?api-key=68156e4ed78640bba3232b2be62044fc")
     Observable<TopStories> getTopStories();
 
+    @GET("mostpopular/v2/mostviewed/all-sections/1.json?api-key=68156e4ed78640bba3232b2be62044fc")
+    Observable<MostPopular> getMostPopular();
+
     public static final Retrofit retrofit=new Retrofit.Builder()
-            .baseUrl("https://api.nytimes.com/svc/topstories/v2/")
+            .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
+
+
 
 
 }
