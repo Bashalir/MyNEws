@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.R;
@@ -15,11 +16,14 @@ import com.oc.bashalir.mynews.Views.PopularHolder;
 import java.util.List;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
+
     private List<MostPopular.Result> mMostPopular;
+
 
     public PopularAdapter(List<MostPopular.Result> mostPopular) {
         mMostPopular=mostPopular;
     }
+
 
     @NonNull
     @Override
@@ -36,10 +40,10 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
     }
 
 
-
     @Override
     public int getItemCount() {
         return mMostPopular.size();
     }
-}
 
+
+}

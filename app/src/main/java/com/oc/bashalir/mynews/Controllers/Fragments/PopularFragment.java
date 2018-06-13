@@ -1,6 +1,8 @@
 package com.oc.bashalir.mynews.Controllers.Fragments;
 
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.oc.bashalir.mynews.Controllers.Activities.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
@@ -59,6 +63,7 @@ public class PopularFragment extends Fragment {
 
         this.configureRecyclerView();
        this.requestPopular();
+        this.configureOnClickRecyclerView();
 
         return result;
     }
@@ -69,6 +74,21 @@ public class PopularFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+    }
+
+    private void configureOnClickRecyclerView() {
+        ItemClickSupport.addTo(recyclerView, R.layout.fragment_page_news)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+
+
+                        Toast.makeText(getActivity(),mMostPopular.get(position).getUrl(), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });
     }
 
     private void requestPopular() {

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 import com.oc.bashalir.mynews.R;
+import com.oc.bashalir.mynews.Views.Adapters.PopularAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private final String mTag = getClass().getSimpleName();
+
 
     @BindView(R.id.toolbar)    Toolbar mToolbar;
     @BindView(R.id.activity_main_viewpager)    ViewPager mPager;
