@@ -1,23 +1,17 @@
 package com.oc.bashalir.mynews.Views;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.oc.bashalir.mynews.Models.MostPopular;
-import com.oc.bashalir.mynews.Models.News;
+import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
+
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,11 +26,14 @@ public class NewsHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_page_news_img)
     ImageView mImg;
 
+    private Utilities utilities;
 
     public NewsHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
+
+
 
     public void updateWithNews(TopStories.Result topStories) {
 
@@ -49,12 +46,9 @@ public class NewsHolder extends RecyclerView.ViewHolder {
             ariane = topStories.getSection() + " > " + topStories.getSubsection();
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        Log.d("TAG",topStories.getUpdatedDate() );
 
-        ParsePosition pos=new ParsePosition(0);
-        Date dateNews = formatter.parse(topStories.getUpdatedDate(),pos);
-
-        String newsDate = DateFormat.getDateInstance(DateFormat.SHORT,Locale.FRANCE).format(dateNews);
+        String newsDate=new Utilities().DateShortFormatter(topStories.getUpdatedDate(),"yyyy-MM-dd'T'HH:mm:ssZZZZZ");
 
         mTitle.setText(topStories.getTitle());
         mAriane.setText(ariane);

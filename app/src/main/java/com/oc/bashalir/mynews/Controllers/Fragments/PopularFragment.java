@@ -1,8 +1,8 @@
 package com.oc.bashalir.mynews.Controllers.Fragments;
 
 
-import android.content.Context;
-import android.media.MediaPlayer;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,15 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.oc.bashalir.mynews.Controllers.Activities.ItemClickSupport;
+import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.MostPopular;
-import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.Adapters.NewsAdapter;
 import com.oc.bashalir.mynews.Views.Adapters.PopularAdapter;
 
 import java.util.ArrayList;
@@ -35,21 +35,22 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class PopularFragment extends Fragment {
 
-    private List<MostPopular.Result> mMostPopular;
     private final String mTag = getClass().getSimpleName();
-    private PopularAdapter mAdapter;
-    private Disposable mDisp;
-
     @BindView(R.id.fragment_popular_tv)
     TextView textView;
     @BindView(R.id.fragment_popular_listnews_rv)
     RecyclerView recyclerView;
 
+   private  WebView mWebView;
+    private List<MostPopular.Result> mMostPopular;
+    private PopularAdapter mAdapter;
+    private Disposable mDisp;
 
 
     public PopularFragment() {
         // Required empty public constructor
     }
+
     public static PopularFragment newInstance(int position) {
         return (new PopularFragment());
     }
@@ -58,11 +59,11 @@ public class PopularFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View result= inflater.inflate(R.layout.fragment_popular, container, false);
-        ButterKnife.bind(this,result);
+        View result = inflater.inflate(R.layout.fragment_popular, container, false);
+        ButterKnife.bind(this, result);
 
         this.configureRecyclerView();
-       this.requestPopular();
+        this.requestPopular();
         this.configureOnClickRecyclerView();
 
         return result;
@@ -76,16 +77,18 @@ public class PopularFragment extends Fragment {
 
     }
 
+
     private void configureOnClickRecyclerView() {
-        ItemClickSupport.addTo(recyclerView, R.layout.fragment_page_news)
+
+
+        ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerView, R.layout.fragment_page_news)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
-
-
-                        Toast.makeText(getActivity(),mMostPopular.get(position).getUrl(), Toast.LENGTH_SHORT).show();
-
+                        Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
+                        webViewActivity.putExtra("URL",mMostPopular.get(position).getUrl());
+                        startActivityForResult(webViewActivity,0);
 
                     }
                 });
@@ -94,7 +97,6 @@ public class PopularFragment extends Fragment {
     private void requestPopular() {
         this.updateUIWhenStartingRequest();
         mDisp = NYTStreams.streamFetchMostPopular().subscribeWith(new DisposableObserver<MostPopular>() {
-
 
             @Override
             public void onNext(MostPopular mostPopular) {
