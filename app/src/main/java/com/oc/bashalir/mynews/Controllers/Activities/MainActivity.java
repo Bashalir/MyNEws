@@ -1,5 +1,6 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 return true;
             case R.id.menu_activity_main_notification:
                 Log.d(mTag, "Notification");
+                Intent intent = new Intent(MainActivity.this, ParameterActivity.class);
+                this.startActivity(intent);
                 return true;
                         case R.id.menu_activity_main_help:
                 Log.d(mTag, "Help");

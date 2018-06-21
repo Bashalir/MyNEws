@@ -7,6 +7,23 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!-- TOOLBAR THEME -->
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!-- Color of the title text in the Toolbar -->
+
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+
+    </style>
 
 
+
+    <!-- TOOLBAR TITLE THEME -->
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+
+        <item name="android:textSize">21sp</item>
+
+    </style>
 </resources>

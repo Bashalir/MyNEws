@@ -2,7 +2,6 @@ package com.oc.bashalir.mynews.Controllers.Fragments;
 
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +14,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 
-import com.oc.bashalir.mynews.Controllers.Activities.ItemClickSupport;
+import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.MostPopular;
