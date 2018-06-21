@@ -30,5 +30,13 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
+    public static Observable<TopStories> streamFetchTechnology(){
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.getTechnology()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
+
 
 }

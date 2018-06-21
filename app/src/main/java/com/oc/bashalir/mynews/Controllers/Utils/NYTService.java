@@ -17,11 +17,15 @@ public interface NYTService {
 
     String API_KEY="68156e4ed78640bba3232b2be62044fc";
 
-    @GET("topstories/v2/home.json?api-key=68156e4ed78640bba3232b2be62044fc")
+    @GET("topstories/v2/home.json?api-key="+API_KEY)
     Observable<TopStories> getTopStories();
 
-    @GET("mostpopular/v2/mostviewed/all-sections/1.json?api-key=68156e4ed78640bba3232b2be62044fc")
+    @GET("mostpopular/v2/mostviewed/all-sections/1.json?api-key="+API_KEY)
     Observable<MostPopular> getMostPopular();
+
+    @GET("topstories/v2/technology.json?api-key="+API_KEY)
+    Observable<TopStories> getTechnology();
+
 
     public static final Retrofit retrofit=new Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
