@@ -35,7 +35,6 @@ public class TopFragment extends Fragment {
     private Disposable mDisp;
     private List<TopStories.Result> mTopStories;
     private NewsAdapter mAdapter;
-    private List<News> mListNews;
 
     @BindView(R.id.fragment_top_tv)
     TextView textView;

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.R;
 import com.squareup.picasso.Picasso;
@@ -37,14 +38,7 @@ public class PopularHolder extends RecyclerView.ViewHolder {
 
     public void updateWithPopular(MostPopular.Result mostPopular) {
 
-
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        ParsePosition pos=new ParsePosition(0);
-        Date dateNews = formatter.parse(mostPopular.getPublishedDate(),pos);
-
-        String newsDate = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE).format(dateNews);
+        String newsDate = new Utilities().DateShortFormatter(mostPopular.getPublishedDate(),"yyyy-MM-dd");
 
         Log.d("TAG",mostPopular.getTitle());
 
