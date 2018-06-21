@@ -93,12 +93,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
 
-            case R.id.menu_activity_main_params:
-                Log.d(mTag, "PARAMS");
-                return true;
             case R.id.menu_activity_main_search:
                 Log.d(mTag, "SEARCH");
                 return true;
+            case R.id.menu_activity_main_notification:
+                Log.d(mTag, "Notification");
+                return true;
+                        case R.id.menu_activity_main_help:
+                Log.d(mTag, "Help");
+                return true;
+            case R.id.menu_activity_main_about:
+                Log.d(mTag, "About");
+                return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }

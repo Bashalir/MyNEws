@@ -1,6 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.oc.bashalir.mynews.Controllers.Activities.ItemClickSupport;
+import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.News;
 import com.oc.bashalir.mynews.Models.TopStories;
@@ -64,14 +67,15 @@ public class TechFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_tech, container, false);
         ButterKnife.bind(this, result);
 
-        this.configureRecylclerView();
-        this.requestTopStories();
+        this.configureRecyclerView();
+        this.requestTechnology();
+        this.configureOnClickRecyclerView();
 
         return result;
     }
 
 
-    private void configureRecylclerView() {
+    private void configureRecyclerView() {
         mTechnology = new ArrayList<>();
         mAdapter = new TechAdapter(mTechnology);
         recyclerView.setAdapter(mAdapter);
@@ -79,8 +83,23 @@ public class TechFragment extends Fragment {
 
     }
 
+    private void configureOnClickRecyclerView() {
 
-    private void requestTopStories() {
+
+        ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerView, R.layout.fragment_page_news)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                        Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
+                        webViewActivity.putExtra("URL",mTechnology.get(position).getUrl());
+                        startActivityForResult(webViewActivity,0);
+
+                    }
+                });
+    }
+
+    private void requestTechnology() {
         this.updateUIWhenStartingRequest();
         mDisp = NYTStreams.streamFetchTechnology().subscribeWith(new DisposableObserver<TopStories>() {
 

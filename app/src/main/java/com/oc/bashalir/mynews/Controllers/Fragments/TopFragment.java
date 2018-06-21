@@ -1,6 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.oc.bashalir.mynews.Controllers.Activities.ItemClickSupport;
+import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.News;
 import com.oc.bashalir.mynews.Models.TopStories;
@@ -64,14 +67,15 @@ public class TopFragment extends Fragment {
 
        // int position = getArguments().getInt(KEY_POSITION, -1);
 
-        this.configureRecylclerView();
+        this.configureRecyclerView();
         this.requestTopStories();
+        this.configureOnClickRecyclerView();
 
          return result;
     }
 
 
-    private void configureRecylclerView() {
+    private void configureRecyclerView() {
         mTopStories = new ArrayList<>();
         mAdapter = new NewsAdapter(mTopStories);
         recyclerView.setAdapter(mAdapter);
@@ -79,6 +83,21 @@ public class TopFragment extends Fragment {
 
     }
 
+    private void configureOnClickRecyclerView() {
+
+
+        ItemClickSupport itemClickSupport = ItemClickSupport.addTo(recyclerView, R.layout.fragment_page_news)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                        Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
+                        webViewActivity.putExtra("URL",mTopStories.get(position).getUrl());
+                        startActivityForResult(webViewActivity,0);
+
+                    }
+                });
+    }
 
     private void requestTopStories() {
         this.updateUIWhenStartingRequest();
