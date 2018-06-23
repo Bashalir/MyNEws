@@ -12,7 +12,7 @@ public class ParameterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parameter);
+        setContentView(R.layout.activity_notification);
         //1 - Configuring Toolbar
         this.configureToolbar();
     }
