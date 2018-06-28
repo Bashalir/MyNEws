@@ -1,6 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -9,14 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 import com.oc.bashalir.mynews.R;
+import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,15 +25,19 @@ import butterknife.ButterKnife;
 /**
  * Configure Toolbar & RecyclerView, Manage News
  */
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final String mTag = getClass().getSimpleName();
 
 
-    @BindView(R.id.toolbar)    Toolbar mToolbar;
-    @BindView(R.id.activity_main_viewpager)    ViewPager mPager;
-    @BindView(R.id.activity_main_tabs)    TabLayout mTabLayout;
-    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.activity_main_viewpager)
+    ViewPager mPager;
+    @BindView(R.id.activity_main_tabs)
+    TabLayout mTabLayout;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
 
 
     /**
@@ -61,7 +65,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
 
-
         //configure TabLayout
         String[] tabs = getResources().getStringArray(R.array.tabs_array);
 
@@ -72,8 +75,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     }
 
 
-
-    public void configureClickDrawer(){
+    public void configureClickDrawer() {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     /**
      * Manage Toolbar
      *
-     * @param item : Toolbar Icon (Search and Params)
+     * @param item : Toolbar Icon (Menu,Search and Params)
      * @return
      */
     @Override
@@ -97,18 +99,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             case R.id.menu_activity_main_search:
                 Log.d(mTag, "SEARCH");
                 return true;
+
             case R.id.menu_activity_main_notification:
                 Log.d(mTag, "Notification");
-                Intent intent = new Intent(MainActivity.this, ParameterActivity.class);
+                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
                 this.startActivity(intent);
                 return true;
-                        case R.id.menu_activity_main_help:
+
+            case R.id.menu_activity_main_help:
                 Log.d(mTag, "Help");
                 return true;
+
             case R.id.menu_activity_main_about:
                 Log.d(mTag, "About");
                 return true;
-
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -129,8 +133,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     }
 
 
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // set item as selected to persist highlight
@@ -138,19 +140,18 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         // close drawer when item is tapped
         mDrawerLayout.closeDrawers();
 
-        switch(menuItem.getItemId()){
-            case R.id.top_stories :
+        switch (menuItem.getItemId()) {
+            case R.id.top_stories:
                 Log.d(mTag, "Top");
                 mPager.setCurrentItem(0);
 
                 break;
-            case R.id.most_popular :
+            case R.id.most_popular:
                 Log.d(mTag, "Popular");
                 mPager.setCurrentItem(2);
 
                 break;
         }
-
 
 
         return true;

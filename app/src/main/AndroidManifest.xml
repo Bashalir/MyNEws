@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controllers.Activities.WebViewLink" />
-      <!-- <activity android:name=".Controllers.Activities.ParameterActivity"></activity> -->
+      <!-- <activity android:name=".Controllers.Activities.NotificationActivity"></activity> -->
         <!-- A child of the main activity -->
 
         <activity
-            android:name=".Controllers.Activities.ParameterActivity"
+            android:name=".Controllers.Activities.NotificationActivity"
             android:label="Notification"
             android:parentActivityName=".Controllers.Activities.MainActivity" >
 
