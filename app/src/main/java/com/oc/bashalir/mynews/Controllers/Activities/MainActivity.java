@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Configure Toolbar & RecyclerView, Manage News
  */
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private final String mTag = getClass().getSimpleName();
 
@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //load the view
         ButterKnife.bind(this);
 
-        this.configureClickDrawer();
-
         //load the Toolbar
         setSupportActionBar(mToolbar);
 
@@ -72,14 +70,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         mPager.setAdapter(new PageAdapter(getSupportFragmentManager(), tabs));
-    }
-
-
-    public void configureClickDrawer() {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        Log.d(mTag, "Menu");
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+
+
+                        switch (menuItem.getItemId()) {
+                            case R.id.top_stories:
+                                Log.d(mTag, "Top");
+                                mPager.setCurrentItem(0);
+
+                                break;
+                            case R.id.most_popular:
+                                Log.d(mTag, "Popular");
+                                mPager.setCurrentItem(2);
+
+                                break;
+                        }
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+
+                });
+
+
     }
+
+
 
 
     /**
@@ -90,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -98,11 +124,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.menu_activity_main_search:
                 Log.d(mTag, "SEARCH");
+                intent = new Intent(MainActivity.this, SearchActivity.class);
+                this.startActivity(intent);
                 return true;
 
             case R.id.menu_activity_main_notification:
                 Log.d(mTag, "Notification");
-                Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+                 intent = new Intent(MainActivity.this, NotificationActivity.class);
                 this.startActivity(intent);
                 return true;
 
@@ -133,27 +161,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        // set item as selected to persist highlight
-        menuItem.setChecked(true);
-        // close drawer when item is tapped
-        mDrawerLayout.closeDrawers();
 
-        switch (menuItem.getItemId()) {
-            case R.id.top_stories:
-                Log.d(mTag, "Top");
-                mPager.setCurrentItem(0);
-
-                break;
-            case R.id.most_popular:
-                Log.d(mTag, "Popular");
-                mPager.setCurrentItem(2);
-
-                break;
-        }
-
-
-        return true;
-    }
 }
