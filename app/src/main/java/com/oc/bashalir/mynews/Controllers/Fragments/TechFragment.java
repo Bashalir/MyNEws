@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
+import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
@@ -37,7 +38,7 @@ public class TechFragment extends Fragment {
     private static final String KEY_POSITION = "position";
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
-    private List<TopStories.Result> mTechnology;
+    private List<ArticleSearch.Response.Doc> mTechnology;
     private TechAdapter mAdapter;
 
     @BindView(R.id.fragment_tech_tv)
@@ -90,7 +91,7 @@ public class TechFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                         Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
-                        webViewActivity.putExtra("URL",mTechnology.get(position).getUrl());
+                        webViewActivity.putExtra("URL",mTechnology.get(position).getWebUrl());
                         startActivityForResult(webViewActivity,0);
 
                     }
@@ -99,13 +100,13 @@ public class TechFragment extends Fragment {
 
     private void requestTechnology() {
         this.updateUIWhenStartingRequest();
-        mDisp = NYTStreams.streamFetchTechnology().subscribeWith(new DisposableObserver<TopStories>() {
+        mDisp = NYTStreams.streamFetchTechnology().subscribeWith(new DisposableObserver<ArticleSearch>() {
 
 
             @Override
-            public void onNext(TopStories topStories) {
+            public void onNext(ArticleSearch articleSearch) {
                 Log.d(mTag, "NEXT");
-                updateUIWithList(topStories);
+                updateUIWithList(articleSearch);
             }
 
             @Override
@@ -135,9 +136,9 @@ public class TechFragment extends Fragment {
     }
 
 
-    private void updateUIWithList(TopStories topStories) {
+    private void updateUIWithList(ArticleSearch articleSearch) {
 
-        mTechnology.addAll(topStories.getResults());
+        mTechnology.addAll(articleSearch.getResponse().getDocs());
         mAdapter.notifyDataSetChanged();
     }
 

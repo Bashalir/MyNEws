@@ -2,6 +2,7 @@ package com.oc.bashalir.mynews.Controllers.Utils;
 
 
 
+import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
 
@@ -30,13 +31,20 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<TopStories> streamFetchTechnology(){
+ /*   public static Observable<TopStories> streamFetchTechnology(){
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.getTechnology()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }*/
+
+    public static Observable<ArticleSearch> streamFetchTechnology(){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getTechnology()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
-
 
 }

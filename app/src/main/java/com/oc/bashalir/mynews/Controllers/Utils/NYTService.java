@@ -2,6 +2,7 @@ package com.oc.bashalir.mynews.Controllers.Utils;
 
 
 
+import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
 
@@ -23,8 +24,8 @@ public interface NYTService {
     @GET("mostpopular/v2/mostviewed/all-sections/1.json?api-key="+API_KEY)
     Observable<MostPopular> getMostPopular();
 
-    @GET("topstories/v2/technology.json?api-key="+API_KEY)
-    Observable<TopStories> getTechnology();
+    @GET("https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=technology&fl=section_name,snippet,pub_date,web_url,multimedia&sort=newest&page=5&api-key="+API_KEY)
+    Observable<ArticleSearch> getTechnology();
 
 
     public static final Retrofit retrofit=new Retrofit.Builder()
