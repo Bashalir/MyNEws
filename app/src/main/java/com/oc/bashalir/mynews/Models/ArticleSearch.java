@@ -47,43 +47,7 @@ public class ArticleSearch {
         }
 
 
-        public class Byline {
 
-            @SerializedName("organization")
-            @Expose
-            private String organization;
-            @SerializedName("original")
-            @Expose
-            private String original;
-            @SerializedName("person")
-            @Expose
-            private List<String> person = null;
-
-            public String getOrganization() {
-                return organization;
-            }
-
-            public void setOrganization(String organization) {
-                this.organization = organization;
-            }
-
-            public String getOriginal() {
-                return original;
-            }
-
-            public void setOriginal(String original) {
-                this.original = original;
-            }
-
-            public List<String> getPerson() {
-                return person;
-            }
-
-            public void setPerson(List<String> person) {
-                this.person = person;
-            }
-
-        }
 
         public class Doc {
 
@@ -102,18 +66,14 @@ public class ArticleSearch {
             @SerializedName("print_page")
             @Expose
             private String printPage;
-            @SerializedName("blog")
-            @Expose
-            private List<String> blog = null;
+
             @SerializedName("source")
             @Expose
             private String source;
             @SerializedName("headline")
             @Expose
             private Headline headline;
-            @SerializedName("keywords")
-            @Expose
-            private Keywords keywords;
+
             @SerializedName("pub_date")
             @Expose
             private String pubDate;
@@ -129,9 +89,7 @@ public class ArticleSearch {
             @SerializedName("subsection_name")
             @Expose
             private String subsectionName;
-            @SerializedName("byline")
-            @Expose
-            private Byline byline;
+
             @SerializedName("type_of_material")
             @Expose
             private String typeOfMaterial;
@@ -188,13 +146,7 @@ public class ArticleSearch {
                 this.printPage = printPage;
             }
 
-            public List<String> getBlog() {
-                return blog;
-            }
 
-            public void setBlog(List<String> blog) {
-                this.blog = blog;
-            }
 
             public String getSource() {
                 return source;
@@ -212,13 +164,7 @@ public class ArticleSearch {
                 this.headline = headline;
             }
 
-            public Keywords getKeywords() {
-                return keywords;
-            }
 
-            public void setKeywords(Keywords keywords) {
-                this.keywords = keywords;
-            }
 
             public String getPubDate() {
                 return pubDate;
@@ -260,13 +206,6 @@ public class ArticleSearch {
                 this.subsectionName = subsectionName;
             }
 
-            public Byline getByline() {
-                return byline;
-            }
-
-            public void setByline(Byline byline) {
-                this.byline = byline;
-            }
 
             public String getTypeOfMaterial() {
                 return typeOfMaterial;
@@ -316,6 +255,7 @@ public class ArticleSearch {
             @SerializedName("main")
             @Expose
             private String main;
+
             @SerializedName("kicker")
             @Expose
             private String kicker;
@@ -324,7 +264,7 @@ public class ArticleSearch {
                 return main;
             }
 
-            public void setMain(String main) {
+                    public void setMain(String main) {
                 this.main = main;
             }
 
@@ -339,43 +279,6 @@ public class ArticleSearch {
         }
 
 
-        public class Keywords {
-
-            @SerializedName("rank")
-            @Expose
-            private String rank;
-            @SerializedName("name")
-            @Expose
-            private String name;
-            @SerializedName("value")
-            @Expose
-            private String value;
-
-            public String getRank() {
-                return rank;
-            }
-
-            public void setRank(String rank) {
-                this.rank = rank;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getValue() {
-                return value;
-            }
-
-            public void setValue(String value) {
-                this.value = value;
-            }
-
-        }
 
 
         public class Meta {

@@ -1,6 +1,7 @@
 package com.oc.bashalir.mynews.Views;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,31 @@ public class SearchHolder extends RecyclerView.ViewHolder{
     }
 
     public void updateWithNews(ArticleSearch.Response.Doc articleSearch) {
+
+        String articleDate="";
+
+           articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+
+        String articleTitle=articleSearch.getSnippet();
+
+        if (!articleSearch.getHeadline().getMain().isEmpty() ){
+            articleTitle=articleSearch.getHeadline().getMain();
+        }
+
+        mTitle.setText(articleTitle);
+        mAriane.setText(articleSearch.getTypeOfMaterial());
+        mDate.setText(articleDate);
+
+        String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
+
+        if (!articleSearch.getMultimedia().isEmpty() && articleSearch.getMultimedia() !=null) {
+
+            imgURL ="https://www.nytimes.com/"+articleSearch.getMultimedia().get(0).getUrl();
+        }
+
+        Log.d("TAG",imgURL );
+
+        Picasso.get().load(imgURL).into(mImg);
 
     }
 
