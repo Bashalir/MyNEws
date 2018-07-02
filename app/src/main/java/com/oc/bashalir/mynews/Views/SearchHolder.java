@@ -43,7 +43,7 @@ public class SearchHolder extends RecyclerView.ViewHolder{
         }
 
         mTitle.setText(articleTitle);
-        mAriane.setText(articleSearch.getTypeOfMaterial());
+        mAriane.setText(articleSearch.getSectionName());
         mDate.setText(articleDate);
 
         String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";

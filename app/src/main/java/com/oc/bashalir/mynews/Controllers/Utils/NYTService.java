@@ -24,7 +24,7 @@ public interface NYTService {
     @GET("mostpopular/v2/mostviewed/all-sections/1.json?api-key="+API_KEY)
     Observable<MostPopular> getMostPopular();
 
-    @GET("search/v2/articlesearch.json?q=technology&fq=news_desk:technology&sort=newest&page=1&api-key="+API_KEY)
+    @GET("search/v2/articlesearch.json?page=1&q=technology&fq=news_desk:technology(\"technology\" \"business\" \"science\")&sort=newest&api-key="+API_KEY)
     Observable<ArticleSearch> getTechnology();
 
 
