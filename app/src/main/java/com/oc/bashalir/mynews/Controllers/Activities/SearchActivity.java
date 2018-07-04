@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,6 +39,8 @@ public class SearchActivity extends AppCompatActivity {
     CheckBox mTravel;
     @BindView(R.id.category_checkbox_technology)
     CheckBox mTechnology;
+    @BindView(R.id.activity_search_btn)
+    Button mSearchButton;
 
     @BindView(R.id.activity_search_begin_et)
     TextView mBeginDate;
@@ -46,6 +49,8 @@ public class SearchActivity extends AppCompatActivity {
 
     int beginDay, beginMonth, beginYear;
     int endDay, endMonth, endYear;
+
+    boolean[] mCheckboxTab = {false,false,false,false,false,false};
 
     Calendar mCurrentDate;
     Calendar mFirstDate;
@@ -63,6 +68,7 @@ public class SearchActivity extends AppCompatActivity {
 
         this.configureDatePicker();
 
+        this.configureSearch();
 
     }
 
@@ -82,6 +88,27 @@ public class SearchActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
     }
+
+    private void configureSearch(){
+        mSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String category="";
+
+                if (mCheckboxTab[0]==true) {category +="arts";}
+                if (mCheckboxTab[1]==true) {category +="business";}
+                if (mCheckboxTab[2]==true) {category +="politics";}
+                if (mCheckboxTab[3]==true) {category +="sports";}
+                if (mCheckboxTab[4]==true) {category +="travel";}
+                if (mCheckboxTab[5]==true) {category +="technology";}
+
+                Log.d(mTag, category);
+            }
+        });
+    }
+
 
     private void configureDatePicker() {
 
@@ -127,7 +154,7 @@ public class SearchActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         mEndDate.setText(dayOfMonth+"/"+month+"/"+year);
                     }
-                },endYear,endMonth,endDay);
+                },endYear,endMonth+1,endDay);
                 datePickerDialog.show();
             }
         });
@@ -144,34 +171,57 @@ public class SearchActivity extends AppCompatActivity {
                 if (checked){
                     Log.d(mTag, "Arts");
 
+                    mCheckboxTab[0]=true;
                 }else
                 {
+                    mCheckboxTab[0]=false;
                 }
                 break;
             case R.id.category_checkbox_business:
                 if (checked){
                     Log.d(mTag, "Business");
+                    mCheckboxTab[1]=true;
+                }else
+                {
+                    mCheckboxTab[1]=false;
                 }
                 break;
             case R.id.category_checkbox_politics:
                 if (checked){
                     Log.d(mTag, "Politics");
+                    mCheckboxTab[2]=true;
+                }else
+                {
+                    mCheckboxTab[2]=false;
                 }
                 break;
             case R.id.category_checkbox_sports:
                 if (checked){
                     Log.d(mTag, "Sports");
+                    mCheckboxTab[3]=true;
+                }else
+                {
+                    mCheckboxTab[3]=false;
                 }
                 break;
             case R.id.category_checkbox_travel:
                 if (checked){
                     Log.d(mTag, "Travel");
+                    mCheckboxTab[4]=true;
+                }else
+                {
+                    mCheckboxTab[4]=false;
                 }
                 break;
             case R.id.category_checkbox_technology:
                 if (checked){
                     Log.d(mTag, "Technology");
-                }
+                 mCheckboxTab[5]=true;
+        }else
+        {
+            mCheckboxTab[5]=false;
+        }
+        break;
 
         }
     }
