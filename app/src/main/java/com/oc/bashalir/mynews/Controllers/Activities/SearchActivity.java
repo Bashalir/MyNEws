@@ -109,6 +109,12 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d(mTag, category);
 
                  Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
+                 intent.putExtra("category",category);
+                 intent.putExtra("query",(String.valueOf(mSearchBar.getText())));
+                 intent.putExtra("begin",mBeginDate.getText());
+                 intent.putExtra("end",mEndDate.getText());
+
+
 
                 SearchActivity.this.startActivity(intent);
 

@@ -1,9 +1,8 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +13,6 @@ import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.Adapters.NewsAdapter;
 import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
 
 import java.util.ArrayList;
@@ -27,27 +25,40 @@ import io.reactivex.observers.DisposableObserver;
 
 public class ListSearchActivity extends AppCompatActivity {
 
-    private List<ArticleSearch.Response.Doc> mSearch;
-    private TechAdapter mAdapter;
-    private Disposable mDisp;
     private final String mTag = getClass().getSimpleName();
-
     @BindView(R.id.activity_list_search_tv)
     TextView textView;
     @BindView(R.id.activity_list_search_rv)
     RecyclerView recyclerView;
+    private List<ArticleSearch.Response.Doc> mSearch;
+    private TechAdapter mAdapter;
+    private Disposable mDisp;
+    private String mQuery;
+    private String mCategory;
+    private String mBegin;
+    private String mEnd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_search);
 
+        Intent intent =getIntent();
+        mQuery=intent.getStringExtra("query");
+        mCategory=intent.getStringExtra("category");
+        mBegin=intent.getStringExtra("begin");
+        mEnd=intent.getStringExtra("end");
+
+
         //load the view
         ButterKnife.bind(this);
 
-        this.configureRecyclerView();
+        Log.e(mTag, mQuery+mCategory+mBegin+mEnd);
+
+      /*  this.configureRecyclerView();
         this.requestSearchList();
-        this.configureOnClickRecyclerView();
+        this.configureOnClickRecyclerView();*/
 
 
     }
@@ -69,8 +80,8 @@ public class ListSearchActivity extends AppCompatActivity {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                         Intent webViewActivity = new Intent(getApplicationContext(), WebViewLink.class);
-                        webViewActivity.putExtra("URL",mSearch.get(position).getWebUrl());
-                        startActivityForResult(webViewActivity,0);
+                        webViewActivity.putExtra("URL", mSearch.get(position).getWebUrl());
+                        startActivityForResult(webViewActivity, 0);
 
                     }
                 });
@@ -78,7 +89,7 @@ public class ListSearchActivity extends AppCompatActivity {
 
     private void requestSearchList() {
         this.updateUIWhenStartingRequest();
-        mDisp = NYTStreams.streamFetchTechnology().subscribeWith(new DisposableObserver<ArticleSearch>() {
+        mDisp = NYTStreams.streamFetchSearch().subscribeWith(new DisposableObserver<ArticleSearch>() {
 
 
             @Override
