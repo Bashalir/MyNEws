@@ -71,8 +71,7 @@ public class SearchActivity extends AppCompatActivity {
 
         this.configureSearch();
 
-        Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
-        this.startActivity(intent);
+
 
     }
 
@@ -108,7 +107,11 @@ public class SearchActivity extends AppCompatActivity {
                 if (mCheckboxTab[5]==true) {category +="technology";}
 
                 Log.d(mTag, category);
-                
+
+                 Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
+
+                SearchActivity.this.startActivity(intent);
+
             }
         });
     }
