@@ -1,6 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,6 +71,9 @@ public class SearchActivity extends AppCompatActivity {
 
         this.configureSearch();
 
+        Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
+        this.startActivity(intent);
+
     }
 
 
@@ -90,11 +94,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void configureSearch(){
+
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 String category="";
 
                 if (mCheckboxTab[0]==true) {category +="arts";}
@@ -105,6 +108,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (mCheckboxTab[5]==true) {category +="technology";}
 
                 Log.d(mTag, category);
+                
             }
         });
     }
@@ -160,6 +164,7 @@ public class SearchActivity extends AppCompatActivity {
         });
 
     }
+
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?

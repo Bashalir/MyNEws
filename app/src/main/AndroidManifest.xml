@@ -34,7 +34,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controllers.Activities.MainActivity" />
         </activity>
-        <activity android:name=".Controllers.Activities.SearchActivity"
+        <activity
+            android:name=".Controllers.Activities.SearchActivity"
             android:label="Search Articles"
             android:parentActivityName=".Controllers.Activities.MainActivity">
 
@@ -43,7 +44,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controllers.Activities.MainActivity" />
+        </activity>
+        <activity android:name=".Controllers.Activities.ListSearchActivity">
+            android:label="Search Results"
+            android:parentActivityName=".Controllers.Activities.SearchActivity">
 
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Controllers.Activities.SearchActivity" />
         </activity>
     </application>
 
