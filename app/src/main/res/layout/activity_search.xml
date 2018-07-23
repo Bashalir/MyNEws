@@ -17,37 +17,36 @@
     <include
         layout="@layout/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        >
+        android:paddingRight="10dp">
+
         <TextView
             android:id="@+id/begin_date"
-            android:text="Begin Date"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:text="Begin Date" />
+
         <TextView
             android:id="@+id/end_date"
-            android:text="End Date"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content" />
-     </LinearLayout>
+            android:text="End Date" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:paddingBottom="10dp"
-        >
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/activity_search_begin_et"
@@ -60,12 +59,11 @@
         <TextView
             android:id="@+id/activity_search_end_et"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:focusable="true"
             android:textColorHint="@color/colorPrimaryDark" />
     </LinearLayout>
-
 
 
     <!-- Import category checkbox -->
