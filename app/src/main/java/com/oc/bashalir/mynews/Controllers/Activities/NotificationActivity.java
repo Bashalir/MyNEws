@@ -37,6 +37,9 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.activity_notification_sw)
     Switch mSwitch;
 
+    boolean[] mCheckboxTab = {false, false, false, false, false, false};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,48 @@ public class NotificationActivity extends AppCompatActivity {
                 {
                     //Do something when Switch button is on/checked
                     Log.d(mTag, "ON");
+
+                    String category = "news_desk:(";
+
+                    int cmpt=0;
+                    if (mCheckboxTab[0] == true) {
+                        category += "\"arts\"";
+                        cmpt++;
+                    }
+                    if (mCheckboxTab[1] == true) {
+                        category += "\"business\"";
+                        cmpt++;
+                    }
+                    if (mCheckboxTab[2] == true) {
+                        category += "\"politics\"";
+                        cmpt++;
+                    }
+                    if (mCheckboxTab[3] == true) {
+                        category += "\"sports\"";
+                        cmpt++;
+                    }
+                    if (mCheckboxTab[4] == true) {
+                        category += "\"travel\"";
+                        cmpt++;
+                    }
+                    if (mCheckboxTab[5] == true) {
+                        category += "\"technology\"";
+                        cmpt++;
+                    }
+                    category +=")";
+
+                    if (cmpt<1){category="";}
+                    Log.e(mTag, category);
+
+
+
+
+
+
+
+
+
+
                 }
                 else
                 {
@@ -92,37 +137,55 @@ public class NotificationActivity extends AppCompatActivity {
         // Check which checkbox was clicked
         switch(view.getId()) {
             case R.id.category_checkbox_arts:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Arts");
 
-                }else
-                {
+                    mCheckboxTab[0] = true;
+                } else {
+                    mCheckboxTab[0] = false;
                 }
                 break;
             case R.id.category_checkbox_business:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Business");
+                    mCheckboxTab[1] = true;
+                } else {
+                    mCheckboxTab[1] = false;
                 }
                 break;
             case R.id.category_checkbox_politics:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Politics");
+                    mCheckboxTab[2] = true;
+                } else {
+                    mCheckboxTab[2] = false;
                 }
                 break;
             case R.id.category_checkbox_sports:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Sports");
+                    mCheckboxTab[3] = true;
+                } else {
+                    mCheckboxTab[3] = false;
                 }
                 break;
             case R.id.category_checkbox_travel:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Travel");
+                    mCheckboxTab[4] = true;
+                } else {
+                    mCheckboxTab[4] = false;
                 }
                 break;
             case R.id.category_checkbox_technology:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Technology");
+                    mCheckboxTab[5] = true;
+                } else {
+                    mCheckboxTab[5] = false;
                 }
+                break;
+
 
         }
     }
