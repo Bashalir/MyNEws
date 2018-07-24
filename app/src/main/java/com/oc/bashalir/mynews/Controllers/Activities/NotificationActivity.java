@@ -7,7 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.oc.bashalir.mynews.R;
 
@@ -32,6 +34,8 @@ public class NotificationActivity extends AppCompatActivity {
     CheckBox mTravel;
     @BindView(R.id.category_checkbox_technology)
     CheckBox mTechnology;
+    @BindView(R.id.activity_notification_sw)
+    Switch mSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,26 @@ public class NotificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //1 - Configuring Toolbar
         this.configureToolbar();
+        this.configureNotification();
 
+    }
+
+    private void configureNotification() {
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    //Do something when Switch button is on/checked
+                    Log.d(mTag, "ON");
+                }
+                else
+                {
+                    //Do something when Switch is off/unchecked
+                    Log.d(mTag, "OFF");
+            }
+        }
+        });
     }
 
     private void configureToolbar() {
@@ -59,6 +82,8 @@ public class NotificationActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
     }
+
+
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
@@ -101,6 +126,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         }
     }
+
 
 
 }
