@@ -47,9 +47,9 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-    public static Observable<ArticleSearch> streamFetchSearch(){
+    public static Observable<ArticleSearch> streamFetchSearch(String query, String category, String begin, String end){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.getTechnology()
+        return nytService.getSearch(query, category, begin, end)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

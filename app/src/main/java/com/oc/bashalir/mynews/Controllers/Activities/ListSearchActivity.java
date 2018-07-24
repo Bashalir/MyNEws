@@ -56,9 +56,9 @@ public class ListSearchActivity extends AppCompatActivity {
 
         Log.e(mTag, mQuery+mCategory+mBegin+mEnd);
 
-      /*  this.configureRecyclerView();
+        this.configureRecyclerView();
         this.requestSearchList();
-        this.configureOnClickRecyclerView();*/
+        this.configureOnClickRecyclerView();
 
 
     }
@@ -89,7 +89,7 @@ public class ListSearchActivity extends AppCompatActivity {
 
     private void requestSearchList() {
         this.updateUIWhenStartingRequest();
-        mDisp = NYTStreams.streamFetchSearch().subscribeWith(new DisposableObserver<ArticleSearch>() {
+        mDisp = NYTStreams.streamFetchSearch(mQuery,mCategory,mBegin,mEnd).subscribeWith(new DisposableObserver<ArticleSearch>() {
 
 
             @Override

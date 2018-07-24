@@ -34,7 +34,13 @@ public class SearchHolder extends RecyclerView.ViewHolder{
 
         String articleDate="";
 
-           articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        Log.d("TAG",articleSearch.getPubDate() );
+
+        if (articleSearch.getPubDate().contains("Z")){
+            Log.e("TAG","KOUKOU" );
+            articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ss'Z'");}
+            else{
+            articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");}
 
         String articleTitle=articleSearch.getSnippet();
 

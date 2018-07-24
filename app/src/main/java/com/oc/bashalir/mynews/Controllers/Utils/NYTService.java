@@ -13,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface NYTService {
 
@@ -24,8 +25,14 @@ public interface NYTService {
     @GET("mostpopular/v2/mostviewed/all-sections/1.json?api-key="+API_KEY)
     Observable<MostPopular> getMostPopular();
 
-    @GET("search/v2/articlesearch.json?page=1&q=technology&fq=news_desk:technology(\"technology\" \"business\" \"science\")&sort=newest&api-key="+API_KEY)
+    @GET("search/v2/articlesearch.json?page=2&q=technology&fq=news_desk:technology(\"technology\" \"business\" \"science\")&sort=newest&api-key="+API_KEY)
     Observable<ArticleSearch> getTechnology();
+
+    @GET("search/v2/articlesearch.json?page=2&sort=newest&api-key="+API_KEY)
+    Observable<ArticleSearch> getSearch(@Query("q") String query,
+                                        @Query("fq") String category,
+                                        @Query("begin_date") String begin,
+                                        @Query("end_date") String end);
 
 
     public static final Retrofit retrofit=new Retrofit.Builder()

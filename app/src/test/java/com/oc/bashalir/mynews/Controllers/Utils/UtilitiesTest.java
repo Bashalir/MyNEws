@@ -6,10 +6,15 @@ import static org.junit.Assert.*;
 
 public class UtilitiesTest {
     @Test
-    public void DateShortFormatterTest(){
+    public void DateShortFormatterTest1(){
 
-       assertEquals("20/06/2018",new Utilities().DateShortFormatter("2018-06-20T08:47:32-04:00","yyyy-MM-dd'T'HH:mm:ssZZZZZ"));
-        //assertEquals("20/06/2018","20/06/2018");
+       assertEquals("24/07/18",new Utilities().DateShortFormatter("2018-07-23T22:54:20+0000","yyyy-MM-dd'T'HH:mm:ssZZZZZ"));
     }
+    @Test
+    public void DateShortFormatterTest2(){
+
+        assertEquals("24/08/12",new Utilities().DateShortFormatter("2012-08-24T00:00:00Z","yyyy-MM-dd'T'HH:mm:ss'Z'"));
+    }
+
 
 }

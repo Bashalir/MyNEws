@@ -2,9 +2,9 @@ package com.oc.bashalir.mynews.Controllers.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -48,10 +48,12 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.activity_search_end_et)
     TextView mEndDate;
 
+    String mBegin="", mEnd="";
     int beginDay, beginMonth, beginYear;
     int endDay, endMonth, endYear;
+    int cmpt=0;
 
-    boolean[] mCheckboxTab = {false,false,false,false,false,false};
+    boolean[] mCheckboxTab = {false, false, false, false, false, false};
 
     Calendar mCurrentDate;
     Calendar mFirstDate;
@@ -70,7 +72,6 @@ public class SearchActivity extends AppCompatActivity {
         this.configureDatePicker();
 
         this.configureSearch();
-
 
 
     }
@@ -92,28 +93,48 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void configureSearch(){
+    private void configureSearch() {
 
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String category="";
+                String category = "news_desk:(";
 
-                if (mCheckboxTab[0]==true) {category +="arts";}
-                if (mCheckboxTab[1]==true) {category +="business";}
-                if (mCheckboxTab[2]==true) {category +="politics";}
-                if (mCheckboxTab[3]==true) {category +="sports";}
-                if (mCheckboxTab[4]==true) {category +="travel";}
-                if (mCheckboxTab[5]==true) {category +="technology";}
+                cmpt=0;
+                if (mCheckboxTab[0] == true) {
+                    category += "\"arts\"";
+                    cmpt++;
+                }
+                if (mCheckboxTab[1] == true) {
+                    category += "\"business\"";
+                    cmpt++;
+                }
+                if (mCheckboxTab[2] == true) {
+                    category += "\"politics\"";
+                    cmpt++;
+                }
+                if (mCheckboxTab[3] == true) {
+                    category += "\"sports\"";
+                    cmpt++;
+                }
+                if (mCheckboxTab[4] == true) {
+                    category += "\"travel\"";
+                    cmpt++;
+                }
+                if (mCheckboxTab[5] == true) {
+                    category += "\"technology\"";
+                    cmpt++;
+                }
+                category +=")";
 
-                Log.d(mTag, category);
+                if (cmpt<1){category="";}
+                Log.e(mTag, category+" *** "+mBegin+" *** "+mEnd+" **** ");
 
-                 Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
-                 intent.putExtra("category",category);
-                 intent.putExtra("query",(String.valueOf(mSearchBar.getText())));
-                 intent.putExtra("begin",mBeginDate.getText());
-                 intent.putExtra("end",mEndDate.getText());
-
+                Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
+                intent.putExtra("category", category);
+                intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
+                intent.putExtra("begin", mBegin);
+                intent.putExtra("end", mEnd);
 
 
                 SearchActivity.this.startActivity(intent);
@@ -125,17 +146,19 @@ public class SearchActivity extends AppCompatActivity {
 
     private void configureDatePicker() {
 
-       mCurrentDate=Calendar.getInstance();
-        mFirstDate=Calendar.getInstance();
-        mFirstDate.set(1900,Calendar.JANUARY,1);
+        mCurrentDate = Calendar.getInstance();
+        mFirstDate = Calendar.getInstance();
+        mFirstDate.set(1900, Calendar.JANUARY, 1);
 
-       beginDay=mFirstDate.get(Calendar.DAY_OF_MONTH);
-       beginMonth=mFirstDate.get(Calendar.MONTH);
-       beginYear=mFirstDate.get(Calendar.YEAR);
+        beginDay = mFirstDate.get(Calendar.DAY_OF_MONTH);
+        beginMonth = mFirstDate.get(Calendar.MONTH);
+        beginYear = mFirstDate.get(Calendar.YEAR);
 
-        int beginMonth1=beginMonth+1;
+        int beginMonth1 = beginMonth + 1;
 
-        mBeginDate.setText(beginDay+"/"+beginMonth1+"/"+beginYear);
+        mBegin=beginYear+String.format("%02d",beginMonth+1) + String.format("%02d",beginDay);
+
+        mBeginDate.setText(beginDay + "/" + beginMonth1 + "/" + beginYear);
 
         mBeginDate.setOnClickListener(new View.OnClickListener() {
 
@@ -144,20 +167,24 @@ public class SearchActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        mBeginDate.setText(dayOfMonth+"/"+month+"/"+year);
+                        month++;
+                        mBeginDate.setText(dayOfMonth + "/" + month + "/" + year);
+                        mBegin =year + String.format("%02d",month) + String.format("%02d",dayOfMonth);
                     }
-                },beginYear,beginMonth,beginDay);
+                }, beginYear, beginMonth, beginDay);
                 datePickerDialog.show();
             }
         });
 
-       endDay=mCurrentDate.get(Calendar.DAY_OF_MONTH);
-       endMonth=mCurrentDate.get(Calendar.MONTH);
-       endYear=mCurrentDate.get(Calendar.YEAR);
-       int endMonth1=endMonth+1;
+        endDay = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+        endMonth = mCurrentDate.get(Calendar.MONTH);
+        endYear = mCurrentDate.get(Calendar.YEAR);
+
+        int endMonth1 = endMonth + 1;
+        mEnd=endYear+String.format("%02d",endMonth+1)+String.format("%02d",endDay);
 
 
-       mEndDate.setText(endDay+"/"+endMonth1+"/"+endYear);
+        mEndDate.setText(endDay + "/" + endMonth1 + "/" + endYear);
 
         mEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,9 +192,11 @@ public class SearchActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        mEndDate.setText(dayOfMonth+"/"+month+"/"+year);
+                        month++;
+                        mEndDate.setText(dayOfMonth + "/" + month + "/" + year);
+                        mEnd = year + String.format("%02d",month) + String.format("%02d",dayOfMonth);
                     }
-                },endYear,endMonth+1,endDay);
+                }, endYear, endMonth , endDay);
                 datePickerDialog.show();
             }
         });
@@ -180,62 +209,56 @@ public class SearchActivity extends AppCompatActivity {
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.category_checkbox_arts:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Arts");
 
-                    mCheckboxTab[0]=true;
-                }else
-                {
-                    mCheckboxTab[0]=false;
+                    mCheckboxTab[0] = true;
+                } else {
+                    mCheckboxTab[0] = false;
                 }
                 break;
             case R.id.category_checkbox_business:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Business");
-                    mCheckboxTab[1]=true;
-                }else
-                {
-                    mCheckboxTab[1]=false;
+                    mCheckboxTab[1] = true;
+                } else {
+                    mCheckboxTab[1] = false;
                 }
                 break;
             case R.id.category_checkbox_politics:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Politics");
-                    mCheckboxTab[2]=true;
-                }else
-                {
-                    mCheckboxTab[2]=false;
+                    mCheckboxTab[2] = true;
+                } else {
+                    mCheckboxTab[2] = false;
                 }
                 break;
             case R.id.category_checkbox_sports:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Sports");
-                    mCheckboxTab[3]=true;
-                }else
-                {
-                    mCheckboxTab[3]=false;
+                    mCheckboxTab[3] = true;
+                } else {
+                    mCheckboxTab[3] = false;
                 }
                 break;
             case R.id.category_checkbox_travel:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Travel");
-                    mCheckboxTab[4]=true;
-                }else
-                {
-                    mCheckboxTab[4]=false;
+                    mCheckboxTab[4] = true;
+                } else {
+                    mCheckboxTab[4] = false;
                 }
                 break;
             case R.id.category_checkbox_technology:
-                if (checked){
+                if (checked) {
                     Log.d(mTag, "Technology");
-                 mCheckboxTab[5]=true;
-        }else
-        {
-            mCheckboxTab[5]=false;
-        }
-        break;
+                    mCheckboxTab[5] = true;
+                } else {
+                    mCheckboxTab[5] = false;
+                }
+                break;
 
         }
     }
