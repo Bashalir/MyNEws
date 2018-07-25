@@ -92,15 +92,7 @@ public class NotificationActivity extends AppCompatActivity {
 
                     if (cmpt<1){category="";}
                     Log.e(mTag, category);
-
-
-
-
-
-
-
-
-
+                    
 
                 }
                 else
