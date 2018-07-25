@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
+import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

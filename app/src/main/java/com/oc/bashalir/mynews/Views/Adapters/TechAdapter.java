@@ -3,6 +3,7 @@ package com.oc.bashalir.mynews.Views.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
     private List<ArticleSearch.Response.Doc> mTechnology;
 
     public TechAdapter(List<ArticleSearch.Response.Doc> technology) {
+
         mTechnology=technology;
     }
 
@@ -32,6 +34,7 @@ public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull SearchHolder holder, int position) {
+
         holder.updateWithNews(mTechnology.get(position));
     }
 

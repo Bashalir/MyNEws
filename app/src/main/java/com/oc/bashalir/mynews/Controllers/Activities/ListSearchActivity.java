@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
@@ -127,6 +128,7 @@ public class ListSearchActivity extends AppCompatActivity {
             public void onComplete() {
                 Log.e(mTag, "On Complete !!");
                 textView.setVisibility(View.INVISIBLE);
+
             }
         });
     }
@@ -137,6 +139,10 @@ public class ListSearchActivity extends AppCompatActivity {
 
     private void updateUIWithList(ArticleSearch articleSearch) {
 
+        if (articleSearch.getResponse().getMeta().getHits()==0) {
+            Toast.makeText(getApplicationContext(), "No Articles", Toast.LENGTH_SHORT).show();
+            Log.e(mTag, "No Articles");
+        }
         mSearch.addAll(articleSearch.getResponse().getDocs());
         mAdapter.notifyDataSetChanged();
     }
