@@ -1,6 +1,14 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class NotificationActivity extends AppCompatActivity {
 
+    private static final String CHANNEL_ID = "NOTIFY";
     private final String mTag = getClass().getSimpleName();
 
     @BindView(R.id.search_bar_et)
@@ -46,9 +55,13 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
         //load the view
         ButterKnife.bind(this);
+
+
+       // this.configureNotificationChannel();
         //1 - Configuring Toolbar
         this.configureToolbar();
         this.configureNotification();
+
 
     }
 
@@ -64,27 +77,27 @@ public class NotificationActivity extends AppCompatActivity {
                     String category = "news_desk:(";
 
                     int cmpt=0;
-                    if (mCheckboxTab[0] == true) {
+                    if (mCheckboxTab[0]) {
                         category += "\"arts\"";
                         cmpt++;
                     }
-                    if (mCheckboxTab[1] == true) {
+                    if (mCheckboxTab[1]) {
                         category += "\"business\"";
                         cmpt++;
                     }
-                    if (mCheckboxTab[2] == true) {
+                    if (mCheckboxTab[2]) {
                         category += "\"politics\"";
                         cmpt++;
                     }
-                    if (mCheckboxTab[3] == true) {
+                    if (mCheckboxTab[3]) {
                         category += "\"sports\"";
                         cmpt++;
                     }
-                    if (mCheckboxTab[4] == true) {
+                    if (mCheckboxTab[4]) {
                         category += "\"travel\"";
                         cmpt++;
                     }
-                    if (mCheckboxTab[5] == true) {
+                    if (mCheckboxTab[5])  {
                         category += "\"technology\"";
                         cmpt++;
                     }
@@ -92,7 +105,8 @@ public class NotificationActivity extends AppCompatActivity {
 
                     if (cmpt<1){category="";}
                     Log.e(mTag, category);
-                    
+
+                    newNotification();
 
                 }
                 else
@@ -101,6 +115,8 @@ public class NotificationActivity extends AppCompatActivity {
                     Log.d(mTag, "OFF");
             }
         }
+
+
         });
     }
 
@@ -118,6 +134,61 @@ public class NotificationActivity extends AppCompatActivity {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void newNotification(){
+        final NotificationManager mNotification = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        final Intent launchNotifiactionIntent = new Intent(this, NotificationActivity.class);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                1, launchNotifiactionIntent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Notification.Builder builder = new Notification.Builder(this)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.ic_menu)
+                .setContentTitle("Titre")
+                .setContentText("Texte")
+                .setContentIntent(pendingIntent);
+
+        mNotification.notify(1, builder.build());
+    }
+
+
+    private void createNotification(){
+    // Create an explicit intent for an Activity in your app
+    Intent intent = new Intent(this, NotificationActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_menu)
+            .setContentTitle("My notification")
+            .setContentText("Hello World!")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            // Set the intent that will fire when the user taps the notification
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(1, mBuilder.build());
+}
+
+
+    private void configureNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name ="channel_name";
+            String description = "channel_description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 
