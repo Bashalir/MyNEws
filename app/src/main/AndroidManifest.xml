@@ -55,6 +55,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Controllers.Activities.SearchActivity" />
         </activity>
+        <receiver android:name=".Controllers.Utils.AlarmReceiver"
+            android:exported="true"/>
     </application>
 
 </manifest>

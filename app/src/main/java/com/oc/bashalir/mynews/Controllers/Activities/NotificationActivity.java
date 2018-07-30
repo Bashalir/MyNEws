@@ -1,9 +1,11 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
+import com.oc.bashalir.mynews.Controllers.Utils.AlarmReceiver;
 import com.oc.bashalir.mynews.R;
 
 import butterknife.BindView;
@@ -28,6 +32,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "NOTIFY";
     private final String mTag = getClass().getSimpleName();
+    private PendingIntent mPendingIntent;
 
     @BindView(R.id.search_bar_et)
     EditText mSearchBar;
@@ -59,10 +64,26 @@ public class NotificationActivity extends AppCompatActivity {
 
        // this.configureNotificationChannel();
         //1 - Configuring Toolbar
+        this.configureAlarmManager();
         this.configureToolbar();
         this.configureNotification();
 
 
+    }
+
+    private void  configureAlarmManager(){
+        Intent alarmIntent = new Intent(NotificationActivity.this, AlarmReceiver.class);
+        mPendingIntent=PendingIntent.getBroadcast(NotificationActivity.this,0,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+    private void startAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+       manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,0,10000, mPendingIntent);
+        Toast.makeText(this,"alarm start",Toast.LENGTH_SHORT).show();
+    }
+    private void stopAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(mPendingIntent);
+        Toast.makeText(this,"alarm Stop",Toast.LENGTH_SHORT).show();
     }
 
     private void configureNotification() {
@@ -106,11 +127,12 @@ public class NotificationActivity extends AppCompatActivity {
                     if (cmpt<1){category="";}
                     Log.e(mTag, category);
 
-                    newNotification();
+                    startAlarm();
 
                 }
                 else
                 {
+                    stopAlarm();
                     //Do something when Switch is off/unchecked
                     Log.d(mTag, "OFF");
             }
