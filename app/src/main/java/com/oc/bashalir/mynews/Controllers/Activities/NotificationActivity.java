@@ -7,6 +7,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -33,6 +35,7 @@ public class NotificationActivity extends AppCompatActivity {
     private static final String CHANNEL_ID = "NOTIFY";
     private final String mTag = getClass().getSimpleName();
     private PendingIntent mPendingIntent;
+    private SharedPreferences mSharedPref;
 
     @BindView(R.id.search_bar_et)
     EditText mSearchBar;
@@ -51,6 +54,15 @@ public class NotificationActivity extends AppCompatActivity {
     @BindView(R.id.activity_notification_sw)
     Switch mSwitch;
 
+    final String SEARCH = "SEARCH";
+    final String ARTS ="ARTS";
+    final String BUSINESS ="BUSINESS";
+    final String POLITICS ="POLITICS";
+    final String SPORTS ="SPORTS";
+    final String TRAVEL ="TRAVEL";
+    final String TECHNOLOGY ="TECHNOLOGY";
+    final String SWITCH ="SWITCH";
+
     boolean[] mCheckboxTab = {false, false, false, false, false, false};
 
 
@@ -62,12 +74,22 @@ public class NotificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
+        mSharedPref = getApplication().getSharedPreferences("notification", Context.MODE_PRIVATE);
+
+        mSearchBar.setText(mSharedPref.getString(SEARCH,""));
+        mArts.setChecked(mSharedPref.getBoolean(ARTS,false));
+        mBusiness.setChecked(mSharedPref.getBoolean(BUSINESS,false));
+        mPolitics.setChecked(mSharedPref.getBoolean(POLITICS,false));
+        mSports.setChecked(mSharedPref.getBoolean(SPORTS,false));
+        mTravel.setChecked(mSharedPref.getBoolean(TRAVEL,false));
+        mTechnology.setChecked(mSharedPref.getBoolean(TECHNOLOGY,false));
+        mSwitch.setChecked(mSharedPref.getBoolean(SWITCH,false));
+
        // this.configureNotificationChannel();
         //1 - Configuring Toolbar
         this.configureAlarmManager();
         this.configureToolbar();
         this.configureNotification();
-
 
     }
 
@@ -90,53 +112,78 @@ public class NotificationActivity extends AppCompatActivity {
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    //Do something when Switch button is on/checked
-                    Log.d(mTag, "ON");
 
-                    String category = "news_desk:(";
+                String[] tabsCategory = getResources().getStringArray(R.array.category);
 
-                    int cmpt=0;
-                    if (mCheckboxTab[0]) {
-                        category += "\"arts\"";
-                        cmpt++;
-                    }
-                    if (mCheckboxTab[1]) {
-                        category += "\"business\"";
-                        cmpt++;
-                    }
-                    if (mCheckboxTab[2]) {
-                        category += "\"politics\"";
-                        cmpt++;
-                    }
-                    if (mCheckboxTab[3]) {
-                        category += "\"sports\"";
-                        cmpt++;
-                    }
-                    if (mCheckboxTab[4]) {
-                        category += "\"travel\"";
-                        cmpt++;
-                    }
-                    if (mCheckboxTab[5])  {
-                        category += "\"technology\"";
-                        cmpt++;
-                    }
-                    category +=")";
+                SharedPreferences.Editor editor =mSharedPref.edit();
 
-                    if (cmpt<1){category="";}
-                    Log.e(mTag, category);
+                Boolean jump=false;
 
-                    startAlarm();
-
+                if (mSharedPref.getBoolean(SWITCH,false)) {
+                    jump=true;
                 }
-                else
-                {
-                    stopAlarm();
-                    //Do something when Switch is off/unchecked
-                    Log.d(mTag, "OFF");
-            }
-        }
+
+                    if (isChecked) {
+                        if (!jump) {
+                            //Do something when Switch button is on/checked
+                            Log.d(mTag, "ON");
+
+                            String category = "news_desk:(";
+
+                            editor.putString(SEARCH, String.valueOf(mSearchBar.getText()));
+                            editor.putBoolean(SWITCH, true);
+
+                            int cmpt = 0;
+                            if (mArts.isChecked()) {
+                                category += tabsCategory[0];
+                                editor.putBoolean(ARTS, true);
+                                cmpt++;
+                            }
+                            if (mBusiness.isChecked()) {
+                                category += tabsCategory[1];
+                                editor.putBoolean(BUSINESS, true);
+                                cmpt++;
+                            }
+                            if (mPolitics.isChecked()) {
+                                category += tabsCategory[2];
+                                editor.putBoolean(POLITICS, true);
+                                cmpt++;
+                            }
+                            if (mSports.isChecked()) {
+                                category += tabsCategory[3];
+                                editor.putBoolean(SPORTS, true);
+                                cmpt++;
+                            }
+                            if (mTravel.isChecked()) {
+                                category += tabsCategory[4];
+                                editor.putBoolean(TRAVEL, true);
+                                cmpt++;
+                            }
+                            if (mTechnology.isChecked()) {
+                                category += tabsCategory[5];
+                                editor.putBoolean(TECHNOLOGY, true);
+                                cmpt++;
+                            }
+                            category += ")";
+
+                            if (cmpt < 1) {
+                                category = "";
+                            }
+                            editor.commit();
+                            Log.e(mTag, category);
+
+                            startAlarm();
+                        }
+                    } else {
+                        stopAlarm();
+                        editor.putBoolean(SWITCH, false);
+                        editor.clear();
+                        editor.commit();
+                        //Do something when Switch is off/unchecked
+                        Log.d(mTag, "OFF");
+                    }
+                }
+
 
 
         });

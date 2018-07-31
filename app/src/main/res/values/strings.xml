@@ -5,6 +5,15 @@
     <string name="technology">Technology</string>
 
 
+    <string-array name="category">
+        <item>"\"arts"\"</item>
+        <item>"\"business"\"</item>
+        <item>"\"politics"\"</item>
+        <item>"\"sports"\"</item>
+        <item>"\"travel"\"</item>
+        <item>"\"technology\""</item>
+    </string-array>
+
     <string-array name="tabs_array">
         <item>@string/stories</item>
         <item>@string/popular</item>
