@@ -76,7 +76,8 @@ public class NotificationActivity extends AppCompatActivity {
 
         mSharedPref = getApplication().getSharedPreferences("notification", Context.MODE_PRIVATE);
 
-        mSearchBar.setText(mSharedPref.getString(SEARCH,""));
+        String searchQuery=mSharedPref.getString(SEARCH,"");
+        mSearchBar.setText(searchQuery);
         mArts.setChecked(mSharedPref.getBoolean(ARTS,false));
         mBusiness.setChecked(mSharedPref.getBoolean(BUSINESS,false));
         mPolitics.setChecked(mSharedPref.getBoolean(POLITICS,false));
@@ -85,6 +86,9 @@ public class NotificationActivity extends AppCompatActivity {
         mTechnology.setChecked(mSharedPref.getBoolean(TECHNOLOGY,false));
         mSwitch.setChecked(mSharedPref.getBoolean(SWITCH,false));
 
+     if (searchQuery!="") {
+         configureEnable(false);
+     }
        // this.configureNotificationChannel();
         //1 - Configuring Toolbar
         this.configureAlarmManager();
@@ -173,12 +177,17 @@ public class NotificationActivity extends AppCompatActivity {
                             Log.e(mTag, category);
 
                             startAlarm();
+
+                            configureEnable(false);
+
                         }
                     } else {
                         stopAlarm();
                         editor.putBoolean(SWITCH, false);
                         editor.clear();
                         editor.commit();
+
+                        configureEnable(true);
                         //Do something when Switch is off/unchecked
                         Log.d(mTag, "OFF");
                     }
@@ -187,6 +196,16 @@ public class NotificationActivity extends AppCompatActivity {
 
 
         });
+    }
+
+    private void configureEnable(Boolean enable){
+        mSearchBar.setEnabled(enable);
+        mTechnology.setEnabled(enable);
+        mTravel.setEnabled(enable);
+        mSports.setEnabled(enable);
+        mPolitics.setEnabled(enable);
+        mBusiness.setEnabled(enable);
+        mArts.setEnabled(enable);
     }
 
     private void configureToolbar() {
