@@ -1,6 +1,8 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +42,9 @@ public class ListSearchActivity extends AppCompatActivity {
     private String mCategory;
     private String mBegin;
     private String mEnd;
-
+    private Boolean mNotif;
+    final String ID_SEARCH = "ID_SEARCH";
+    final String NOTIFY = "NOTIFY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +56,14 @@ public class ListSearchActivity extends AppCompatActivity {
         mCategory=intent.getStringExtra("category");
         mBegin=intent.getStringExtra("begin");
         mEnd=intent.getStringExtra("end");
+        mNotif=intent.getBooleanExtra("notif",false);
+
 
 
         //load the view
         ButterKnife.bind(this);
 
         Log.e(mTag, mQuery+mCategory+mBegin+mEnd);
-
         this.configureToolbar();
         this.configureRecyclerView();
         this.requestSearchList();
@@ -110,6 +115,8 @@ public class ListSearchActivity extends AppCompatActivity {
 
     private void requestSearchList() {
         this.updateUIWhenStartingRequest();
+
+
         mDisp = NYTStreams.streamFetchSearch(mQuery,mCategory,mBegin,mEnd).subscribeWith(new DisposableObserver<ArticleSearch>() {
 
 
@@ -129,6 +136,8 @@ public class ListSearchActivity extends AppCompatActivity {
                 Log.e(mTag, "On Complete !!");
                 textView.setVisibility(View.INVISIBLE);
 
+
+
             }
         });
     }
@@ -139,11 +148,23 @@ public class ListSearchActivity extends AppCompatActivity {
 
     private void updateUIWithList(ArticleSearch articleSearch) {
 
+
+        mSearch.addAll(articleSearch.getResponse().getDocs());
         if (articleSearch.getResponse().getMeta().getHits()==0) {
             Toast.makeText(getApplicationContext(), "No Articles", Toast.LENGTH_SHORT).show();
             Log.e(mTag, "No Articles");
+        }else
+        {
+            if (mNotif) {
+                String idFirstSearch = mSearch.get(0).getId();
+                Log.e(mTag, idFirstSearch);
+                SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor =sharedPref.edit();
+                editor.putString(ID_SEARCH,idFirstSearch);
+                editor.commit();
+            }
         }
-        mSearch.addAll(articleSearch.getResponse().getDocs());
+
         mAdapter.notifyDataSetChanged();
     }
 }

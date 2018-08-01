@@ -8,6 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+
 public class Utilities {
 
     public String DateShortFormatter(String dateSend,String pattern){
@@ -20,5 +24,18 @@ public class Utilities {
 
     }
 
+    public okhttp3.OkHttpClient.Builder debugRetrofit(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        // add your other interceptors …
+
+        // add logging as last interceptor
+        httpClient.addInterceptor(logging);
+
+        return httpClient;
+    };
 
 }

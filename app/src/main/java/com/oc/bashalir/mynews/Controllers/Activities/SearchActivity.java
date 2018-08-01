@@ -154,16 +154,17 @@ public class SearchActivity extends AppCompatActivity {
         beginMonth = mFirstDate.get(Calendar.MONTH);
         beginYear = mFirstDate.get(Calendar.YEAR);
 
-        int beginMonth1 = beginMonth + 1;
-
-        mBegin=beginYear+String.format("%02d",beginMonth+1) + String.format("%02d",beginDay);
-
-        mBeginDate.setText(beginDay + "/" + beginMonth1 + "/" + beginYear);
+        mBegin=null;
+        mEnd=null;
 
         mBeginDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                int beginMonth1 = beginMonth + 1;
+                mBegin=beginYear+String.format("%02d",beginMonth+1) + String.format("%02d",beginDay);
+
+                mBeginDate.setText(beginDay + "/" + beginMonth1 + "/" + beginYear);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -180,15 +181,16 @@ public class SearchActivity extends AppCompatActivity {
         endMonth = mCurrentDate.get(Calendar.MONTH);
         endYear = mCurrentDate.get(Calendar.YEAR);
 
-        int endMonth1 = endMonth + 1;
-        mEnd=endYear+String.format("%02d",endMonth+1)+String.format("%02d",endDay);
 
-
-        mEndDate.setText(endDay + "/" + endMonth1 + "/" + endYear);
 
         mEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int endMonth1 = endMonth + 1;
+                mEnd=endYear+String.format("%02d",endMonth+1)+String.format("%02d",endDay);
+
+
+                mEndDate.setText(endDay + "/" + endMonth1 + "/" + endYear);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

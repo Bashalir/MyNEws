@@ -6,6 +6,8 @@ import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -49,7 +51,15 @@ public class NYTStreams {
 
     public static Observable<ArticleSearch> streamFetchSearch(String query, String category, String begin, String end){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        return nytService.getSearch(query, category, begin, end)
+        Map<String,String> data=new HashMap<>();
+        data.put("q",query);
+        data.put("fq",category);
+       if (begin!=null){
+        data.put("begin_date",begin);}
+        if (end!=null){
+        data.put("end_date",end);}
+
+        return nytService.getSearch(data)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);

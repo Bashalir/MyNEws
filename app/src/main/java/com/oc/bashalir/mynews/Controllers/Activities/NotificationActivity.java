@@ -62,6 +62,7 @@ public class NotificationActivity extends AppCompatActivity {
     final String TRAVEL ="TRAVEL";
     final String TECHNOLOGY ="TECHNOLOGY";
     final String SWITCH ="SWITCH";
+    final String NOTIFY = "NOTIFY";
 
     boolean[] mCheckboxTab = {false, false, false, false, false, false};
 
@@ -74,7 +75,7 @@ public class NotificationActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        mSharedPref = getApplication().getSharedPreferences("notification", Context.MODE_PRIVATE);
+        mSharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
 
         String searchQuery=mSharedPref.getString(SEARCH,"");
         mSearchBar.setText(searchQuery);
@@ -175,10 +176,10 @@ public class NotificationActivity extends AppCompatActivity {
                             }
                             editor.commit();
                             Log.e(mTag, category);
-
+                            configureEnableUI(false);
                             startAlarm();
 
-                            configureEnableUI(false);
+                            startSearch(category);
 
                         }
                     } else {
@@ -197,6 +198,16 @@ public class NotificationActivity extends AppCompatActivity {
 
         });
     }
+
+    private void startSearch(String category){
+        Intent intent = new Intent(NotificationActivity.this, ListSearchActivity.class);
+        intent.putExtra("category", category);
+        intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
+        intent.putExtra("notif", true);
+
+        NotificationActivity.this.startActivity(intent);
+    }
+
 
     private void configureEnableUI(Boolean enable){
         mSearchBar.setEnabled(enable);
