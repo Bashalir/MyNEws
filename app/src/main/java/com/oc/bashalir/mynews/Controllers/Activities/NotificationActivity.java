@@ -87,7 +87,7 @@ public class NotificationActivity extends AppCompatActivity {
         mSwitch.setChecked(mSharedPref.getBoolean(SWITCH,false));
 
      if (searchQuery!="") {
-         configureEnable(false);
+         this.configureEnableUI(false);
      }
        // this.configureNotificationChannel();
         //1 - Configuring Toolbar
@@ -178,7 +178,7 @@ public class NotificationActivity extends AppCompatActivity {
 
                             startAlarm();
 
-                            configureEnable(false);
+                            configureEnableUI(false);
 
                         }
                     } else {
@@ -187,7 +187,7 @@ public class NotificationActivity extends AppCompatActivity {
                         editor.clear();
                         editor.commit();
 
-                        configureEnable(true);
+                        configureEnableUI(true);
                         //Do something when Switch is off/unchecked
                         Log.d(mTag, "OFF");
                     }
@@ -198,7 +198,7 @@ public class NotificationActivity extends AppCompatActivity {
         });
     }
 
-    private void configureEnable(Boolean enable){
+    private void configureEnableUI(Boolean enable){
         mSearchBar.setEnabled(enable);
         mTechnology.setEnabled(enable);
         mTravel.setEnabled(enable);
