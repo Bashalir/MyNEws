@@ -26,10 +26,11 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class AlarmReceiver extends BroadcastReceiver{
 
     private Disposable mDisp;
-    private Boolean mGoSearch;
+    private Boolean mGoSearch=true;
     private String mIdSearch;
     private SharedPreferences mSharedPref;
-
+    private String mQuery;
+    private String mCategory;
     final String NOTIFY = "NOTIFY";
     final String SEARCH = "SEARCH";
     final String CATEGORY = "CATEGORY";
@@ -43,23 +44,27 @@ public class AlarmReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        mSharedPref = context.getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
+        mQuery=mSharedPref.getString(SEARCH,"");
+        mCategory=mSharedPref.getString(CATEGORY,"");
+        mIdSearch=mSharedPref.getString(ID_SEARCH,"");
+
         Toast.makeText(context,"coucou", Toast.LENGTH_SHORT).show();
         this.requestSearchNotification(context);
-        if(mGoSearch==true){
+        if(mGoSearch){
             configureNotificationChannel(context);
             newNotification(context);}
     }
 
     private  void requestSearchNotification(Context context) {
 
-        mSharedPref = context.getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
-        String query=mSharedPref.getString(SEARCH,"");
-        String category=mSharedPref.getString(CATEGORY,"");
-         mIdSearch=mSharedPref.getString(ID_SEARCH,"");
-        String begin=mSharedPref.getString(DATE_SEARCH,"");
+
+        //String begin=mSharedPref.getString(DATE_SEARCH,"");
+        String begin=null;
         String end=null;
 
-        mDisp = NYTStreams.streamFetchSearch(query,category,begin,end).subscribeWith(new DisposableObserver<ArticleSearch>() {
+        mDisp = NYTStreams.streamFetchSearch(mQuery,mCategory,begin,end).subscribeWith(new DisposableObserver<ArticleSearch>() {
 
 
             @Override
@@ -96,6 +101,11 @@ public class AlarmReceiver extends BroadcastReceiver{
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
          Intent launchNotificationIntent = new Intent(context, ListSearchActivity.class);
+        launchNotificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        launchNotificationIntent.putExtra("category", mCategory);
+        launchNotificationIntent.putExtra("query", mQuery);
+        launchNotificationIntent.putExtra("notif", true);
 
          PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 1, launchNotificationIntent,
