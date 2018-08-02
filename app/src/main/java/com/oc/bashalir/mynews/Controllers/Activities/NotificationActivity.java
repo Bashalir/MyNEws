@@ -63,6 +63,7 @@ public class NotificationActivity extends AppCompatActivity {
     final String TECHNOLOGY ="TECHNOLOGY";
     final String SWITCH ="SWITCH";
     final String NOTIFY = "NOTIFY";
+    final String CATEGORY = "CATEGORY";
 
     boolean[] mCheckboxTab = {false, false, false, false, false, false};
 
@@ -174,9 +175,12 @@ public class NotificationActivity extends AppCompatActivity {
                             if (cmpt < 1) {
                                 category = "";
                             }
+
+                            editor.putString(CATEGORY,category);
                             editor.commit();
                             Log.e(mTag, category);
                             configureEnableUI(false);
+
                             startAlarm();
 
                             startSearch(category);
@@ -235,23 +239,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-    private void newNotification(){
-        final NotificationManager mNotification = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        final Intent launchNotifiactionIntent = new Intent(this, NotificationActivity.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                1, launchNotifiactionIntent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        Notification.Builder builder = new Notification.Builder(this)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_menu)
-                .setContentTitle("Titre")
-                .setContentText("Texte")
-                .setContentIntent(pendingIntent);
-
-        mNotification.notify(1, builder.build());
-    }
 
 
     private void createNotification(){

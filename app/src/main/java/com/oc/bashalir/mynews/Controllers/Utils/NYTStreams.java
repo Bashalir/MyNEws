@@ -54,7 +54,7 @@ public class NYTStreams {
         Map<String,String> data=new HashMap<>();
         data.put("q",query);
         data.put("fq",category);
-       if (begin!=null){
+        if (begin!=null){
         data.put("begin_date",begin);}
         if (end!=null){
         data.put("end_date",end);}

@@ -2,6 +2,8 @@ package com.oc.bashalir.mynews.Controllers.Utils;
 
 import android.util.Log;
 
+import com.oc.bashalir.mynews.Models.ArticleSearch;
+
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -24,6 +26,16 @@ public class Utilities {
 
     }
 
+    public String DateShortFormatterSearch(ArticleSearch.Response.Doc articleSearch ){
+        String articleDate="";
+        if (articleSearch.getPubDate().contains("Z")){
+            Log.e("TAG","KOUKOU" );
+            articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ss'Z'");}
+        else{
+            articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");}
+
+            return articleDate;
+    }
     public okhttp3.OkHttpClient.Builder debugRetrofit(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level

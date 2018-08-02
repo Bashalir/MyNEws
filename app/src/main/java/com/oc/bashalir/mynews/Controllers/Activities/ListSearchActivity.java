@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
+import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
@@ -44,6 +45,7 @@ public class ListSearchActivity extends AppCompatActivity {
     private String mEnd;
     private Boolean mNotif;
     final String ID_SEARCH = "ID_SEARCH";
+    final String DATE_SEARCH = "DATE_SEARCH";
     final String NOTIFY = "NOTIFY";
 
     @Override
@@ -157,10 +159,13 @@ public class ListSearchActivity extends AppCompatActivity {
         {
             if (mNotif) {
                 String idFirstSearch = mSearch.get(0).getId();
+                String dateFistSearch = new Utilities().DateShortFormatterSearch(articleSearch.getResponse().getDocs().get(0));
                 Log.e(mTag, idFirstSearch);
                 SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor =sharedPref.edit();
                 editor.putString(ID_SEARCH,idFirstSearch);
+                editor.putString(DATE_SEARCH,dateFistSearch);
+
                 editor.commit();
             }
         }
