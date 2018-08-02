@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -138,10 +139,35 @@ public class ListSearchActivity extends AppCompatActivity {
                 Log.e(mTag, "On Complete !!");
                 textView.setVisibility(View.INVISIBLE);
 
+                if (mSearch.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "No Articles", Toast.LENGTH_SHORT).show();
+                    Log.e(mTag, "No Articles");
+                    noArticlesBack();
 
+
+                }else
+                {
+                    if (mNotif) {
+                        String idFirstSearch = mSearch.get(0).getId();
+                        String dateFistSearch = new Utilities().DateShortFormatterSearch(mSearch.get(0).getPubDate());
+                        Log.e(mTag, idFirstSearch);
+                        SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor =sharedPref.edit();
+                        editor.putString(ID_SEARCH,idFirstSearch);
+                        editor.putString(DATE_SEARCH,dateFistSearch);
+
+                        editor.commit();
+                    }
+                }
 
             }
         });
+    }
+
+    private void noArticlesBack() {
+        Intent intent = NavUtils.getParentActivityIntent(this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        NavUtils.navigateUpTo(this, intent);
     }
 
     private void updateUIWhenStartingRequest() {
@@ -152,23 +178,7 @@ public class ListSearchActivity extends AppCompatActivity {
 
 
         mSearch.addAll(articleSearch.getResponse().getDocs());
-        if (articleSearch.getResponse().getMeta().getHits()==0) {
-            Toast.makeText(getApplicationContext(), "No Articles", Toast.LENGTH_SHORT).show();
-            Log.e(mTag, "No Articles");
-        }else
-        {
-            if (mNotif) {
-                String idFirstSearch = mSearch.get(0).getId();
-                String dateFistSearch = new Utilities().DateShortFormatterSearch(articleSearch.getResponse().getDocs().get(0));
-                Log.e(mTag, idFirstSearch);
-                SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor =sharedPref.edit();
-                editor.putString(ID_SEARCH,idFirstSearch);
-                editor.putString(DATE_SEARCH,dateFistSearch);
 
-                editor.commit();
-            }
-        }
 
         mAdapter.notifyDataSetChanged();
     }

@@ -86,6 +86,8 @@ public class AlarmReceiver extends BroadcastReceiver{
             @Override
             public void onComplete() {
                 Log.e(mTag, "On Complete !!");
+
+
                 if(mGoSearch){
                     Log.e(mTag, "START NOTIFICATION");
                     configureNotificationChannel(mContext);

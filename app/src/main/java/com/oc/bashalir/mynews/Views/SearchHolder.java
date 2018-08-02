@@ -34,7 +34,7 @@ public class SearchHolder extends RecyclerView.ViewHolder{
     public void updateWithNews(ArticleSearch.Response.Doc articleSearch) {
 
 
-        String articleDate=new Utilities().DateShortFormatterSearch(articleSearch);
+        String articleDate=new Utilities().DateShortFormatterSearch(articleSearch.getPubDate());
         Log.d("TAG",articleSearch.getPubDate() );
 
 

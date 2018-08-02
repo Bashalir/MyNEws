@@ -26,13 +26,13 @@ public class Utilities {
 
     }
 
-    public String DateShortFormatterSearch(ArticleSearch.Response.Doc articleSearch ){
+    public String DateShortFormatterSearch(String dateString){
         String articleDate="";
-        if (articleSearch.getPubDate().contains("Z")){
+        if (dateString.contains("Z")){
             Log.e("TAG","KOUKOU" );
-            articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ss'Z'");}
+            articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ss'Z'");}
         else{
-            articleDate = new Utilities().DateShortFormatter(articleSearch.getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");}
+            articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ssZZZZZ");}
 
             return articleDate;
     }
