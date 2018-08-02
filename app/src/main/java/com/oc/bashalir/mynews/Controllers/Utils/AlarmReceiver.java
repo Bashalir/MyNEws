@@ -31,6 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver{
     private SharedPreferences mSharedPref;
     private String mQuery;
     private String mCategory;
+    private Context mContext;
     final String NOTIFY = "NOTIFY";
     final String SEARCH = "SEARCH";
     final String CATEGORY = "CATEGORY";
@@ -52,9 +53,8 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         Toast.makeText(context,"coucou", Toast.LENGTH_SHORT).show();
         this.requestSearchNotification(context);
-        if(mGoSearch){
-            configureNotificationChannel(context);
-            newNotification(context);}
+
+
     }
 
     private  void requestSearchNotification(Context context) {
@@ -71,6 +71,11 @@ public class AlarmReceiver extends BroadcastReceiver{
             public void onNext(ArticleSearch articleSearch) {
                 Log.d(mTag, "NEXT");
                 updateUIWithList(articleSearch);
+                String idFirst=articleSearch.getResponse().getDocs().get(0).getId();
+
+                if (idFirst.equals(mIdSearch)) {mGoSearch=false;  Log.e(mTag, "FALSE");} else {mGoSearch=true; Log.e(mTag, "TRUE");}
+
+                Log.e(mTag, mGoSearch+" "+idFirst+' '+mIdSearch);
               }
 
             @Override
@@ -81,7 +86,10 @@ public class AlarmReceiver extends BroadcastReceiver{
             @Override
             public void onComplete() {
                 Log.e(mTag, "On Complete !!");
-
+                if(mGoSearch){
+                    Log.e(mTag, "START NOTIFICATION");
+                    configureNotificationChannel(mContext);
+                    newNotification(mContext);}
             }
         });
 
@@ -90,11 +98,9 @@ public class AlarmReceiver extends BroadcastReceiver{
     private void updateUIWithList(ArticleSearch articleSearch) {
 
 
-        String idFirst=articleSearch.getResponse().getDocs().get(0).getId();
-        if (idFirst==mIdSearch) {mGoSearch=false;} else {mGoSearch=true;}
-
 
     }
+
     private void newNotification(Context context){
 
         NotificationManager notificationManager =
@@ -116,6 +122,7 @@ public class AlarmReceiver extends BroadcastReceiver{
                 .setSmallIcon(R.drawable.ic_menu)
                 .setContentTitle("Titre")
                 .setContentText("Texte")
+                .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
         notificationManager.notify(1, builder.build());
