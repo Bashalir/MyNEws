@@ -3,24 +3,24 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/search"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_search_black_24dp"
             android:title="Search" />
         <item
             android:id="@+id/top_stories"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_star_black_24dp"
             android:title="Top Stories" />
         <item
             android:id="@+id/most_popular"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_class_black_24dp"
             android:title="Most Popular" />
         <item
             android:id="@+id/technology"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_memory_black_24dp"
             android:title="Technology" />
 
         <item
             android:id="@+id/notification"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_event_black_24dp"
             android:title="Notification" />
     </group>
 </menu>
