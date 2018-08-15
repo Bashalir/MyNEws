@@ -89,9 +89,22 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.most_popular:
                                 Log.d(mTag, "Popular");
-                                mPager.setCurrentItem(2);
+                                mPager.setCurrentItem(1);
 
                                 break;
+                            case R.id.technology:
+                                Log.d(mTag, "Popular");
+                                mPager.setCurrentItem(2);
+                                break;
+                            case R.id.search:
+                                Log.d(mTag, "Search");
+                                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                                break;
+                            case R.id.notification:
+                                Log.d(mTag, "Search");
+                                startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+                                break;
+
                         }
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
@@ -99,11 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
-
-
     }
-
-
 
 
     /**

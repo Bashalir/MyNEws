@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/search"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Search" />
+        <item
             android:id="@+id/top_stories"
             android:icon="@mipmap/ic_launcher"
             android:title="Top Stories" />
@@ -13,13 +17,10 @@
             android:id="@+id/technology"
             android:icon="@mipmap/ic_launcher"
             android:title="Technology" />
+
         <item
-            android:id="@+id/search"
+            android:id="@+id/notification"
             android:icon="@mipmap/ic_launcher"
-            android:title="Search" />
-        <item
-            android:id="@+id/params"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Parametrre" />
+            android:title="Notification" />
     </group>
 </menu>
