@@ -7,12 +7,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oc.bashalir.mynews.R;
 
@@ -101,7 +103,7 @@ public class SearchActivity extends AppCompatActivity {
                 String category = "news_desk:(";
                 String[] tabsCategory = getResources().getStringArray(R.array.category);
 
-                cmpt=0;
+                cmpt = 0;
                 if (mCheckboxTab[0]) {
                     category += tabsCategory[0];
                     cmpt++;
@@ -126,19 +128,37 @@ public class SearchActivity extends AppCompatActivity {
                     category += tabsCategory[5];
                     cmpt++;
                 }
-                category +=")";
+                category += ")";
 
-                if (cmpt<1){category="";}
-                Log.e(mTag, category+" *** "+mBegin+" *** "+mEnd+" **** ");
+                int lengthSearch=mSearchBar.getText().toString().length();
 
-                Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
-                intent.putExtra("category", category);
-                intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
-                intent.putExtra("begin", mBegin);
-                intent.putExtra("end", mEnd);
+                if (cmpt >= 1 && lengthSearch > 0 ) {
+                    Log.e(mTag, category + " *** " + mBegin + " *** " + mEnd + " **** ");
+
+                    Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
+                    intent.putExtra("category", category);
+                    intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
+                    intent.putExtra("begin", mBegin);
+                    intent.putExtra("end", mEnd);
 
 
-                SearchActivity.this.startActivity(intent);
+                    SearchActivity.this.startActivity(intent);
+                }
+                else {
+
+                    String alertText="Choose at least one category";
+                    if (lengthSearch==0) {
+                        alertText="Enter a text in the search bar";
+                    }
+
+                    mSearchBar.isFocused();
+                    Toast toast = Toast.makeText(getApplicationContext(),alertText,Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    toast.show();
+
+
+                }
+
 
             }
         });

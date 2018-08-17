@@ -1,6 +1,8 @@
 package com.oc.bashalir.mynews.Controllers.Utils;
 
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 
@@ -49,5 +51,6 @@ public class Utilities {
 
         return httpClient;
     };
+
 
 }
