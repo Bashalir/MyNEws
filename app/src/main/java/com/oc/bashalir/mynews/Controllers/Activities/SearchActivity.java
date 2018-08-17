@@ -99,30 +99,31 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String category = "news_desk:(";
+                String[] tabsCategory = getResources().getStringArray(R.array.category);
 
                 cmpt=0;
-                if (mCheckboxTab[0] == true) {
-                    category += "\"arts\"";
+                if (mCheckboxTab[0]) {
+                    category += tabsCategory[0];
                     cmpt++;
                 }
-                if (mCheckboxTab[1] == true) {
-                    category += "\"business\"";
+                if (mCheckboxTab[1]) {
+                    category += tabsCategory[1];
                     cmpt++;
                 }
-                if (mCheckboxTab[2] == true) {
-                    category += "\"politics\"";
+                if (mCheckboxTab[2]) {
+                    category += tabsCategory[2];
                     cmpt++;
                 }
-                if (mCheckboxTab[3] == true) {
-                    category += "\"sports\"";
+                if (mCheckboxTab[3]) {
+                    category += tabsCategory[3];
                     cmpt++;
                 }
-                if (mCheckboxTab[4] == true) {
-                    category += "\"travel\"";
+                if (mCheckboxTab[4]) {
+                    category += tabsCategory[4];
                     cmpt++;
                 }
-                if (mCheckboxTab[5] == true) {
-                    category += "\"technology\"";
+                if (mCheckboxTab[5]) {
+                    category += tabsCategory[5];
                     cmpt++;
                 }
                 category +=")";
