@@ -50,10 +50,10 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.activity_search_end_et)
     TextView mEndDate;
 
-    String mBegin="", mEnd="";
+    String mBegin = "", mEnd = "";
     int beginDay, beginMonth, beginYear;
     int endDay, endMonth, endYear;
-    int cmpt=0;
+    int cmpt = 0;
 
     boolean[] mCheckboxTab = {false, false, false, false, false, false};
 
@@ -104,35 +104,35 @@ public class SearchActivity extends AppCompatActivity {
                 String[] tabsCategory = getResources().getStringArray(R.array.category);
 
                 cmpt = 0;
-                if (mCheckboxTab[0]) {
+                if (mArts.isChecked()) {
                     category += tabsCategory[0];
                     cmpt++;
                 }
-                if (mCheckboxTab[1]) {
+                if (mBusiness.isChecked()) {
                     category += tabsCategory[1];
                     cmpt++;
                 }
-                if (mCheckboxTab[2]) {
+                if (mPolitics.isChecked()) {
                     category += tabsCategory[2];
                     cmpt++;
                 }
-                if (mCheckboxTab[3]) {
+                if (mSports.isChecked()) {
                     category += tabsCategory[3];
                     cmpt++;
                 }
-                if (mCheckboxTab[4]) {
+                if (mTravel.isChecked()) {
                     category += tabsCategory[4];
                     cmpt++;
                 }
-                if (mCheckboxTab[5]) {
+                if (mTechnology.isChecked()) {
                     category += tabsCategory[5];
                     cmpt++;
                 }
                 category += ")";
 
-                int lengthSearch=mSearchBar.getText().toString().length();
+                int lengthSearch = mSearchBar.getText().toString().length();
 
-                if (cmpt >= 1 && lengthSearch > 0 ) {
+                if (cmpt >= 1 && lengthSearch > 0) {
                     Log.e(mTag, category + " *** " + mBegin + " *** " + mEnd + " **** ");
 
                     Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
@@ -143,17 +143,16 @@ public class SearchActivity extends AppCompatActivity {
 
 
                     SearchActivity.this.startActivity(intent);
-                }
-                else {
+                } else {
 
-                    String alertText="Choose at least one category";
-                    if (lengthSearch==0) {
-                        alertText="Enter a text in the search bar";
+                    String alertText = "Choose at least one category";
+                    if (lengthSearch == 0) {
+                        alertText = "Enter a text in the search bar";
                     }
 
                     mSearchBar.isFocused();
-                    Toast toast = Toast.makeText(getApplicationContext(),alertText,Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                    Toast toast = Toast.makeText(getApplicationContext(), alertText, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     toast.show();
 
 
@@ -175,15 +174,15 @@ public class SearchActivity extends AppCompatActivity {
         beginMonth = mFirstDate.get(Calendar.MONTH);
         beginYear = mFirstDate.get(Calendar.YEAR);
 
-        mBegin=null;
-        mEnd=null;
+        mBegin = null;
+        mEnd = null;
 
         mBeginDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 int beginMonth1 = beginMonth + 1;
-                mBegin=beginYear+String.format("%02d",beginMonth+1) + String.format("%02d",beginDay);
+                mBegin = beginYear + String.format("%02d", beginMonth + 1) + String.format("%02d", beginDay);
 
                 mBeginDate.setText(beginDay + "/" + beginMonth1 + "/" + beginYear);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -191,7 +190,7 @@ public class SearchActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month++;
                         mBeginDate.setText(dayOfMonth + "/" + month + "/" + year);
-                        mBegin =year + String.format("%02d",month) + String.format("%02d",dayOfMonth);
+                        mBegin = year + String.format("%02d", month) + String.format("%02d", dayOfMonth);
                     }
                 }, beginYear, beginMonth, beginDay);
                 datePickerDialog.show();
@@ -203,12 +202,11 @@ public class SearchActivity extends AppCompatActivity {
         endYear = mCurrentDate.get(Calendar.YEAR);
 
 
-
         mEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int endMonth1 = endMonth + 1;
-                mEnd=endYear+String.format("%02d",endMonth+1)+String.format("%02d",endDay);
+                mEnd = endYear + String.format("%02d", endMonth + 1) + String.format("%02d", endDay);
 
 
                 mEndDate.setText(endDay + "/" + endMonth1 + "/" + endYear);
@@ -217,73 +215,13 @@ public class SearchActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month++;
                         mEndDate.setText(dayOfMonth + "/" + month + "/" + year);
-                        mEnd = year + String.format("%02d",month) + String.format("%02d",dayOfMonth);
+                        mEnd = year + String.format("%02d", month) + String.format("%02d", dayOfMonth);
                     }
-                }, endYear, endMonth , endDay);
+                }, endYear, endMonth, endDay);
                 datePickerDialog.show();
             }
         });
 
-    }
-
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch (view.getId()) {
-            case R.id.category_checkbox_arts:
-                if (checked) {
-                    Log.d(mTag, "Arts");
-
-                    mCheckboxTab[0] = true;
-                } else {
-                    mCheckboxTab[0] = false;
-                }
-                break;
-            case R.id.category_checkbox_business:
-                if (checked) {
-                    Log.d(mTag, "Business");
-                    mCheckboxTab[1] = true;
-                } else {
-                    mCheckboxTab[1] = false;
-                }
-                break;
-            case R.id.category_checkbox_politics:
-                if (checked) {
-                    Log.d(mTag, "Politics");
-                    mCheckboxTab[2] = true;
-                } else {
-                    mCheckboxTab[2] = false;
-                }
-                break;
-            case R.id.category_checkbox_sports:
-                if (checked) {
-                    Log.d(mTag, "Sports");
-                    mCheckboxTab[3] = true;
-                } else {
-                    mCheckboxTab[3] = false;
-                }
-                break;
-            case R.id.category_checkbox_travel:
-                if (checked) {
-                    Log.d(mTag, "Travel");
-                    mCheckboxTab[4] = true;
-                } else {
-                    mCheckboxTab[4] = false;
-                }
-                break;
-            case R.id.category_checkbox_technology:
-                if (checked) {
-                    Log.d(mTag, "Technology");
-                    mCheckboxTab[5] = true;
-                } else {
-                    mCheckboxTab[5] = false;
-                }
-                break;
-
-        }
     }
 
 
