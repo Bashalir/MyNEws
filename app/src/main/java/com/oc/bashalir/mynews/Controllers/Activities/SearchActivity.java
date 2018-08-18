@@ -163,7 +163,6 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-
     private void configureDatePicker() {
 
         mCurrentDate = Calendar.getInstance();

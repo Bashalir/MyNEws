@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -95,14 +96,14 @@ public class NotificationActivity extends AppCompatActivity {
 
     private void startAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 10000, mPendingIntent);
-        Toast.makeText(this, "alarm start", Toast.LENGTH_SHORT).show();
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 24*60*60*1000, mPendingIntent);
+        Log.e(mTag, "Alarm Start");
     }
 
     private void stopAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(mPendingIntent);
-        Toast.makeText(this, "alarm Stop", Toast.LENGTH_SHORT).show();
+        Log.e(mTag, "Alarm Stop");
     }
 
     private void configureNotification() {
@@ -163,19 +164,36 @@ public class NotificationActivity extends AppCompatActivity {
                         }
                         category += ")";
 
-                        if (cmpt < 1) {
-                            category = "";
+
+                        int lengthSearch = mSearchBar.getText().toString().length();
+
+                        if (cmpt >= 1 && lengthSearch > 0) {
+
+
+                            editor.putString(CATEGORY, category);
+                            editor.commit();
+                            Log.e(mTag, category);
+                            configureEnableUI(false);
+
+                            startAlarm();
+
+                            startSearch(category);
                         }
 
-                        editor.putString(CATEGORY, category);
-                        editor.commit();
-                        Log.e(mTag, category);
-                        configureEnableUI(false);
+                        if (cmpt==0 || lengthSearch==0) {
 
-                        startAlarm();
+                            mSwitch.setChecked(false);
+                            String alertText = "Choose at least one category";
+                            if (lengthSearch == 0) {
+                                alertText = "Enter a text in the search bar";
+                            }
 
-                        startSearch(category);
+                            mSearchBar.isFocused();
+                            Toast toast = Toast.makeText(getApplicationContext(), alertText, Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.show();
 
+                        }
                     }
                 } else {
                     stopAlarm();
