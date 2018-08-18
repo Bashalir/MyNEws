@@ -121,7 +121,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         Notification.Builder builder = new Notification.Builder(context)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_menu)
+                .setSmallIcon(R.drawable.logo)
                 .setContentTitle("Titre")
                 .setContentText("Texte")
                 .setAutoCancel(true)
