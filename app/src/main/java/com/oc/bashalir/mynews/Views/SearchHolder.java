@@ -49,16 +49,14 @@ public class SearchHolder extends RecyclerView.ViewHolder{
         mAriane.setText(articleSearch.getSectionName());
         mDate.setText(articleDate);
 
-        String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
-
         if (!articleSearch.getMultimedia().isEmpty() && articleSearch.getMultimedia() !=null) {
+            String imgURL ="https://www.nytimes.com/"+articleSearch.getMultimedia().get(0).getUrl();
+            Picasso.get().load(imgURL).into(mImg);
 
-            imgURL ="https://www.nytimes.com/"+articleSearch.getMultimedia().get(0).getUrl();
+        } else {
+            mImg.setImageResource(R.drawable.logo);
         }
 
-        Log.d("TAG",imgURL );
-
-        Picasso.get().load(imgURL).into(mImg);
 
     }
 

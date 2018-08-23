@@ -7,11 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
-
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.squareup.picasso.Picasso;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +32,6 @@ public class NewsHolder extends RecyclerView.ViewHolder {
     }
 
 
-
     public void updateWithNews(TopStories.Result topStories) {
 
 
@@ -46,24 +43,23 @@ public class NewsHolder extends RecyclerView.ViewHolder {
             ariane = topStories.getSection() + " > " + topStories.getSubsection();
         }
 
-        Log.d("TAG",topStories.getUpdatedDate() );
+        Log.d("TAG", topStories.getUpdatedDate());
 
-        String newsDate=new Utilities().DateShortFormatter(topStories.getUpdatedDate(),"yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        String newsDate = new Utilities().DateShortFormatter(topStories.getUpdatedDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
 
         mTitle.setText(topStories.getTitle());
         mAriane.setText(ariane);
         mDate.setText(newsDate);
 
-        String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
-
-        if (!topStories.getMultimedia().isEmpty()) {
-
-            imgURL =topStories.getMultimedia().get(1).getUrl();
+        if (topStories.getMultimedia().isEmpty()) {
+            mImg.setImageResource(R.drawable.logo);
+        } else {
+            String imgURL = topStories.getMultimedia().get(1).getUrl();
+            Picasso.get().load(imgURL).into(mImg);
         }
 
-        Picasso.get().load(imgURL).into(mImg);
-    }
 
+    }
 
 
 }

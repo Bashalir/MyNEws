@@ -1,6 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,14 +13,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
 
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.deanwild.materialshowcaseview.IShowcaseListener;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+import uk.co.deanwild.materialshowcaseview.target.ViewTarget;
 
 
 /**
@@ -38,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+
 
 
     /**
@@ -113,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
                 });
     }
-
-
     /**
      * Manage Toolbar
      *
@@ -145,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.menu_activity_main_help:
                 Log.d(mTag, "Help");
+                this.showCase();
                 return true;
 
             case R.id.menu_activity_main_about:
@@ -154,6 +165,65 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showCase() {
+
+        ShowcaseConfig config = new ShowcaseConfig();
+
+        final MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this);
+        config.setDelay(200);
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(
+                new MaterialShowcaseView.Builder(this)
+                        .setTarget(mToolbar)
+                        .setDismissText("NEXT")
+                        .setContentText("This is the toolbar \n With 3 Buttons \n 1. Menu \n 2. Search \n 3. Options")
+                        .withRectangleShape(true)
+                        .renderOverNavigationBar()
+                        .build()
+        );
+
+
+        sequence.addSequenceItem(
+                new MaterialShowcaseView.Builder(this)
+                        .setTarget(mTabLayout)
+                        .setDismissText("NEXT")
+                        .setContentText("This is the Tabs \n With 3 choice for news category")
+                        .withRectangleShape(true)
+                        .renderOverNavigationBar()
+                        .build()
+        );
+
+   /*     IShowcaseListener listener = new IShowcaseListener() {
+
+
+            @Override
+            public void onShowcaseDisplayed(MaterialShowcaseView materialShowcaseView) {
+                sequence.setOnItemDismissedListener();
+            }
+
+            @Override
+            public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
+            sequence.hasFired();
+            }
+        };*/
+
+        sequence.addSequenceItem(
+                new MaterialShowcaseView.Builder(this)
+                        .setTarget(mPager)
+                        .setDismissText("END")
+                        .setContentText("This is the news list for the selected category \n Select one news and you see them")
+                        .setDismissOnTargetTouch(true)
+                        .setDismissOnTouch(true)
+                        .setTargetTouchable(true)
+                        .setShapePadding(-60)
+                        .build()
+        );
+
+        sequence.start();
+
     }
 
     /**
@@ -168,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
+
 
 
 

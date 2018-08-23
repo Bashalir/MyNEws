@@ -46,14 +46,12 @@ public class PopularHolder extends RecyclerView.ViewHolder {
         mAriane.setText(mostPopular.getSection());
         mDate.setText(newsDate);
 
-
-        String imgURL="https://www.nytco.com/wp-content/themes/nytco/images/nytco/sidebar-logo.png";
-
-        if (!mostPopular.getMedia().isEmpty() ) {
-
-            imgURL =mostPopular.getMedia().get(0).getMediaMetadata().get(6).getUrl();
+        if (mostPopular.getMedia().isEmpty()) {
+            mImg.setImageResource(R.drawable.logo);
+        } else {
+            String imgURL =mostPopular.getMedia().get(0).getMediaMetadata().get(6).getUrl();
+            Picasso.get().load(imgURL).into(mImg);
         }
 
-        Picasso.get().load(imgURL).into(mImg);
     }
 }
