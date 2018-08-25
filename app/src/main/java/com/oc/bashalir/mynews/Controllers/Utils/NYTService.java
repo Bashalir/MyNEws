@@ -21,6 +21,9 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
+/**
+ * Manage request to NYT Api
+ */
 public interface NYTService {
 
     String API_KEY="68156e4ed78640bba3232b2be62044fc";
@@ -35,17 +38,13 @@ public interface NYTService {
     @GET("search/v2/articlesearch.json?page=2&q=technology&fq=news_desk:technology(\"technology\" \"business\" \"science\")&sort=newest&api-key="+API_KEY)
     Observable<ArticleSearch> getTechnology();
 
-  /*  @GET("search/v2/articlesearch.json?page=2&sort=newest&api-key="+API_KEY)
-    Observable<ArticleSearch> getSearch(@Query("q") String query,
-                                        @Query("fq") String category,
-                                        @Query("begin_date") String begin,
-                                        @Query("end_date") String end);*/
-
     @GET("search/v2/articlesearch.json?page=2&sort=newest&api-key="+API_KEY)
     Observable<ArticleSearch> getSearch(@QueryMap Map<String,String> options);
 
 
-
+    /**
+     * Send request to NYT Api
+     */
     public static final Retrofit retrofit=new Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())

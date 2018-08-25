@@ -6,11 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.NewsHolder;
 import com.oc.bashalir.mynews.Views.PopularHolder;
 
 import java.util.List;

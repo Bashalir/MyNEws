@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsHolder extends RecyclerView.ViewHolder {
+public class TopHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_page_news_title)
     TextView mTitle;
     @BindView(R.id.fragment_page_news_ariane)
@@ -26,7 +26,7 @@ public class NewsHolder extends RecyclerView.ViewHolder {
 
     private Utilities utilities;
 
-    public NewsHolder(View itemView) {
+    public TopHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

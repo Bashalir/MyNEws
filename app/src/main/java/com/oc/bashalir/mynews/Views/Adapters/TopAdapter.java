@@ -9,31 +9,31 @@ import android.view.ViewGroup;
 
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.NewsHolder;
+import com.oc.bashalir.mynews.Views.TopHolder;
 
 import java.util.List;
 
 
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsHolder>{
+public class TopAdapter extends RecyclerView.Adapter<TopHolder>{
 
     private List<TopStories.Result> mTopStories;
 
-    public NewsAdapter(List<TopStories.Result> topStories) {
+    public TopAdapter(List<TopStories.Result> topStories) {
         mTopStories=topStories;
     }
 
     @NonNull
     @Override
-    public NewsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TopHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_page_news,parent,false);
-        return new NewsHolder(view);
+        return new TopHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TopHolder holder, int position) {
         holder.updateWithNews(mTopStories.get(position));
     }
 

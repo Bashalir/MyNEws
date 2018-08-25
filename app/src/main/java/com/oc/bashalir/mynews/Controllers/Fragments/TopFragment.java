@@ -17,7 +17,7 @@ import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.Adapters.NewsAdapter;
+import com.oc.bashalir.mynews.Views.Adapters.TopAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class TopFragment extends Fragment {
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
     private List<TopStories.Result> mTopStories;
-    private NewsAdapter mAdapter;
+    private TopAdapter mAdapter;
 
     @BindView(R.id.fragment_top_tv)
     TextView textView;
@@ -96,7 +96,7 @@ public class TopFragment extends Fragment {
      */
     private void configureRecyclerView() {
         mTopStories = new ArrayList<>();
-        mAdapter = new NewsAdapter(mTopStories);
+        mAdapter = new TopAdapter(mTopStories);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

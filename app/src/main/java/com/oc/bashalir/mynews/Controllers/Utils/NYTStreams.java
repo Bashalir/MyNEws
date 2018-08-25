@@ -17,6 +17,10 @@ import io.reactivex.schedulers.Schedulers;
 public class NYTStreams {
 
 
+    /**
+     * Stream request top stories
+     * @return
+     */
     public static Observable<TopStories> streamFetchTopStories(){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getTopStories()
@@ -25,6 +29,10 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Stream request most popular
+     * @return
+     */
     public static Observable<MostPopular> streamFetchMostPopular(){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getMostPopular()
@@ -41,6 +49,10 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }*/
 
+    /**
+     * Stream request Technology
+     * @return
+     */
     public static Observable<ArticleSearch> streamFetchTechnology(){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getTechnology()
@@ -49,6 +61,14 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Stream request Search by query,category, begin date, end date
+     * @param query
+     * @param category
+     * @param begin
+     * @param end
+     * @return
+     */
     public static Observable<ArticleSearch> streamFetchSearch(String query, String category, String begin, String end){
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         Map<String,String> data=new HashMap<>();
