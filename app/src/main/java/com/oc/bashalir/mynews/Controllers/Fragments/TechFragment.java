@@ -16,7 +16,6 @@ import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
-import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
 
@@ -33,8 +32,6 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class TechFragment extends Fragment {
 
-
-
     private static final String KEY_POSITION = "position";
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
@@ -46,19 +43,34 @@ public class TechFragment extends Fragment {
     @BindView(R.id.fragment_tech_listnews_rv)
     RecyclerView recyclerView;
 
+    /**
+     * When Fragment is destroyed
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         this.destroyDispose();
     }
 
+    /**
+     * Empty constructor
+     */
     public TechFragment() {
+        // Required empty public constructor
     }
 
     public static TechFragment newInstance(int position) {
         return (new TechFragment());
     }
 
+    /**
+     * Configure Tech Fragment
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +85,9 @@ public class TechFragment extends Fragment {
         return result;
     }
 
-
+    /**
+     * Configure RecyclerView
+     */
     private void configureRecyclerView() {
         mTechnology = new ArrayList<>();
         mAdapter = new TechAdapter(mTechnology);
@@ -82,6 +96,9 @@ public class TechFragment extends Fragment {
 
     }
 
+    /**
+     * Start Webview on item clicked
+     */
     private void configureOnClickRecyclerView() {
 
 
@@ -98,6 +115,9 @@ public class TechFragment extends Fragment {
                 });
     }
 
+    /**
+     * Manage Stream Request
+     */
     private void requestTechnology() {
         this.updateUIWhenStartingRequest();
         mDisp = NYTStreams.streamFetchTechnology().subscribeWith(new DisposableObserver<ArticleSearch>() {
@@ -130,12 +150,18 @@ public class TechFragment extends Fragment {
         if (mDisp != null && !mDisp.isDisposed()) mDisp.dispose();
     }
 
-
+    /**
+     * Display a text when Starting Request
+     */
     private void updateUIWhenStartingRequest() {
         this.textView.setText("Downloading...");
     }
 
 
+    /**
+     * Add item in mTopStories with the stream request
+     * @param articleSearch
+     */
     private void updateUIWithList(ArticleSearch articleSearch) {
 
         mTechnology.addAll(articleSearch.getResponse().getDocs());

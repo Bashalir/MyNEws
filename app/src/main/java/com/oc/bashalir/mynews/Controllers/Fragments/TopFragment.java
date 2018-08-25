@@ -31,7 +31,7 @@ import io.reactivex.observers.DisposableObserver;
  * A simple {@link Fragment} subclass.
  */
 public class TopFragment extends Fragment {
-    private static final String KEY_POSITION = "position";
+
     private final String mTag = getClass().getSimpleName();
     private Disposable mDisp;
     private List<TopStories.Result> mTopStories;
@@ -42,37 +42,58 @@ public class TopFragment extends Fragment {
     @BindView(R.id.fragment_top_listnews_rv)
     RecyclerView recyclerView;
 
+    /**
+     * When Fragment is destroyed
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         this.destroyDispose();
     }
 
+    /**
+     * Empty constructor
+     */
     public TopFragment() {
+        // Required empty public constructor
   }
 
     public static TopFragment newInstance(int position) {
           return (new TopFragment());
     }
 
+    /**
+     * Configure Top Stories Fragment
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_top, container, false);
         ButterKnife.bind(this, result);
-       // Icepick.restoreInstanceState(this, savedInstanceState);
 
-       // int position = getArguments().getInt(KEY_POSITION, -1);
 
         this.configureRecyclerView();
+
+        // Load item from NYT Api
         this.requestTopStories();
+
+        //Start Webview on item clicked
         this.configureOnClickRecyclerView();
 
          return result;
     }
 
 
+    /**
+     *  Configure RecyclerView
+     */
     private void configureRecyclerView() {
         mTopStories = new ArrayList<>();
         mAdapter = new NewsAdapter(mTopStories);
@@ -81,6 +102,9 @@ public class TopFragment extends Fragment {
 
     }
 
+    /**
+     * Start Webview on item clicked
+     */
     private void configureOnClickRecyclerView() {
 
 
@@ -97,10 +121,12 @@ public class TopFragment extends Fragment {
                 });
     }
 
+    /**
+     *  Manage Stream Request
+     */
     private void requestTopStories() {
         this.updateUIWhenStartingRequest();
         mDisp = NYTStreams.streamFetchTopStories().subscribeWith(new DisposableObserver<TopStories>() {
-
 
             @Override
             public void onNext(TopStories topStories) {
@@ -121,7 +147,6 @@ public class TopFragment extends Fragment {
         });
     }
 
-
     /**
      * Dispose subscription
      */
@@ -129,12 +154,18 @@ public class TopFragment extends Fragment {
         if (mDisp != null && !mDisp.isDisposed()) mDisp.dispose();
     }
 
-
+    /**
+     * Display a text when Starting Request
+     */
     private void updateUIWhenStartingRequest() {
         this.textView.setText("Downloading...");
     }
 
-
+    /**
+     * Add item in mTopStories with the stream request
+     *
+     * @param topStories
+     */
     private void updateUIWithList(TopStories topStories) {
 
         mTopStories.addAll(topStories.getResults());

@@ -1,9 +1,7 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -13,12 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 
 import com.oc.bashalir.mynews.R;
@@ -26,11 +20,9 @@ import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.deanwild.materialshowcaseview.IShowcaseListener;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
-import uk.co.deanwild.materialshowcaseview.target.ViewTarget;
 
 
 /**
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * Add Startup Create ToolBar
+     * Initiliaze and start toolbar, tabs, navigation drawer
      *
      * @param savedInstanceState
      */
@@ -75,14 +67,16 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
 
-        //configure TabLayout
+        //Configure TabLayout
         String[] tabs = getResources().getStringArray(R.array.tabs_array);
 
+        mPager.setAdapter(new PageAdapter(getSupportFragmentManager(), tabs));
         mTabLayout.setupWithViewPager(mPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        mPager.setAdapter(new PageAdapter(getSupportFragmentManager(), tabs));
 
+
+        //Configure Navigation Drawer
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -91,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(mTag, "Menu");
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-
 
                         switch (menuItem.getItemId()) {
                             case R.id.top_stories:
@@ -108,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(mTag, "Popular");
                                 mPager.setCurrentItem(2);
                                 break;
-                            case R.id.search:
+                           case R.id.search:
                                 Log.d(mTag, "Search");
                                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                                 break;
@@ -125,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
                 });
     }
+
     /**
      * Manage Toolbar
      *
@@ -167,6 +161,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Load the Menu
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+    /**
+     * Show help option
+     */
     private void showCase() {
 
         ShowcaseConfig config = new ShowcaseConfig();
@@ -196,20 +205,6 @@ public class MainActivity extends AppCompatActivity {
                         .build()
         );
 
-   /*     IShowcaseListener listener = new IShowcaseListener() {
-
-
-            @Override
-            public void onShowcaseDisplayed(MaterialShowcaseView materialShowcaseView) {
-                sequence.setOnItemDismissedListener();
-            }
-
-            @Override
-            public void onShowcaseDismissed(MaterialShowcaseView materialShowcaseView) {
-            sequence.hasFired();
-            }
-        };*/
-
         sequence.addSequenceItem(
                 new MaterialShowcaseView.Builder(this)
                         .setTarget(mPager)
@@ -225,20 +220,6 @@ public class MainActivity extends AppCompatActivity {
         sequence.start();
 
     }
-
-    /**
-     * Load the Menu
-     *
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
-        return true;
-    }
-
 
 
 

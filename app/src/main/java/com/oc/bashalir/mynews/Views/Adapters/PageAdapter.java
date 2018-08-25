@@ -5,14 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.oc.bashalir.mynews.Controllers.Fragments.PageFragment;
 import com.oc.bashalir.mynews.Controllers.Fragments.PopularFragment;
 import com.oc.bashalir.mynews.Controllers.Fragments.TechFragment;
 import com.oc.bashalir.mynews.Controllers.Fragments.TopFragment;
-
-import java.util.Observable;
-
-import io.reactivex.observers.DisposableObserver;
 
 /**
  * Show News on Tab

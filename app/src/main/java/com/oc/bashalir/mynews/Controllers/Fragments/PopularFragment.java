@@ -45,7 +45,9 @@ public class PopularFragment extends Fragment {
     private PopularAdapter mAdapter;
     private Disposable mDisp;
 
-
+    /**
+     * Empty Constructor
+     */
     public PopularFragment() {
         // Required empty public constructor
     }
@@ -54,6 +56,13 @@ public class PopularFragment extends Fragment {
         return (new PopularFragment());
     }
 
+    /**
+     * Configure Popular Fragment
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,12 +71,19 @@ public class PopularFragment extends Fragment {
         ButterKnife.bind(this, result);
 
         this.configureRecyclerView();
+
+        // Load item from NYT Api
         this.requestPopular();
+
+        //Start Webview on item clicked
         this.configureOnClickRecyclerView();
 
         return result;
     }
 
+    /**
+     *  Configure RecyclerView
+     */
     private void configureRecyclerView() {
         mMostPopular = new ArrayList<>();
         mAdapter = new PopularAdapter(mMostPopular);
@@ -76,7 +92,9 @@ public class PopularFragment extends Fragment {
 
     }
 
-
+    /**
+     * Start Webview on item clicked
+     */
     private void configureOnClickRecyclerView() {
 
 
@@ -93,6 +111,9 @@ public class PopularFragment extends Fragment {
                 });
     }
 
+    /**
+     *  Manage Stream Request
+     */
     private void requestPopular() {
         this.updateUIWhenStartingRequest();
         mDisp = NYTStreams.streamFetchMostPopular().subscribeWith(new DisposableObserver<MostPopular>() {
@@ -116,12 +137,17 @@ public class PopularFragment extends Fragment {
         });
     }
 
-
+    /**
+     * Display a text when Starting Request
+     */
     private void updateUIWhenStartingRequest() {
         this.textView.setText("Downloading...");
     }
 
-
+    /**
+     * Add item in mMostPopular with the stream request
+     * @param mostPopular
+     */
     private void updateUIWithList(MostPopular mostPopular) {
 
         mMostPopular.addAll(mostPopular.getResults());
