@@ -32,11 +32,12 @@ public class AlarmReceiver extends BroadcastReceiver{
     private String mQuery;
     private String mCategory;
     private Context mContext;
+
     final String NOTIFY = "NOTIFY";
     final String SEARCH = "SEARCH";
     final String CATEGORY = "CATEGORY";
     final String ID_SEARCH = "ID_SEARCH";
-    final String DATE_SEARCH = "DATE_SEARCH";
+
 
     final String CHANNEL_ID="1";
 

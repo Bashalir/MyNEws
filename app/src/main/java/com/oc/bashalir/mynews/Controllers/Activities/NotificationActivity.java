@@ -54,7 +54,7 @@ public class NotificationActivity extends AppCompatActivity {
     CheckBox mTechnology;
     @BindView(R.id.activity_notification_sw)
     Switch mSwitch;
-    boolean[] mCheckboxTab = {false, false, false, false, false, false};
+
     private PendingIntent mPendingIntent;
     private SharedPreferences mSharedPref;
 
@@ -246,67 +246,5 @@ public class NotificationActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
     }
-
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch (view.getId()) {
-            case R.id.category_checkbox_arts:
-                if (checked) {
-                    Log.d(mTag, "Arts");
-
-                    mCheckboxTab[0] = true;
-                } else {
-                    mCheckboxTab[0] = false;
-                }
-                break;
-            case R.id.category_checkbox_business:
-                if (checked) {
-                    Log.d(mTag, "Business");
-                    mCheckboxTab[1] = true;
-                } else {
-                    mCheckboxTab[1] = false;
-                }
-                break;
-            case R.id.category_checkbox_politics:
-                if (checked) {
-                    Log.d(mTag, "Politics");
-                    mCheckboxTab[2] = true;
-                } else {
-                    mCheckboxTab[2] = false;
-                }
-                break;
-            case R.id.category_checkbox_sports:
-                if (checked) {
-                    Log.d(mTag, "Sports");
-                    mCheckboxTab[3] = true;
-                } else {
-                    mCheckboxTab[3] = false;
-                }
-                break;
-            case R.id.category_checkbox_travel:
-                if (checked) {
-                    Log.d(mTag, "Travel");
-                    mCheckboxTab[4] = true;
-                } else {
-                    mCheckboxTab[4] = false;
-                }
-                break;
-            case R.id.category_checkbox_technology:
-                if (checked) {
-                    Log.d(mTag, "Technology");
-                    mCheckboxTab[5] = true;
-                } else {
-                    mCheckboxTab[5] = false;
-                }
-                break;
-
-
-        }
-    }
-
 
 }
