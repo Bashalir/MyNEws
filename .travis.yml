@@ -10,7 +10,7 @@ env:
     - ADB_INSTALL_TIMEOUT=15
 
 before_install:
-    - echo yes | sudo sdkmanager --licenses
+    - echo yes | sdkmanager --licenses
 
 # Run assemble and unit tests
 script:
