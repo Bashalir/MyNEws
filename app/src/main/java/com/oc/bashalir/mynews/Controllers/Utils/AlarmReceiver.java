@@ -38,9 +38,7 @@ public class AlarmReceiver extends BroadcastReceiver{
     final String CATEGORY = "CATEGORY";
     final String ID_SEARCH = "ID_SEARCH";
 
-
     final String CHANNEL_ID="1";
-
 
     private final String mTag = getClass().getSimpleName();
 
