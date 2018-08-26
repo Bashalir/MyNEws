@@ -141,7 +141,6 @@ public class SearchActivity extends AppCompatActivity {
                     intent.putExtra("begin", mBegin);
                     intent.putExtra("end", mEnd);
 
-
                     SearchActivity.this.startActivity(intent);
                 } else {
 
