@@ -49,10 +49,6 @@ public class ListSearchActivity extends AppCompatActivity {
     final String DATE_SEARCH = "DATE_SEARCH";
     final String NOTIFY = "NOTIFY";
 
-    public ListSearchActivity(List<ArticleSearch.Response.Doc> mSearch) {
-        this.mSearch = mSearch;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +60,6 @@ public class ListSearchActivity extends AppCompatActivity {
         mBegin=intent.getStringExtra("begin");
         mEnd=intent.getStringExtra("end");
         mNotif=intent.getBooleanExtra("notif",false);
-
-
 
         //load the view
         ButterKnife.bind(this);

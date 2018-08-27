@@ -19,14 +19,28 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.oc.bashalir.mynews.Controllers.Utils.AlarmReceiver;
+import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
+import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
+import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
 public class NotificationActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "NOTIFY";
+    private List<ArticleSearch.Response.Doc> mSearch;
+    private Disposable mDisp;
+
+    final String ID_SEARCH = "ID_SEARCH";
+    final String DATE_SEARCH = "DATE_SEARCH";
+    final String NOTIFY = "NOTIFY";
+
     final String SEARCH = "SEARCH";
     final String ARTS = "ARTS";
     final String BUSINESS = "BUSINESS";
@@ -35,7 +49,7 @@ public class NotificationActivity extends AppCompatActivity {
     final String TRAVEL = "TRAVEL";
     final String TECHNOLOGY = "TECHNOLOGY";
     final String SWITCH = "SWITCH";
-    final String NOTIFY = "NOTIFY";
+
     final String CATEGORY = "CATEGORY";
     private final String mTag = getClass().getSimpleName();
     @BindView(R.id.search_bar_et)
@@ -212,14 +226,57 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void startSearch(String category) {
-        Intent intent = new Intent(NotificationActivity.this, ListSearchActivity.class);
+      /*  Intent intent = new Intent(NotificationActivity.this, ListSearchActivity.class);
         intent.putExtra("category", category);
         intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
         intent.putExtra("notif", true);
 
-        NotificationActivity.this.startActivity(intent);
+        NotificationActivity.this.startActivity(intent);*/
+
+            this.updateUIWhenStartingRequest();
+
+
+            mDisp = NYTStreams.streamFetchSearch(String.valueOf(mSearchBar.getText()),category,null,null).subscribeWith(new DisposableObserver<ArticleSearch>() {
+
+
+                @Override
+                public void onNext(ArticleSearch articleSearch) {
+                    Log.d(mTag, "NEXT");
+                    updateUIWithList(articleSearch);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.e(mTag, "On Error " + Log.getStackTraceString(e));
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.e(mTag, "On Complete !!");
+
+                    String idFirstSearch = mSearch.get(0).getId();
+                    String dateFistSearch = new Utilities().DateShortFormatterSearch(mSearch.get(0).getPubDate());
+                    Log.e(mTag, idFirstSearch);
+                    SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString(ID_SEARCH, idFirstSearch);
+                    editor.putString(DATE_SEARCH, dateFistSearch);
+
+                    editor.commit();
+                }
+            });}
+
+    private void updateUIWhenStartingRequest() {
+
     }
 
+    private void updateUIWithList(ArticleSearch articleSearch) {
+
+
+        mSearch.addAll(articleSearch.getResponse().getDocs());
+
+
+    }
 
     private void configureEnableUI(Boolean enable) {
         mSearchBar.setEnabled(enable);
