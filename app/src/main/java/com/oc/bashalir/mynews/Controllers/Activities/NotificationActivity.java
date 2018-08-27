@@ -24,6 +24,7 @@ import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -234,7 +235,7 @@ public class NotificationActivity extends AppCompatActivity {
         NotificationActivity.this.startActivity(intent);*/
 
             this.updateUIWhenStartingRequest();
-
+        mSearch = new ArrayList<>();
 
             mDisp = NYTStreams.streamFetchSearch(String.valueOf(mSearchBar.getText()),category,null,null).subscribeWith(new DisposableObserver<ArticleSearch>() {
 

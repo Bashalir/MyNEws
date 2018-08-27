@@ -140,32 +140,11 @@ public class ListSearchActivity extends AppCompatActivity {
                 if (mSearch.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "No Articles", Toast.LENGTH_SHORT).show();
                     Log.e(mTag, "No Articles");
-                    noArticlesBack();
+                    textView.setText("No Articles");
 
-
-                }else
-                {
-                    if (mNotif) {
-                        String idFirstSearch = mSearch.get(0).getId();
-                        String dateFistSearch = new Utilities().DateShortFormatterSearch(mSearch.get(0).getPubDate());
-                        Log.e(mTag, idFirstSearch);
-                        SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor =sharedPref.edit();
-                        editor.putString(ID_SEARCH,idFirstSearch);
-                        editor.putString(DATE_SEARCH,dateFistSearch);
-
-                        editor.commit();
-                    }
                 }
-
             }
         });
-    }
-
-    private void noArticlesBack() {
-        Intent intent = NavUtils.getParentActivityIntent(this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        NavUtils.navigateUpTo(this, intent);
     }
 
     private void updateUIWhenStartingRequest() {
