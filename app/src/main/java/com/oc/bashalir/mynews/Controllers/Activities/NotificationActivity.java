@@ -123,11 +123,9 @@ public class NotificationActivity extends AppCompatActivity {
 
         // The notification starts at 9
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 9);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.add(Calendar.DATE, 1);
 
         //configure the alarmmanager
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
