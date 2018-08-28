@@ -11,20 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.oc.bashalir.mynews.Controllers.Utils.AlarmReceiver;
+import com.oc.bashalir.mynews.Controllers.Utils.NotificationReceiver;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,7 +80,6 @@ public class NotificationActivity extends AppCompatActivity {
         //load the view
         ButterKnife.bind(this);
 
-
         mSharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
 
         String searchQuery = mSharedPref.getString(SEARCH, "");
@@ -96,8 +95,6 @@ public class NotificationActivity extends AppCompatActivity {
         if (searchQuery != "") {
             this.configureEnableUI(false);
         }
-        // this.configureNotificationChannel();
-        //1 - Configuring Toolbar
         this.configureAlarmManager();
         this.configureToolbar();
         this.configureNotification();
@@ -105,13 +102,21 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void configureAlarmManager() {
-        Intent alarmIntent = new Intent(NotificationActivity.this, AlarmReceiver.class);
+        Intent alarmIntent = new Intent(NotificationActivity.this, NotificationReceiver.class);
         mPendingIntent = PendingIntent.getBroadcast(NotificationActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void startAlarm() {
+
+        // The notification starts at 9 am
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 4);
+        cal.set(Calendar.MINUTE, 24);
+        cal.set(Calendar.SECOND, 0);
+
+        //configure the alarmmanager
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 24*60*60*1000, mPendingIntent);
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 60000, mPendingIntent);
         Log.e(mTag, "Alarm Start");
     }
 
@@ -227,12 +232,6 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void startSearch(String category) {
-      /*  Intent intent = new Intent(NotificationActivity.this, ListSearchActivity.class);
-        intent.putExtra("category", category);
-        intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
-        intent.putExtra("notif", true);
-
-        NotificationActivity.this.startActivity(intent);*/
 
             this.updateUIWhenStartingRequest();
         mSearch = new ArrayList<>();
@@ -255,15 +254,18 @@ public class NotificationActivity extends AppCompatActivity {
                 public void onComplete() {
                     Log.e(mTag, "On Complete !!");
 
+                    if  (!mSearch.isEmpty()){
+
                     String idFirstSearch = mSearch.get(0).getId();
-                    String dateFistSearch = new Utilities().DateShortFormatterSearch(mSearch.get(0).getPubDate());
-                    Log.e(mTag, idFirstSearch);
+                    String dateFistSearch = new Utilities().DateFormatterSearch(mSearch.get(0).getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+
+                    Log.e(mTag, idFirstSearch+ " "+dateFistSearch);
                     SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString(ID_SEARCH, idFirstSearch);
                     editor.putString(DATE_SEARCH, dateFistSearch);
 
-                    editor.commit();
+                    editor.commit();}
                 }
             });}
 

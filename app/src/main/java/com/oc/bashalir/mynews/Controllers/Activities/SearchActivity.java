@@ -55,8 +55,6 @@ public class SearchActivity extends AppCompatActivity {
     int endDay, endMonth, endYear;
     int cmpt = 0;
 
-    boolean[] mCheckboxTab = {false, false, false, false, false, false};
-
     Calendar mCurrentDate;
     Calendar mFirstDate;
 
@@ -166,7 +164,7 @@ public class SearchActivity extends AppCompatActivity {
 
         mCurrentDate = Calendar.getInstance();
         mFirstDate = Calendar.getInstance();
-        mFirstDate.set(1900, Calendar.JANUARY, 1);
+       // mFirstDate.set(1900, Calendar.JANUARY, 1);
 
         beginDay = mFirstDate.get(Calendar.DAY_OF_MONTH);
         beginMonth = mFirstDate.get(Calendar.MONTH);

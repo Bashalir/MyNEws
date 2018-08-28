@@ -23,7 +23,7 @@ import io.reactivex.observers.DisposableObserver;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-public class AlarmReceiver extends BroadcastReceiver{
+public class NotificationReceiver extends BroadcastReceiver{
 
     private Disposable mDisp;
     private Boolean mGoSearch=true;
@@ -32,11 +32,13 @@ public class AlarmReceiver extends BroadcastReceiver{
     private String mQuery;
     private String mCategory;
     private Context mContext;
+    private String mDateSearch=null;
 
     final String NOTIFY = "NOTIFY";
     final String SEARCH = "SEARCH";
     final String CATEGORY = "CATEGORY";
     final String ID_SEARCH = "ID_SEARCH";
+    final String DATE_SEARCH = "DATE_SEARCH";
 
     final String CHANNEL_ID="1";
 
@@ -49,30 +51,37 @@ public class AlarmReceiver extends BroadcastReceiver{
         mQuery=mSharedPref.getString(SEARCH,"");
         mCategory=mSharedPref.getString(CATEGORY,"");
         mIdSearch=mSharedPref.getString(ID_SEARCH,"");
+        mDateSearch=mSharedPref.getString(DATE_SEARCH,null);
 
-        Toast.makeText(context,"coucou", Toast.LENGTH_SHORT).show();
         this.requestSearchNotification(context);
-
 
     }
 
     private  void requestSearchNotification(Context context) {
 
 
-        //String begin=mSharedPref.getString(DATE_SEARCH,"");
-        String begin=null;
-        String end=null;
+        mContext=context;
+        mDisp = NYTStreams.streamFetchSearch(mQuery,mCategory,mDateSearch,null).subscribeWith(new DisposableObserver<ArticleSearch>() {
 
-        mDisp = NYTStreams.streamFetchSearch(mQuery,mCategory,begin,end).subscribeWith(new DisposableObserver<ArticleSearch>() {
-
-
-            @Override
+           @Override
             public void onNext(ArticleSearch articleSearch) {
                 Log.d(mTag, "NEXT");
-                updateUIWithList(articleSearch);
-                String idFirst=articleSearch.getResponse().getDocs().get(0).getId();
+               String idFirst=null;
 
-                if (idFirst.equals(mIdSearch)) {mGoSearch=false;  Log.e(mTag, "FALSE");} else {mGoSearch=true; Log.e(mTag, "TRUE");}
+                updateUIWithList(articleSearch);
+                if (!articleSearch.getResponse().getDocs().isEmpty()) {
+                    idFirst = articleSearch.getResponse().getDocs().get(0).getId();
+
+                    if (idFirst.equals(mIdSearch)) {
+                        mGoSearch = false;
+                        Log.e(mTag, "FALSE");
+                    } else {
+                        mGoSearch = true;
+                        Log.e(mTag, "TRUE");
+                    }
+                } else
+                { mGoSearch = true;}
+               mGoSearch=true;
 
                 Log.e(mTag, mGoSearch+" "+idFirst+' '+mIdSearch);
               }
@@ -121,8 +130,8 @@ public class AlarmReceiver extends BroadcastReceiver{
         Notification.Builder builder = new Notification.Builder(context)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Titre")
-                .setContentText("Texte")
+                .setContentTitle(mQuery)
+                .setContentText("We found you new items")
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 

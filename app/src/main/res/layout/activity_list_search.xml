@@ -17,16 +17,19 @@
         android:layout_height="wrap_content" />
     <!-- TODO: Update blank fragment layout -->
 
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/activity_list_search_rv"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
+
     <TextView
         android:id="@+id/activity_list_search_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Hello" />
+
+
+
 </LinearLayout>

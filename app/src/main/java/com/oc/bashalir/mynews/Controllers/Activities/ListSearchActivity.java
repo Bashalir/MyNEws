@@ -86,7 +86,9 @@ public class ListSearchActivity extends AppCompatActivity {
 
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setTitle("Search Results");
+        if (!mNotif){
+        ab.setTitle("Search Results");}
+        else {ab.setTitle("Notification Results");}
 
     }
 
@@ -117,9 +119,7 @@ public class ListSearchActivity extends AppCompatActivity {
     private void requestSearchList() {
         this.updateUIWhenStartingRequest();
 
-
         mDisp = NYTStreams.streamFetchSearch(mQuery,mCategory,mBegin,mEnd).subscribeWith(new DisposableObserver<ArticleSearch>() {
-
 
             @Override
             public void onNext(ArticleSearch articleSearch) {
@@ -135,13 +135,26 @@ public class ListSearchActivity extends AppCompatActivity {
             @Override
             public void onComplete() {
                 Log.e(mTag, "On Complete !!");
-                textView.setVisibility(View.INVISIBLE);
 
                 if (mSearch.isEmpty()) {
+
                     Toast.makeText(getApplicationContext(), "No Articles", Toast.LENGTH_SHORT).show();
                     Log.e(mTag, "No Articles");
+
                     textView.setText("No Articles");
 
+                }else{
+                    if (mNotif) {
+                        String idFirstSearch = mSearch.get(0).getId();
+                        String dateFistSearch = new Utilities().DateShortFormatterSearch(mSearch.get(0).getPubDate());
+                        Log.e(mTag, idFirstSearch);
+                        SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor =sharedPref.edit();
+                        editor.putString(ID_SEARCH,idFirstSearch);
+                        editor.putString(DATE_SEARCH,dateFistSearch);
+
+                        editor.commit();
+                    }
                 }
             }
         });

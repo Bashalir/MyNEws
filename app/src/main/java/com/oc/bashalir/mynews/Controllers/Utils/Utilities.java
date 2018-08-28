@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,16 +29,36 @@ public class Utilities {
 
     }
 
+    public String DateFormatterSearch(String dateSend,String pattern){
+
+        final String OLD_FORMAT = pattern;
+        final String NEW_FORMAT = "yyyyMMdd";
+
+        String oldDateString = dateSend;
+
+        SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+        Date d = null;
+        try {
+            d = sdf.parse(oldDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        sdf.applyPattern(NEW_FORMAT);
+       return sdf.format(d);
+
+    }
+
     public String DateShortFormatterSearch(String dateString){
         String articleDate="";
         if (dateString.contains("Z")){
-            Log.e("TAG","KOUKOU" );
+
             articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ss'Z'");}
         else{
             articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ssZZZZZ");}
 
             return articleDate;
     }
+
     public okhttp3.OkHttpClient.Builder debugRetrofit(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
