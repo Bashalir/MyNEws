@@ -70,17 +70,17 @@ public class NotificationReceiver extends BroadcastReceiver {
 
                     if (idFirst.equals(mIdSearch)) {
                         mGoSearch = false;
-                        Log.e(mTag, "FALSE");
+                        Log.d(mTag, "FALSE");
                     } else {
                         mGoSearch = true;
-                        Log.e(mTag, "TRUE");
+                        Log.d(mTag, "TRUE");
                     }
                 } else {
                     mGoSearch = true;
                 }
                // mGoSearch = true;
 
-                Log.e(mTag, mGoSearch + " " + idFirst + ' ' + mIdSearch);
+                Log.d(mTag, mGoSearch + " " + idFirst + ' ' + mIdSearch);
             }
 
             @Override
@@ -90,11 +90,11 @@ public class NotificationReceiver extends BroadcastReceiver {
 
             @Override
             public void onComplete() {
-                Log.e(mTag, "On Complete !!");
+                Log.d(mTag, "On Complete !!");
 
 
                 if (mGoSearch) {
-                    Log.e(mTag, "START NOTIFICATION");
+                    Log.d(mTag, "START NOTIFICATION");
                     configureNotificationChannel(mContext);
                     newNotification(mContext);
                 }
