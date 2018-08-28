@@ -123,7 +123,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         // The notification starts at 9 am
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR, 9);
+        cal.set(Calendar.HOUR_OF_DAY, 9);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
 
@@ -250,6 +250,7 @@ public class NotificationActivity extends AppCompatActivity {
                 } else {
                     stopAlarm();
                     editor.putBoolean(SWITCH, false);
+                    editor.putString(DATE_SEARCH,null);
                     editor.clear();
                     editor.commit();
 

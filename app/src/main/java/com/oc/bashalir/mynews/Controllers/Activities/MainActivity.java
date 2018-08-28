@@ -146,11 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.menu_activity_main_help:
                 Log.d(mTag, "Help");
-                this.showCase();
+                this.showCaseHelp();
                 return true;
 
             case R.id.menu_activity_main_about:
                 Log.d(mTag, "About");
+                this.showCaseAbout();
                 return true;
 
             default:
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Show help option
      */
-    private void showCase() {
+    private void showCaseHelp() {
 
         ShowcaseConfig config = new ShowcaseConfig();
 
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                         .setDismissOnTargetTouch(true)
                         .setDismissOnTouch(true)
                         .setTargetTouchable(true)
-                        .setShapePadding(-60)
+                        .setShapePadding(-100)
                         .build()
         );
 
@@ -219,5 +220,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void showCaseAbout() {
+
+        ShowcaseConfig config = new ShowcaseConfig();
+
+        final MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this);
+        config.setDelay(200);
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(
+                new MaterialShowcaseView.Builder(this)
+                        .setTarget(mToolbar)
+                        .setDismissText("close")
+                        .setContentText("Version 0.9 \nDeveloped By Bashalir")
+                        .withRectangleShape(true)
+                        .renderOverNavigationBar()
+                        .build()
+        );
+
+        sequence.start();
+
+    }
 
 }

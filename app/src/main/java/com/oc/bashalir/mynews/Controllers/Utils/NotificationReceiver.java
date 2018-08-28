@@ -78,7 +78,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 } else {
                     mGoSearch = true;
                 }
-                mGoSearch = true;
+               // mGoSearch = true;
 
                 Log.e(mTag, mGoSearch + " " + idFirst + ' ' + mIdSearch);
             }
