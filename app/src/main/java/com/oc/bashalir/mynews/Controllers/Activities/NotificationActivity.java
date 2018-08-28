@@ -121,16 +121,17 @@ public class NotificationActivity extends AppCompatActivity {
      */
     private void startAlarm() {
 
-        // The notification starts at 9 am
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 9);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-
+        // The notification starts at 9
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DATE, 1);
 
         //configure the alarmmanager
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, cal.getTimeInMillis(), mPendingIntent);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,  calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, mPendingIntent);
         Log.d(mTag, "Alarm Start");
     }
 
@@ -251,6 +252,7 @@ public class NotificationActivity extends AppCompatActivity {
                     stopAlarm();
                     editor.putBoolean(SWITCH, false);
                     editor.putString(DATE_SEARCH,null);
+                    editor.putString(ID_SEARCH,null);
                     editor.clear();
                     editor.commit();
 
@@ -301,7 +303,7 @@ public class NotificationActivity extends AppCompatActivity {
                     SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString(ID_SEARCH, idFirstSearch);
-                   editor.putString(DATE_SEARCH, dateFistSearch);
+                    editor.putString(DATE_SEARCH, dateFistSearch);
 
                     editor.commit();
                 }

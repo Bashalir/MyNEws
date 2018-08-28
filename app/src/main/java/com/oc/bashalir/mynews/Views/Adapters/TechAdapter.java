@@ -14,15 +14,28 @@ import com.oc.bashalir.mynews.Views.SearchHolder;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
 
     private List<ArticleSearch.Response.Doc> mTechnology;
 
+    /**
+     * Constructor
+     * @param technology
+     */
     public TechAdapter(List<ArticleSearch.Response.Doc> technology) {
 
         mTechnology=technology;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public SearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,12 +45,21 @@ public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
         return new SearchHolder(view);
     }
 
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull SearchHolder holder, int position) {
 
         holder.updateWithNews(mTechnology.get(position));
     }
 
+    /**
+     *  Get the size of list
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mTechnology.size();

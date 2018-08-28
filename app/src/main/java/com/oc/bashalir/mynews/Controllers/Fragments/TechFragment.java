@@ -136,7 +136,7 @@ public class TechFragment extends Fragment {
 
             @Override
             public void onComplete() {
-                Log.e(mTag, "On Complete !!");
+                Log.d(mTag, "On Complete !!");
                 textView.setVisibility(View.INVISIBLE);
             }
         });

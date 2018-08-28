@@ -14,15 +14,27 @@ import com.oc.bashalir.mynews.Views.TopHolder;
 import java.util.List;
 
 
-
+/**
+ *
+ */
 public class TopAdapter extends RecyclerView.Adapter<TopHolder>{
 
     private List<TopStories.Result> mTopStories;
 
+    /**
+     * Constructor
+     * @param topStories
+     */
     public TopAdapter(List<TopStories.Result> topStories) {
         mTopStories=topStories;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public TopHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,11 +44,20 @@ public class TopAdapter extends RecyclerView.Adapter<TopHolder>{
         return new TopHolder(view);
     }
 
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull TopHolder holder, int position) {
         holder.updateWithNews(mTopStories.get(position));
     }
 
+    /**
+     *  Get the size of list
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mTopStories.size();

@@ -14,7 +14,7 @@ import com.oc.bashalir.mynews.Views.PopularHolder;
 import java.util.List;
 
 /**
- * Show Mostpopular list
+ *
  */
 public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
 
@@ -45,7 +45,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
     }
 
     /**
-     *
+     * u
      * @param holder
      * @param position
      */
