@@ -20,6 +20,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * set mostpopular attributes for the articles
+ */
 public class PopularHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.fragment_page_news_title)
@@ -31,11 +34,16 @@ public class PopularHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_page_news_img)
     ImageView mImg;
 
+    //load the view
     public PopularHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
+    /**
+     * Set and Format the mostpopular attributes
+     * @param mostPopular
+     */
     public void updateWithPopular(MostPopular.Result mostPopular) {
 
         String newsDate = new Utilities().DateShortFormatter(mostPopular.getPublishedDate(),"yyyy-MM-dd");

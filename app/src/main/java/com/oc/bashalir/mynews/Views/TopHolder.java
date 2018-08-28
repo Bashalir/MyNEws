@@ -14,6 +14,9 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ *  set topstories attributes for the articles
+ */
 public class TopHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.fragment_page_news_title)
     TextView mTitle;
@@ -26,12 +29,16 @@ public class TopHolder extends RecyclerView.ViewHolder {
 
     private Utilities utilities;
 
+    //load the view
     public TopHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-
+    /**
+     * Set and Format the topStories attributes
+     * @param topStories
+     */
     public void updateWithNews(TopStories.Result topStories) {
 
 

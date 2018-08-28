@@ -15,6 +15,9 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * set search attributes for the articles
+ */
 public class SearchHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.fragment_page_news_title)
@@ -26,18 +29,21 @@ public class SearchHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.fragment_page_news_img)
     ImageView mImg;
 
+    //load the view
     public SearchHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
+    /**
+     * Set and Format the search attributes
+     * @param articleSearch
+     */
     public void updateWithNews(ArticleSearch.Response.Doc articleSearch) {
 
 
         String articleDate=new Utilities().DateShortFormatterSearch(articleSearch.getPubDate());
         Log.d("TAG",articleSearch.getPubDate() );
-
-
 
         String articleTitle=articleSearch.getSnippet();
 
@@ -56,9 +62,5 @@ public class SearchHolder extends RecyclerView.ViewHolder{
         } else {
             mImg.setImageResource(R.drawable.logo);
         }
-
-
     }
-
-
 }

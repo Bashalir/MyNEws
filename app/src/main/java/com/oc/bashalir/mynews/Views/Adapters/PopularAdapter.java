@@ -13,16 +13,28 @@ import com.oc.bashalir.mynews.Views.PopularHolder;
 
 import java.util.List;
 
+/**
+ * Show Mostpopular list
+ */
 public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
 
     private List<MostPopular.Result> mMostPopular;
 
 
+    /**
+     * Constructor
+     * @param mostPopular
+     */
     public PopularAdapter(List<MostPopular.Result> mostPopular) {
         mMostPopular=mostPopular;
     }
 
-
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public PopularHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,12 +44,21 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
         return new PopularHolder(view);
     }
 
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull PopularHolder holder, int position) {
         holder.updateWithPopular(mMostPopular.get(position));
     }
 
 
+    /***
+     *  Get the size of list
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mMostPopular.size();

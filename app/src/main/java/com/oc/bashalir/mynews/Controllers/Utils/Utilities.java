@@ -19,6 +19,12 @@ import retrofit2.Retrofit;
 
 public class Utilities {
 
+    /**
+     * change the date according to the pattern
+     * @param dateSend
+     * @param pattern
+     * @return
+     */
     public String DateShortFormatter(String dateSend,String pattern){
 
        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
@@ -29,6 +35,12 @@ public class Utilities {
 
     }
 
+    /**
+     * change the date according to the pattern
+     * @param dateSend
+     * @param pattern
+     * @return
+     */
     public String DateFormatterSearch(String dateSend,String pattern){
 
         final String OLD_FORMAT = pattern;
@@ -48,6 +60,11 @@ public class Utilities {
 
     }
 
+    /**
+     * change the date according to the pattern
+     * @param dateString
+     * @return
+     */
     public String DateShortFormatterSearch(String dateString){
         String articleDate="";
         if (dateString.contains("Z")){
@@ -59,6 +76,10 @@ public class Utilities {
             return articleDate;
     }
 
+    /**
+     * Debug retrofit http request
+     * @return
+     */
     public okhttp3.OkHttpClient.Builder debugRetrofit(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level

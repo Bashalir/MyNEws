@@ -131,7 +131,7 @@ public class NotificationActivity extends AppCompatActivity {
         //configure the alarmmanager
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, cal.getTimeInMillis(), mPendingIntent);
-        Log.e(mTag, "Alarm Start");
+        Log.d(mTag, "Alarm Start");
     }
 
     /**
@@ -140,7 +140,7 @@ public class NotificationActivity extends AppCompatActivity {
     private void stopAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(mPendingIntent);
-        Log.e(mTag, "Alarm Stop");
+        Log.d(mTag, "Alarm Stop");
     }
 
     /**
@@ -220,7 +220,7 @@ public class NotificationActivity extends AppCompatActivity {
 
                             editor.putString(CATEGORY, category);
                             editor.commit();
-                            Log.e(mTag, category);
+                            Log.d(mTag, category);
                             configureEnableUI(false);
 
                             //launch the Alarm and the Search request
@@ -288,7 +288,7 @@ public class NotificationActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                Log.e(mTag, "On Complete !!");
+                Log.d(mTag, "On Complete !!");
 
                 //save the date and the id of the first article if it's not empty
                 if (!mSearch.isEmpty()) {
@@ -296,11 +296,11 @@ public class NotificationActivity extends AppCompatActivity {
                     String idFirstSearch = mSearch.get(0).getId();
                     String dateFistSearch = new Utilities().DateFormatterSearch(mSearch.get(0).getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
 
-                    Log.e(mTag, idFirstSearch + " " + dateFistSearch);
+                    Log.d(mTag, idFirstSearch + " " + dateFistSearch);
                     SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString(ID_SEARCH, idFirstSearch);
-                    editor.putString(DATE_SEARCH, dateFistSearch);
+                   editor.putString(DATE_SEARCH, dateFistSearch);
 
                     editor.commit();
                 }
