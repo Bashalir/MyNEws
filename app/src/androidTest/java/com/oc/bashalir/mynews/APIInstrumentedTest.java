@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class APIInstrumentedTest {
     @Test
-    public void connexionTopStoriesAPI() throws Exception{
+    public void connexionTopStories() throws Exception{
 
         Observable<TopStories> topStoriesObservable = NYTStreams.streamFetchTopStories();
         TestObserver<TopStories> observer = new TestObserver<>();
@@ -40,7 +40,7 @@ public class APIInstrumentedTest {
 
     }
     @Test
-    public void connexionPopularAPI() throws Exception{
+    public void connexionMostPopular() throws Exception{
 
         Observable<MostPopular> mostPopularObservable = NYTStreams.streamFetchMostPopular();
         TestObserver<MostPopular> observer = new TestObserver<>();
