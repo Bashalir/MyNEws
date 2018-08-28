@@ -129,7 +129,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         //configure the alarmmanager
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,  calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, mPendingIntent);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, mPendingIntent);
         Log.d(mTag, "Alarm Start");
     }
 
@@ -249,8 +249,8 @@ public class NotificationActivity extends AppCompatActivity {
                 } else {
                     stopAlarm();
                     editor.putBoolean(SWITCH, false);
-                    editor.putString(DATE_SEARCH,null);
-                    editor.putString(ID_SEARCH,null);
+                    editor.putString(DATE_SEARCH, null);
+                    editor.putString(ID_SEARCH, null);
                     editor.clear();
                     editor.commit();
 

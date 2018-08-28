@@ -11,12 +11,6 @@ import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.R;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,18 +31,19 @@ public class PopularHolder extends RecyclerView.ViewHolder {
     //load the view
     public PopularHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     /**
      * Set and Format the mostpopular attributes
+     *
      * @param mostPopular
      */
     public void updateWithPopular(MostPopular.Result mostPopular) {
 
-        String newsDate = new Utilities().DateShortFormatter(mostPopular.getPublishedDate(),"yyyy-MM-dd");
+        String newsDate = new Utilities().DateShortFormatter(mostPopular.getPublishedDate(), "yyyy-MM-dd");
 
-        Log.d("TAG",mostPopular.getTitle());
+        Log.d("TAG", mostPopular.getTitle());
 
         mTitle.setText(mostPopular.getTitle());
         mAriane.setText(mostPopular.getSection());
@@ -57,7 +52,7 @@ public class PopularHolder extends RecyclerView.ViewHolder {
         if (mostPopular.getMedia().isEmpty()) {
             mImg.setImageResource(R.drawable.logo);
         } else {
-            String imgURL =mostPopular.getMedia().get(0).getMediaMetadata().get(6).getUrl();
+            String imgURL = mostPopular.getMedia().get(0).getMediaMetadata().get(6).getUrl();
             Picasso.get().load(imgURL).into(mImg);
         }
 

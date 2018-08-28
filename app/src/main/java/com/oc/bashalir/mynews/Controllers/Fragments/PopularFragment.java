@@ -13,9 +13,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-
-import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
+import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.R;
@@ -40,7 +39,7 @@ public class PopularFragment extends Fragment {
     @BindView(R.id.fragment_popular_listnews_rv)
     RecyclerView recyclerView;
 
-   private  WebView mWebView;
+    private WebView mWebView;
     private List<MostPopular.Result> mMostPopular;
     private PopularAdapter mAdapter;
     private Disposable mDisp;
@@ -58,6 +57,7 @@ public class PopularFragment extends Fragment {
 
     /**
      * Configure Popular Fragment
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -82,7 +82,7 @@ public class PopularFragment extends Fragment {
     }
 
     /**
-     *  Configure RecyclerView
+     * Configure RecyclerView
      */
     private void configureRecyclerView() {
         mMostPopular = new ArrayList<>();
@@ -104,15 +104,15 @@ public class PopularFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                         Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
-                        webViewActivity.putExtra("URL",mMostPopular.get(position).getUrl());
-                        startActivityForResult(webViewActivity,0);
+                        webViewActivity.putExtra("URL", mMostPopular.get(position).getUrl());
+                        startActivityForResult(webViewActivity, 0);
 
                     }
                 });
     }
 
     /**
-     *  Manage Stream Request
+     * Manage Stream Request
      */
     private void requestPopular() {
         this.updateUIWhenStartingRequest();
@@ -146,6 +146,7 @@ public class PopularFragment extends Fragment {
 
     /**
      * Add item in mMostPopular with the stream request
+     *
      * @param mostPopular
      */
     private void updateUIWithList(MostPopular mostPopular) {

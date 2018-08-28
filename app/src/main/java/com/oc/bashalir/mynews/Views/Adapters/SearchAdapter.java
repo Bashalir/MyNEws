@@ -3,7 +3,6 @@ package com.oc.bashalir.mynews.Views.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +16,22 @@ import java.util.List;
 /**
  *
  */
-public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
+public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
 
-    private List<ArticleSearch.Response.Doc> mTechnology;
+    private List<ArticleSearch.Response.Doc> mSearch;
 
     /**
      * Constructor
-     * @param technology
+     *
+     * @param search
      */
-    public TechAdapter(List<ArticleSearch.Response.Doc> technology) {
+    public SearchAdapter(List<ArticleSearch.Response.Doc> search) {
 
-        mTechnology=technology;
+        mSearch = search;
     }
 
     /**
+     * CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
      *
      * @param parent
      * @param viewType
@@ -41,11 +42,12 @@ public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
     public SearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_page_news,parent,false);
+        View view = inflater.inflate(R.layout.fragment_page_news, parent, false);
         return new SearchHolder(view);
     }
 
     /**
+     * UPDATE VIEW HOLDER WITH mTechnology
      *
      * @param holder
      * @param position
@@ -53,15 +55,16 @@ public class TechAdapter extends RecyclerView.Adapter<SearchHolder>{
     @Override
     public void onBindViewHolder(@NonNull SearchHolder holder, int position) {
 
-        holder.updateWithNews(mTechnology.get(position));
+        holder.updateWithNews(mSearch.get(position));
     }
 
     /**
-     *  Get the size of list
+     * Get the size of list
+     *
      * @return
      */
     @Override
     public int getItemCount() {
-        return mTechnology.size();
+        return mSearch.size();
     }
 }

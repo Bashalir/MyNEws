@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * set search attributes for the articles
  */
-public class SearchHolder extends RecyclerView.ViewHolder{
+public class SearchHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.fragment_page_news_title)
     TextView mTitle;
@@ -37,26 +36,27 @@ public class SearchHolder extends RecyclerView.ViewHolder{
 
     /**
      * Set and Format the search attributes
+     *
      * @param articleSearch
      */
     public void updateWithNews(ArticleSearch.Response.Doc articleSearch) {
 
 
-        String articleDate=new Utilities().DateShortFormatterSearch(articleSearch.getPubDate());
-        Log.d("TAG",articleSearch.getPubDate() );
+        String articleDate = new Utilities().DateShortFormatterSearch(articleSearch.getPubDate());
+        Log.d("TAG", articleSearch.getPubDate());
 
-        String articleTitle=articleSearch.getSnippet();
+        String articleTitle = articleSearch.getSnippet();
 
-        if (!articleSearch.getHeadline().getMain().isEmpty() ){
-            articleTitle=articleSearch.getHeadline().getMain();
+        if (!articleSearch.getHeadline().getMain().isEmpty()) {
+            articleTitle = articleSearch.getHeadline().getMain();
         }
 
         mTitle.setText(articleTitle);
         mAriane.setText(articleSearch.getSectionName());
         mDate.setText(articleDate);
 
-        if (!articleSearch.getMultimedia().isEmpty() && articleSearch.getMultimedia() !=null) {
-            String imgURL ="https://www.nytimes.com/"+articleSearch.getMultimedia().get(0).getUrl();
+        if (!articleSearch.getMultimedia().isEmpty() && articleSearch.getMultimedia() != null) {
+            String imgURL = "https://www.nytimes.com/" + articleSearch.getMultimedia().get(0).getUrl();
             Picasso.get().load(imgURL).into(mImg);
 
         } else {

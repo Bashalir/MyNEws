@@ -19,7 +19,7 @@ import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
+import com.oc.bashalir.mynews.Views.Adapters.SearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class ListSearchActivity extends AppCompatActivity {
     @BindView(R.id.activity_list_search_rv)
     RecyclerView recyclerView;
     private List<ArticleSearch.Response.Doc> mSearch;
-    private TechAdapter mAdapter;
+    private SearchAdapter mAdapter;
     private Disposable mDisp;
     private String mQuery;
     private String mCategory;
@@ -113,7 +113,7 @@ public class ListSearchActivity extends AppCompatActivity {
     private void configureRecyclerView() {
 
         mSearch = new ArrayList<>();
-        mAdapter = new TechAdapter(mSearch);
+        mAdapter = new SearchAdapter(mSearch);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

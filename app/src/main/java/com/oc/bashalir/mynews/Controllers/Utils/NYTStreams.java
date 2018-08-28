@@ -1,7 +1,6 @@
 package com.oc.bashalir.mynews.Controllers.Utils;
 
 
-
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.Models.MostPopular;
 import com.oc.bashalir.mynews.Models.TopStories;
@@ -19,9 +18,10 @@ public class NYTStreams {
 
     /**
      * Stream request top stories
+     *
      * @return
      */
-    public static Observable<TopStories> streamFetchTopStories(){
+    public static Observable<TopStories> streamFetchTopStories() {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getTopStories()
                 .subscribeOn(Schedulers.io())
@@ -31,9 +31,10 @@ public class NYTStreams {
 
     /**
      * Stream request most popular
+     *
      * @return
      */
-    public static Observable<MostPopular> streamFetchMostPopular(){
+    public static Observable<MostPopular> streamFetchMostPopular() {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getMostPopular()
                 .subscribeOn(Schedulers.io())
@@ -51,9 +52,10 @@ public class NYTStreams {
 
     /**
      * Stream request Technology
+     *
      * @return
      */
-    public static Observable<ArticleSearch> streamFetchTechnology(){
+    public static Observable<ArticleSearch> streamFetchTechnology() {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getTechnology()
                 .subscribeOn(Schedulers.io())
@@ -63,21 +65,24 @@ public class NYTStreams {
 
     /**
      * Stream request Search by query,category, begin date, end date
+     *
      * @param query
      * @param category
      * @param begin
      * @param end
      * @return
      */
-    public static Observable<ArticleSearch> streamFetchSearch(String query, String category, String begin, String end){
+    public static Observable<ArticleSearch> streamFetchSearch(String query, String category, String begin, String end) {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
-        Map<String,String> data=new HashMap<>();
-        data.put("q",query);
-        data.put("fq",category);
-        if (begin!=null){
-        data.put("begin_date",begin);}
-        if (end!=null){
-        data.put("end_date",end);}
+        Map<String, String> data = new HashMap<>();
+        data.put("q", query);
+        data.put("fq", category);
+        if (begin != null) {
+            data.put("begin_date", begin);
+        }
+        if (end != null) {
+            data.put("end_date", end);
+        }
 
         return nytService.getSearch(data)
                 .subscribeOn(Schedulers.io())

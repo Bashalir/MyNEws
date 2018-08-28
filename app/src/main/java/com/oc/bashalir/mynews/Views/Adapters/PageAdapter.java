@@ -34,17 +34,16 @@ public class PageAdapter extends FragmentPagerAdapter {
      * @return
      */
     @Override
-    public Fragment getItem(int position)
-    {
-        switch (position){
+    public Fragment getItem(int position) {
+        switch (position) {
             case 0:
                 return TopFragment.newInstance(position);
             case 1:
                 return PopularFragment.newInstance(position);
             case 2:
                 return TechFragment.newInstance(position);
-                default:
-                    return null;
+            default:
+                return null;
 
         }
 
@@ -73,8 +72,6 @@ public class PageAdapter extends FragmentPagerAdapter {
         return mTabs[position];
 
     }
-
-
 
 
 }

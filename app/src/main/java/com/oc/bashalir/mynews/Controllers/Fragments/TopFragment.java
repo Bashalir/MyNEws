@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
+import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.TopStories;
 import com.oc.bashalir.mynews.R;
@@ -33,14 +33,24 @@ import io.reactivex.observers.DisposableObserver;
 public class TopFragment extends Fragment {
 
     private final String mTag = getClass().getSimpleName();
-    private Disposable mDisp;
-    private List<TopStories.Result> mTopStories;
-    private TopAdapter mAdapter;
-
     @BindView(R.id.fragment_top_tv)
     TextView textView;
     @BindView(R.id.fragment_top_listnews_rv)
     RecyclerView recyclerView;
+    private Disposable mDisp;
+    private List<TopStories.Result> mTopStories;
+    private TopAdapter mAdapter;
+
+    /**
+     * Empty constructor
+     */
+    public TopFragment() {
+        // Required empty public constructor
+    }
+
+    public static TopFragment newInstance(int position) {
+        return (new TopFragment());
+    }
 
     /**
      * When Fragment is destroyed
@@ -49,17 +59,6 @@ public class TopFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         this.destroyDispose();
-    }
-
-    /**
-     * Empty constructor
-     */
-    public TopFragment() {
-        // Required empty public constructor
-  }
-
-    public static TopFragment newInstance(int position) {
-          return (new TopFragment());
     }
 
     /**
@@ -87,12 +86,12 @@ public class TopFragment extends Fragment {
         //Start Webview on item clicked
         this.configureOnClickRecyclerView();
 
-         return result;
+        return result;
     }
 
 
     /**
-     *  Configure RecyclerView
+     * Configure RecyclerView
      */
     private void configureRecyclerView() {
         mTopStories = new ArrayList<>();
@@ -114,15 +113,15 @@ public class TopFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                         Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
-                        webViewActivity.putExtra("URL",mTopStories.get(position).getUrl());
-                        startActivityForResult(webViewActivity,0);
+                        webViewActivity.putExtra("URL", mTopStories.get(position).getUrl());
+                        startActivityForResult(webViewActivity, 0);
 
                     }
                 });
     }
 
     /**
-     *  Manage Stream Request
+     * Manage Stream Request
      */
     private void requestTopStories() {
         this.updateUIWhenStartingRequest();

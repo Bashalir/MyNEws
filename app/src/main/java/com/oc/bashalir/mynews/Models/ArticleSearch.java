@@ -145,7 +145,6 @@ public class ArticleSearch {
             }
 
 
-
             public String getSource() {
                 return source;
             }
@@ -161,7 +160,6 @@ public class ArticleSearch {
             public void setHeadline(Headline headline) {
                 this.headline = headline;
             }
-
 
 
             public String getPubDate() {
@@ -262,7 +260,7 @@ public class ArticleSearch {
                 return main;
             }
 
-                    public void setMain(String main) {
+            public void setMain(String main) {
                 this.main = main;
             }
 

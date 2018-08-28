@@ -52,7 +52,6 @@ public class NotificationReceiver extends BroadcastReceiver {
     }
 
     /**
-     *
      * @param context
      */
     private void requestSearchNotification(Context context) {
@@ -78,7 +77,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 } else {
                     mGoSearch = true;
                 }
-               // mGoSearch = true;
+                // mGoSearch = true;
 
                 Log.d(mTag, mGoSearch + " " + idFirst + ' ' + mIdSearch);
             }
@@ -105,6 +104,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     /**
      * Launch Notification
+     *
      * @param context
      */
     private void newNotification(Context context) {
@@ -138,6 +138,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     /**
      * Configure notification
+     *
      * @param context
      */
     private void configureNotificationChannel(Context context) {

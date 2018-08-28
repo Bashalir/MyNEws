@@ -2,10 +2,11 @@ package com.oc.bashalir.mynews.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 
-public class MostPopular{
+public class MostPopular {
 
     @SerializedName("status")
     @Expose
@@ -85,18 +86,18 @@ public class MostPopular{
         @SerializedName("source")
         @Expose
         private String source;
-       /* @SerializedName("id")
-        @Expose
-        private Integer id;
-        @SerializedName("asset_id")
-        @Expose
-        private Integer assetId;*/
+        /* @SerializedName("id")
+         @Expose
+         private Integer id;
+         @SerializedName("asset_id")
+         @Expose
+         private Integer assetId;*/
         @SerializedName("views")
         @Expose
         private Integer views;
-      /*  @SerializedName("des_facet")
-        @Expose
-        private List<String> desFacet = null;*/
+        /*  @SerializedName("des_facet")
+          @Expose
+          private List<String> desFacet = null;*/
       /*  @SerializedName("org_facet")
         @Expose
         private List<String> orgFacet = null;*/
@@ -190,14 +191,14 @@ public class MostPopular{
             this.source = source;
         }
 
-      /*  public Integer getId() {
-            return id;
-        }
+        /*  public Integer getId() {
+              return id;
+          }
 
-        public void setId(Integer id) {
-            this.id = id;
-        }
-*/
+          public void setId(Integer id) {
+              this.id = id;
+          }
+  */
        /* public Integer getAssetId() {
             return assetId;
         }
@@ -222,13 +223,13 @@ public class MostPopular{
             this.desFacet = desFacet;
         }*/
 
-     /*   public List<String> getOrgFacet() {
-            return orgFacet;
-        }
+        /*   public List<String> getOrgFacet() {
+               return orgFacet;
+           }
 
-        public void setOrgFacet(List<String> orgFacet) {
-            this.orgFacet = orgFacet;
-        }*/
+           public void setOrgFacet(List<String> orgFacet) {
+               this.orgFacet = orgFacet;
+           }*/
 /*
         public String getPerFacet() {
             return perFacet;

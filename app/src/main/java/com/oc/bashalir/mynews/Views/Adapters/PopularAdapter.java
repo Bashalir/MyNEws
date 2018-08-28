@@ -13,9 +13,7 @@ import com.oc.bashalir.mynews.Views.PopularHolder;
 
 import java.util.List;
 
-/**
- *
- */
+
 public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
 
     private List<MostPopular.Result> mMostPopular;
@@ -23,13 +21,15 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
 
     /**
      * Constructor
+     *
      * @param mostPopular
      */
     public PopularAdapter(List<MostPopular.Result> mostPopular) {
-        mMostPopular=mostPopular;
+        mMostPopular = mostPopular;
     }
 
     /**
+     * CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
      *
      * @param parent
      * @param viewType
@@ -40,12 +40,13 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularHolder> {
     public PopularHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_page_news,parent,false);
+        View view = inflater.inflate(R.layout.fragment_page_news, parent, false);
         return new PopularHolder(view);
     }
 
     /**
-     * u
+     * UPDATE VIEW HOLDER WITH mMostPopular
+     *
      * @param holder
      * @param position
      */

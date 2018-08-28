@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Activities.WebViewLink;
+import com.oc.bashalir.mynews.Controllers.Utils.ItemClickSupport;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
-import com.oc.bashalir.mynews.Views.Adapters.TechAdapter;
+import com.oc.bashalir.mynews.Views.Adapters.SearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,23 +34,13 @@ public class TechFragment extends Fragment {
 
     private static final String KEY_POSITION = "position";
     private final String mTag = getClass().getSimpleName();
-    private Disposable mDisp;
-    private List<ArticleSearch.Response.Doc> mTechnology;
-    private TechAdapter mAdapter;
-
     @BindView(R.id.fragment_tech_tv)
     TextView textView;
     @BindView(R.id.fragment_tech_listnews_rv)
     RecyclerView recyclerView;
-
-    /**
-     * When Fragment is destroyed
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.destroyDispose();
-    }
+    private Disposable mDisp;
+    private List<ArticleSearch.Response.Doc> mTechnology;
+    private SearchAdapter mAdapter;
 
     /**
      * Empty constructor
@@ -61,6 +51,15 @@ public class TechFragment extends Fragment {
 
     public static TechFragment newInstance(int position) {
         return (new TechFragment());
+    }
+
+    /**
+     * When Fragment is destroyed
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.destroyDispose();
     }
 
     /**
@@ -90,7 +89,7 @@ public class TechFragment extends Fragment {
      */
     private void configureRecyclerView() {
         mTechnology = new ArrayList<>();
-        mAdapter = new TechAdapter(mTechnology);
+        mAdapter = new SearchAdapter(mTechnology);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -108,8 +107,8 @@ public class TechFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 
                         Intent webViewActivity = new Intent(getActivity(), WebViewLink.class);
-                        webViewActivity.putExtra("URL",mTechnology.get(position).getWebUrl());
-                        startActivityForResult(webViewActivity,0);
+                        webViewActivity.putExtra("URL", mTechnology.get(position).getWebUrl());
+                        startActivityForResult(webViewActivity, 0);
 
                     }
                 });
@@ -160,6 +159,7 @@ public class TechFragment extends Fragment {
 
     /**
      * Add item in mTopStories with the stream request
+     *
      * @param articleSearch
      */
     private void updateUIWithList(ArticleSearch articleSearch) {

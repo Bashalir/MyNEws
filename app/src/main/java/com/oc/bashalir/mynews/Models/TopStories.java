@@ -1,8 +1,9 @@
 package com.oc.bashalir.mynews.Models;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class TopStories {
 
@@ -14,14 +15,14 @@ public class TopStories {
         return results;
     }
 
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
+
     @Override
     public String toString() {
 
         return Result.class.toString();
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
     }
 
     public class Result {
@@ -253,6 +254,7 @@ public class TopStories {
             this.relatedUrls = relatedUrls;
         }
     }
+
     public class RelatedUrl {
 
         @SerializedName("suggested_link_text")

@@ -17,19 +17,21 @@ import java.util.List;
 /**
  *
  */
-public class TopAdapter extends RecyclerView.Adapter<TopHolder>{
+public class TopAdapter extends RecyclerView.Adapter<TopHolder> {
 
     private List<TopStories.Result> mTopStories;
 
     /**
      * Constructor
+     *
      * @param topStories
      */
     public TopAdapter(List<TopStories.Result> topStories) {
-        mTopStories=topStories;
+        mTopStories = topStories;
     }
 
     /**
+     * CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
      *
      * @param parent
      * @param viewType
@@ -40,11 +42,12 @@ public class TopAdapter extends RecyclerView.Adapter<TopHolder>{
     public TopHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.fragment_page_news,parent,false);
+        View view = inflater.inflate(R.layout.fragment_page_news, parent, false);
         return new TopHolder(view);
     }
 
     /**
+     * UPDATE VIEW HOLDER WITH mTopStories
      *
      * @param holder
      * @param position
@@ -55,7 +58,8 @@ public class TopAdapter extends RecyclerView.Adapter<TopHolder>{
     }
 
     /**
-     *  Get the size of list
+     * Get the size of list
+     *
      * @return
      */
     @Override

@@ -1,11 +1,5 @@
 package com.oc.bashalir.mynews.Controllers.Utils;
 
-import android.util.Log;
-import android.view.Gravity;
-import android.widget.Toast;
-
-import com.oc.bashalir.mynews.Models.ArticleSearch;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -15,21 +9,21 @@ import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
 
 public class Utilities {
 
     /**
      * change the date according to the pattern
+     *
      * @param dateSend
      * @param pattern
      * @return
      */
-    public String DateShortFormatter(String dateSend,String pattern){
+    public String DateShortFormatter(String dateSend, String pattern) {
 
-       SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        ParsePosition pos=new ParsePosition(0);
-        Date dateNews = formatter.parse(dateSend,pos);
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        ParsePosition pos = new ParsePosition(0);
+        Date dateNews = formatter.parse(dateSend, pos);
 
         return DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE).format(dateNews);
 
@@ -37,11 +31,12 @@ public class Utilities {
 
     /**
      * change the date according to the pattern
+     *
      * @param dateSend
      * @param pattern
      * @return
      */
-    public String DateFormatterSearch(String dateSend,String pattern){
+    public String DateFormatterSearch(String dateSend, String pattern) {
 
         final String OLD_FORMAT = pattern;
         final String NEW_FORMAT = "yyyyMMdd";
@@ -56,31 +51,34 @@ public class Utilities {
             e.printStackTrace();
         }
         sdf.applyPattern(NEW_FORMAT);
-       return sdf.format(d);
+        return sdf.format(d);
 
     }
 
     /**
      * change the date according to the pattern
+     *
      * @param dateString
      * @return
      */
-    public String DateShortFormatterSearch(String dateString){
-        String articleDate="";
-        if (dateString.contains("Z")){
+    public String DateShortFormatterSearch(String dateString) {
+        String articleDate = "";
+        if (dateString.contains("Z")) {
 
-            articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ss'Z'");}
-        else{
-            articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ssZZZZZ");}
+            articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+        } else {
+            articleDate = new Utilities().DateShortFormatter(dateString, "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+        }
 
-            return articleDate;
+        return articleDate;
     }
 
     /**
      * Debug retrofit http request
+     *
      * @return
      */
-    public okhttp3.OkHttpClient.Builder debugRetrofit(){
+    public okhttp3.OkHttpClient.Builder debugRetrofit() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
@@ -92,7 +90,9 @@ public class Utilities {
         httpClient.addInterceptor(logging);
 
         return httpClient;
-    };
+    }
+
+    ;
 
 
 }
