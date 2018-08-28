@@ -23,7 +23,9 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * Define a search query
+ */
 public class SearchActivity extends AppCompatActivity {
 
     private final String mTag = getClass().getSimpleName();
@@ -58,7 +60,11 @@ public class SearchActivity extends AppCompatActivity {
     Calendar mCurrentDate;
     Calendar mFirstDate;
 
-
+    /**
+     * at startup configure the ui
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,15 +74,13 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //1 - Configuring Toolbar
         this.configureToolbar();
-
         this.configureDatePicker();
-
         this.configureSearch();
-
-
     }
 
-
+    /**
+     * Configure Toolbar
+     */
     private void configureToolbar() {
 
         //Get the toolbar (Serialise)
@@ -93,9 +97,18 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Define a search query and launch the list
+     */
     private void configureSearch() {
 
+
         mSearchButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * launch query when search button is clicked
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 String category = "news_desk:(";
@@ -133,6 +146,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (cmpt >= 1 && lengthSearch > 0) {
                     Log.e(mTag, category + " *** " + mBegin + " *** " + mEnd + " **** ");
 
+                    //launch ListSearchActivity with its attributes
                     Intent intent = new Intent(SearchActivity.this, ListSearchActivity.class);
                     intent.putExtra("category", category);
                     intent.putExtra("query", (String.valueOf(mSearchBar.getText())));
@@ -140,6 +154,8 @@ public class SearchActivity extends AppCompatActivity {
                     intent.putExtra("end", mEnd);
 
                     SearchActivity.this.startActivity(intent);
+
+                    //check that the request or category checkboxes is not empty
                 } else {
 
                     String alertText = "Choose at least one category";
@@ -147,6 +163,7 @@ public class SearchActivity extends AppCompatActivity {
                         alertText = "Enter a text in the search bar";
                     }
 
+                    //send a pop-up to inform
                     mSearchBar.isFocused();
                     Toast toast = Toast.makeText(getApplicationContext(), alertText, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -160,11 +177,14 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Configure DatePicker
+     */
     private void configureDatePicker() {
 
         mCurrentDate = Calendar.getInstance();
         mFirstDate = Calendar.getInstance();
-       // mFirstDate.set(1900, Calendar.JANUARY, 1);
+        // mFirstDate.set(1900, Calendar.JANUARY, 1);
 
         beginDay = mFirstDate.get(Calendar.DAY_OF_MONTH);
         beginMonth = mFirstDate.get(Calendar.MONTH);
@@ -175,12 +195,16 @@ public class SearchActivity extends AppCompatActivity {
 
         mBeginDate.setOnClickListener(new View.OnClickListener() {
 
+            /**
+             *  select the selected begin date
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 int beginMonth1 = beginMonth + 1;
                 mBegin = beginYear + String.format("%02d", beginMonth + 1) + String.format("%02d", beginDay);
-
                 mBeginDate.setText(beginDay + "/" + beginMonth1 + "/" + beginYear);
+
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -199,11 +223,15 @@ public class SearchActivity extends AppCompatActivity {
 
 
         mEndDate.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * select the selected end date
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 int endMonth1 = endMonth + 1;
                 mEnd = endYear + String.format("%02d", endMonth + 1) + String.format("%02d", endDay);
-
 
                 mEndDate.setText(endDay + "/" + endMonth1 + "/" + endYear);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, new DatePickerDialog.OnDateSetListener() {

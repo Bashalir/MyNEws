@@ -1,8 +1,8 @@
 package com.oc.bashalir.mynews.Controllers.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -13,12 +13,15 @@ import butterknife.ButterKnife;
 
 public class WebViewLink extends AppCompatActivity {
 
-    private String mLinkURL;
-
-
     @BindView(R.id.webview)
     WebView webview;
+    private String mLinkURL;
 
+    /**
+     * open a webview with a URL
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class WebViewLink extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mLinkURL=intent.getStringExtra("URL");
+        mLinkURL = intent.getStringExtra("URL");
         webview.setWebViewClient(new WebViewClient());
 
         webview.loadUrl(mLinkURL);

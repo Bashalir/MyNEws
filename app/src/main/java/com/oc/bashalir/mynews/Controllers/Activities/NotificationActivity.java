@@ -17,8 +17,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.oc.bashalir.mynews.Controllers.Utils.NotificationReceiver;
 import com.oc.bashalir.mynews.Controllers.Utils.NYTStreams;
+import com.oc.bashalir.mynews.Controllers.Utils.NotificationReceiver;
 import com.oc.bashalir.mynews.Controllers.Utils.Utilities;
 import com.oc.bashalir.mynews.Models.ArticleSearch;
 import com.oc.bashalir.mynews.R;
@@ -32,16 +32,15 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
+/**
+ * schedule a notification
+ */
 public class NotificationActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "NOTIFY";
-    private List<ArticleSearch.Response.Doc> mSearch;
-    private Disposable mDisp;
-
     final String ID_SEARCH = "ID_SEARCH";
     final String DATE_SEARCH = "DATE_SEARCH";
     final String NOTIFY = "NOTIFY";
-
     final String SEARCH = "SEARCH";
     final String ARTS = "ARTS";
     final String BUSINESS = "BUSINESS";
@@ -50,7 +49,6 @@ public class NotificationActivity extends AppCompatActivity {
     final String TRAVEL = "TRAVEL";
     final String TECHNOLOGY = "TECHNOLOGY";
     final String SWITCH = "SWITCH";
-
     final String CATEGORY = "CATEGORY";
     private final String mTag = getClass().getSimpleName();
     @BindView(R.id.search_bar_et)
@@ -69,17 +67,25 @@ public class NotificationActivity extends AppCompatActivity {
     CheckBox mTechnology;
     @BindView(R.id.activity_notification_sw)
     Switch mSwitch;
-
+    private List<ArticleSearch.Response.Doc> mSearch;
+    private Disposable mDisp;
     private PendingIntent mPendingIntent;
     private SharedPreferences mSharedPref;
 
+    /**
+     * at startup configure the notification
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
+
         //load the view
         ButterKnife.bind(this);
 
+        //defined or load attributes
         mSharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
 
         String searchQuery = mSharedPref.getString(SEARCH, "");
@@ -95,44 +101,64 @@ public class NotificationActivity extends AppCompatActivity {
         if (searchQuery != "") {
             this.configureEnableUI(false);
         }
+
         this.configureAlarmManager();
         this.configureToolbar();
         this.configureNotification();
 
     }
 
+    /**
+     * Configure AlarmManager
+     */
     private void configureAlarmManager() {
         Intent alarmIntent = new Intent(NotificationActivity.this, NotificationReceiver.class);
         mPendingIntent = PendingIntent.getBroadcast(NotificationActivity.this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+    /**
+     * Launch the alarm
+     */
     private void startAlarm() {
 
         // The notification starts at 9 am
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 4);
-        cal.set(Calendar.MINUTE, 24);
+        cal.set(Calendar.HOUR_OF_DAY, 9);
+        cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
+
 
         //configure the alarmmanager
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 60000, mPendingIntent);
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, cal.getTimeInMillis(), mPendingIntent);
         Log.e(mTag, "Alarm Start");
     }
 
+    /**
+     * unschedule the alarm
+     */
     private void stopAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(mPendingIntent);
         Log.e(mTag, "Alarm Stop");
     }
 
+    /**
+     * manage UI of the activity
+     */
     private void configureNotification() {
+
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            /**
+             * Manage Switch button
+             * @param buttonView
+             * @param isChecked
+             */
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 String[] tabsCategory = getResources().getStringArray(R.array.category);
-
                 SharedPreferences.Editor editor = mSharedPref.edit();
 
                 Boolean jump = false;
@@ -143,9 +169,12 @@ public class NotificationActivity extends AppCompatActivity {
 
                 if (isChecked) {
                     if (!jump) {
-                        //Do something when Switch button is on/checked
+
+                        //Configure search and start alarm when Switch button is on/checked
                         Log.d(mTag, "ON");
 
+
+                        //define and save the category choices
                         String category = "news_desk:(";
 
                         editor.putString(SEARCH, String.valueOf(mSearchBar.getText()));
@@ -185,22 +214,22 @@ public class NotificationActivity extends AppCompatActivity {
                         category += ")";
 
 
+                        //check that the request is not empty
                         int lengthSearch = mSearchBar.getText().toString().length();
-
                         if (cmpt >= 1 && lengthSearch > 0) {
-
 
                             editor.putString(CATEGORY, category);
                             editor.commit();
                             Log.e(mTag, category);
                             configureEnableUI(false);
 
+                            //launch the Alarm and the Search request
                             startAlarm();
-
                             startSearch(category);
                         }
 
-                        if (cmpt==0 || lengthSearch==0) {
+                        //check that the request or category checkboxes is not empty
+                        if (cmpt == 0 || lengthSearch == 0) {
 
                             mSwitch.setChecked(false);
                             String alertText = "Choose at least one category";
@@ -209,12 +238,15 @@ public class NotificationActivity extends AppCompatActivity {
                             }
 
                             mSearchBar.isFocused();
+
+                            //send a pop-up to inform
                             Toast toast = Toast.makeText(getApplicationContext(), alertText, Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             toast.show();
 
                         }
                     }
+                    //Clear the search and stop alarm when Switch is off/unchecked
                 } else {
                     stopAlarm();
                     editor.putBoolean(SWITCH, false);
@@ -222,7 +254,7 @@ public class NotificationActivity extends AppCompatActivity {
                     editor.commit();
 
                     configureEnableUI(true);
-                    //Do something when Switch is off/unchecked
+
                     Log.d(mTag, "OFF");
                 }
             }
@@ -231,56 +263,66 @@ public class NotificationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Launch the stream request
+     *
+     * @param category
+     */
     private void startSearch(String category) {
 
-            this.updateUIWhenStartingRequest();
         mSearch = new ArrayList<>();
 
-            mDisp = NYTStreams.streamFetchSearch(String.valueOf(mSearchBar.getText()),category,null,null).subscribeWith(new DisposableObserver<ArticleSearch>() {
+        mDisp = NYTStreams.streamFetchSearch(String.valueOf(mSearchBar.getText()), category, null, null).subscribeWith(new DisposableObserver<ArticleSearch>() {
 
 
-                @Override
-                public void onNext(ArticleSearch articleSearch) {
-                    Log.d(mTag, "NEXT");
-                    updateUIWithList(articleSearch);
-                }
+            @Override
+            public void onNext(ArticleSearch articleSearch) {
+                Log.d(mTag, "NEXT");
+                updateUIWithList(articleSearch);
+            }
 
-                @Override
-                public void onError(Throwable e) {
-                    Log.e(mTag, "On Error " + Log.getStackTraceString(e));
-                }
+            @Override
+            public void onError(Throwable e) {
+                Log.e(mTag, "On Error " + Log.getStackTraceString(e));
+            }
 
-                @Override
-                public void onComplete() {
-                    Log.e(mTag, "On Complete !!");
+            @Override
+            public void onComplete() {
+                Log.e(mTag, "On Complete !!");
 
-                    if  (!mSearch.isEmpty()){
+                //save the date and the id of the first article if it's not empty
+                if (!mSearch.isEmpty()) {
 
                     String idFirstSearch = mSearch.get(0).getId();
                     String dateFistSearch = new Utilities().DateFormatterSearch(mSearch.get(0).getPubDate(), "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
 
-                    Log.e(mTag, idFirstSearch+ " "+dateFistSearch);
+                    Log.e(mTag, idFirstSearch + " " + dateFistSearch);
                     SharedPreferences sharedPref = getApplication().getSharedPreferences(NOTIFY, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString(ID_SEARCH, idFirstSearch);
                     editor.putString(DATE_SEARCH, dateFistSearch);
 
-                    editor.commit();}
+                    editor.commit();
                 }
-            });}
-
-    private void updateUIWhenStartingRequest() {
-
+            }
+        });
     }
 
+    /**
+     * Load the Stream
+     *
+     * @param articleSearch
+     */
     private void updateUIWithList(ArticleSearch articleSearch) {
 
-
         mSearch.addAll(articleSearch.getResponse().getDocs());
-
-
     }
 
+    /**
+     * activate checkboxes
+     *
+     * @param enable
+     */
     private void configureEnableUI(Boolean enable) {
         mSearchBar.setEnabled(enable);
         mTechnology.setEnabled(enable);
@@ -291,6 +333,9 @@ public class NotificationActivity extends AppCompatActivity {
         mArts.setEnabled(enable);
     }
 
+    /**
+     * Configure Toolbar
+     */
     private void configureToolbar() {
 
         //Get the toolbar (Serialise)

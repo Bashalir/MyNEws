@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 import com.oc.bashalir.mynews.R;
 import com.oc.bashalir.mynews.Views.Adapters.PageAdapter;
 
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
-
 
 
     /**
@@ -75,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
 
-
         //Configure Navigation Drawer
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -101,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(mTag, "Popular");
                                 mPager.setCurrentItem(2);
                                 break;
-                           case R.id.search:
+                            case R.id.search:
                                 Log.d(mTag, "Search");
                                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                                 break;
@@ -143,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.menu_activity_main_notification:
                 Log.d(mTag, "Notification");
-                 intent = new Intent(MainActivity.this, NotificationActivity.class);
+                intent = new Intent(MainActivity.this, NotificationActivity.class);
                 this.startActivity(intent);
                 return true;
 
@@ -173,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
+
     /**
      * Show help option
      */
@@ -220,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
         sequence.start();
 
     }
-
 
 
 }
