@@ -47,8 +47,6 @@ public class ArticleSearch {
         }
 
 
-
-
         public class Doc {
 
             @SerializedName("web_url")
@@ -278,9 +276,6 @@ public class ArticleSearch {
 
         }
 
-
-
-
         public class Meta {
 
             @SerializedName("hits")
@@ -414,7 +409,4 @@ public class ArticleSearch {
         }
     }
 }
-
-
-
 
